@@ -46,6 +46,8 @@ python3 -m http.server 8080 --directory dist
 
 ## GitHub 自动发布（当前生产方式）
 
+Cloudflare GitHub App 必须授权 nanafox-daily。2026-10-09 曾因安装仅授权官网仓库，出现「自动部署已启用」但推送未触发；仓库授权与 Pages 开关需同时有效。
+
 ```bash
 python3 -m unittest discover -s tests -v
 python3 scripts/build_site.py
