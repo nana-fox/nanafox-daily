@@ -39,7 +39,7 @@ python3 -m http.server 8080 --directory dist
 |------|------|
 | `dist/daily/index.html` | 最新一期 |
 | `dist/daily/archive/` | 归档 |
-| `dist/daily/latest.json` | 官网读取的最新日期与三条摘要 |
+| `dist/daily/latest.json` | 最新日期与三条摘要，供后续集成使用 |
 | `dist/daily/YYYY-MM-DD/` | 历史日页 |
 | `dist/daily/assets/*` | PNG / JSON |
 | `dist/daily/export/*.zip` | 图+JSON 打包 |
@@ -58,7 +58,7 @@ Pages 直接发布 `dist/`，提交前必须重新构建。构建会重建整个
 
 网页正文按「今日要点 → 分类摘要 → 一图总览」呈现；长图默认折叠。首页、归档和日期页使用 NanaFox 品牌导航并提供返回官网入口。
 
-`/daily/latest.json` 由构建器自动生成，格式为 `{date, title, url, tldr: [{title, text}]}`；`date` 为 ISO 日期，摘要最多三条，缓存 60 秒。官网客户端读取该文件，日报更新不需要重新发布官网。
+`/daily/latest.json` 由构建器自动生成，格式为 `{date, title, url, tldr: [{title, text}]}`；`date` 为 ISO 日期，摘要最多三条，缓存 60 秒。官网首页当前只展示固定介绍与阅读入口，不读取当日摘要；日报更新不需要重新发布官网。
 
 ## Wrangler 直传（可选）
 

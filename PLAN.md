@@ -1,7 +1,7 @@
 # 发布方案摘要 · Cloudflare Pages + Wrangler
 
 > 目标：每天生成 `YYYY-MM-DD.png` + `.json` 后，发布到 **nanafox.com/daily/**。  
-> 当前生产已连接 GitHub main，Pages 直接发布 dist；Wrangler 直传仍可选。Grok 负责生成日报，官网独立读取最新摘要；不在仓库索取或保存 Cloudflare Token。
+> 当前生产已连接 GitHub main，Pages 直接发布 dist；Wrangler 直传仍可选。Grok 负责生成日报，官网独立展示固定介绍与阅读入口；不在仓库索取或保存 Cloudflare Token。
 
 ## 站点路径（BASE_PATH=/daily）
 
@@ -9,7 +9,7 @@
 |------|------|
 | `/daily/` | 最新一期 |
 | `/daily/archive/` | 归档列表 |
-| `/daily/latest.json` | 最新一期摘要，供官网卡片读取 |
+| `/daily/latest.json` | 最新一期摘要文件，供后续集成使用 |
 | `/daily/YYYY-MM-DD/` | 历史日页 |
 | `/daily/assets/YYYY-MM-DD.png` | 总览图 |
 | `/daily/assets/YYYY-MM-DD.json` | 结构化数据 |
