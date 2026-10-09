@@ -12,22 +12,37 @@ function ExportDialog({ issue, open, setOpen, settings, setSettings }) {
   const [page, setPage] = useState(0); const [busy, setBusy] = useState(false); const [notice, setNotice] = useState('');
   const [title, setTitle] = useState(issue.data.title);
   useEffect(() => { setTitle(issue.data.title); setNotice(''); }, [issue]);
-  const result = useMemo(() => {
-    if (!open) return { pages: [], error: '' };
-    try { return { pages: renderPages(issue, { ...settings, title }), error: '' }; } catch (error) { return { pages: [], error: error.message }; }
+  const [result, setResult] = useState({ pages: [], error: '', rendering: false });
+  const { pages, error, rendering } = result;
+  const [templatePreviews, setTemplatePreviews] = useState({});
+  useEffect(() => {
+    if (!open || settings.format === 'json') { setResult({ pages: [], error: '', rendering: false }); return; }
+    const controller = new AbortController();
+    setResult({ pages: [], error: '', rendering: true });
+    const timer = setTimeout(() => {
+      renderPages(issue, { ...settings, title }, false, controller.signal).then(pages => {
+        if (controller.signal.aborted) { pages.forEach(page => { page.canvas.width = 0; page.canvas.height = 0; }); return; }
+        setResult({ pages, error: '', rendering: false });
+      }).catch(error => { if (!controller.signal.aborted) setResult({ pages: [], error: error.message, rendering: false }); });
+    }, 180);
+    return () => { clearTimeout(timer); controller.abort(); };
   }, [open, issue, settings, title]);
-  const { pages, error } = result;
   useEffect(() => () => { pages.forEach(page => { page.canvas.width = 0; page.canvas.height = 0; }); }, [pages]);
-  const templatePreviews = useMemo(() => {
-    if (!open) return {};
+  useEffect(() => {
+    if (!open) return;
+    const controller = new AbortController();
     const coverIssue = { ...issue, data: { ...issue.data, sections: [] } };
-    return Object.fromEntries(['white', 'paper'].map(theme => {
-      const page = renderPages(coverIssue, { ...settings, format: 'xhs', theme, title }, true)[0];
-      const url = page?.url;
-      if (page) { page.canvas.width = 0; page.canvas.height = 0; }
-      return [theme, url];
-    }));
-  }, [open, issue, title, settings.signature]);
+    (async () => {
+      const previews = {};
+      for (const theme of ['white', 'paper']) {
+        const pages = await renderPages(coverIssue, { format: 'xhs', theme, title: issue.data.title, signature: 'NanaFox', sources: true }, true, controller.signal);
+        previews[theme] = pages[0]?.url;
+        pages.forEach(page => { page.canvas.width = 0; page.canvas.height = 0; });
+      }
+      if (!controller.signal.aborted) setTemplatePreviews(previews);
+    })().catch(() => { /* Main preview reports rendering errors. */ });
+    return () => controller.abort();
+  }, [open, issue]);
   useEffect(() => { setPage(0); setNotice(''); }, [issue, settings, title]);
   const current = pages[Math.min(page, pages.length - 1)];
   const set = patch => setSettings(value => ({ ...value, ...patch }));
@@ -44,15 +59,15 @@ function ExportDialog({ issue, open, setOpen, settings, setSettings }) {
     <header className="dialog-head"><div><Dialog.Title>导出当前日报</Dialog.Title><Dialog.Description>{issue.data.title} <span>·</span> {issue.day}</Dialog.Description></div><Dialog.Close asChild><button className="icon-button" aria-label="关闭导出"><X size={20} /></button></Dialog.Close></header>
     <div className="export-types" aria-label="导出类型">{formats.map((format, i) => { const Icon = [FileImage, Images, Images, FileCode][i]; return <button key={format.id} className={settings.format === format.id ? 'selected' : ''} aria-pressed={settings.format === format.id} onClick={() => set({ format: format.id })}><Icon size={18} />{format.label}</button>; })}</div>
     {isJson ? <div className="json-panel"><div className="json-caption"><FileCode size={22} /><div><strong>完整结构化数据</strong><p>保留当前日报的标题、要点、正文和来源字段。</p></div></div><pre>{JSON.stringify(issue.raw, null, 2)}</pre></div> : <div className="export-body"><aside className="export-settings">
-      <label className="field-title">样式模板</label><div className="template-options">{[['white', '清爽白底'], ['paper', '暖色纸张']].map(([theme, label]) => <button key={theme} className={`template-option ${settings.theme === theme ? 'selected' : ''}`} onClick={() => set({ theme })} aria-pressed={settings.theme === theme}><span className={`template-sample ${theme}`}><img src={templatePreviews[theme]} alt={`${label}模板封面预览`} /></span><span className="template-label">{label}{settings.theme === theme && <Check size={14} weight="bold" />}</span></button>)}</div>
+      <label className="field-title">样式模板</label><div className="template-options">{[['white', 'Bot 原版'], ['paper', '暖色纸张']].map(([theme, label]) => <button key={theme} className={`template-option ${settings.theme === theme ? 'selected' : ''}`} onClick={() => set({ theme })} aria-pressed={settings.theme === theme}><span className={`template-sample ${theme}`}><img src={templatePreviews[theme]} alt={`${label}模板封面预览`} /></span><span className="template-label">{label}{settings.theme === theme && <Check size={14} weight="bold" />}</span></button>)}</div>
       <label className="field-title" htmlFor="export-title">图片标题</label><input id="export-title" value={title} maxLength={48} onChange={event => setTitle(event.target.value)} />
       <label className="field-title" htmlFor="signature">署名</label><input id="signature" value={settings.signature} maxLength={32} onChange={event => set({ signature: event.target.value })} />
       <label className="toggle-row"><span>显示来源</span><input type="checkbox" checked={settings.sources} onChange={event => set({ sources: event.target.checked })} /><span className="switch" aria-hidden="true" /></label>
       <div className="format-note"><strong>{formats.find(f => f.id === settings.format).description}</strong><p>{settings.format === 'wechat' ? '按分类拆图，内容较多时继续分页，方便插入公众号正文。' : settings.format === 'xhs' ? '1080 × 1440，封面与内容页按阅读顺序打包。' : '1080 像素宽，图片高度随完整内容自动延伸。'}</p><span>使用当前日报完整内容</span></div>
-    </aside><section className="preview-area"><div className="preview-heading"><strong>{formats.find(f => f.id === settings.format).label}预览</strong><span>{pages.length ? `${pages.length} 张图片` : ''}</span></div>
-      {error ? <div className="error-state" role="alert">{error}</div> : current && <><div className={`preview-stage ${settings.format === 'long' ? 'long-preview' : ''}`}><img src={current.url} alt={`${current.label}，第 ${page + 1} 张导出图片`} /></div><div className="pagination"><button className="icon-button" aria-label="上一张图片" disabled={page === 0} onClick={() => setPage(value => value - 1)}><CaretLeft size={16} /></button><span>{current.label} <b>{page + 1} / {pages.length}</b></span><button className="icon-button" aria-label="下一张图片" disabled={page === pages.length - 1} onClick={() => setPage(value => value + 1)}><CaretRight size={16} /></button></div>{pages.length > 1 && <div className="page-thumbnails">{pages.map((item, i) => <button key={i} className={page === i ? 'selected' : ''} aria-label={`预览第 ${i + 1} 张：${item.label}`} aria-pressed={page === i} onClick={() => setPage(i)}><img src={item.url} alt="" /><span>{i + 1}</span></button>)}</div>}</>}
+    </aside><section className="preview-area"><div className="preview-heading"><strong>{formats.find(f => f.id === settings.format).label}预览</strong><span>{rendering ? '正在排版…' : pages.length ? `${pages.length} 张图片` : ''}</span></div>
+      {rendering ? <div className="error-state" role="status">正在按完整卡片排版，请稍候…</div> : error ? <div className="error-state" role="alert">{error}</div> : current && <><div className={`preview-stage ${settings.format === 'long' ? 'long-preview' : ''}`}><img src={current.url} alt={`${current.label}，第 ${page + 1} 张导出图片`} /></div><div className="pagination"><button className="icon-button" aria-label="上一张图片" disabled={page === 0} onClick={() => setPage(value => value - 1)}><CaretLeft size={16} /></button><span>{current.label} <b>{page + 1} / {pages.length}</b></span><button className="icon-button" aria-label="下一张图片" disabled={page === pages.length - 1} onClick={() => setPage(value => value + 1)}><CaretRight size={16} /></button></div>{pages.length > 1 && <div className="page-thumbnails">{pages.map((item, i) => <button key={i} className={page === i ? 'selected' : ''} aria-label={`预览第 ${i + 1} 张：${item.label}`} aria-pressed={page === i} onClick={() => setPage(i)}><img src={item.url} alt="" /><span>{i + 1}</span></button>)}</div>}</>}
     </section></div>}
-    <footer className="dialog-footer"><span className="download-notice" role="status">{notice || (isJson ? 'JSON 直接下载，无需图片设置' : pages.length > 1 ? '组图将按页码顺序打包为 ZIP' : '下载 PNG 图片')}</span><div>{!isJson && pages.length > 1 && <button className="button secondary" disabled={busy || !!error} onClick={() => save(true)}>下载当前图片</button>}<button className="button primary" disabled={busy || (!isJson && !pages.length)} onClick={() => save()}><DownloadSimple size={17} />{busy ? '正在生成…' : isJson ? '下载 JSON' : pages.length > 1 ? '下载全部组图' : '下载长图'}</button></div></footer>
+    <footer className="dialog-footer"><span className="download-notice" role="status">{notice || (rendering ? '正在生成预览…' : isJson ? 'JSON 直接下载，无需图片设置' : pages.length > 1 ? '组图将按页码顺序打包为 ZIP' : '下载 PNG 图片')}</span><div>{!isJson && pages.length > 1 && <button className="button secondary" disabled={busy || !!error} onClick={() => save(true)}>下载当前图片</button>}<button className="button primary" disabled={busy || rendering || (!isJson && !pages.length)} onClick={() => save()}><DownloadSimple size={17} />{busy || rendering ? '正在生成…' : isJson ? '下载 JSON' : pages.length > 1 ? '下载全部组图' : '下载长图'}</button></div></footer>
   </Dialog.Content></Dialog.Portal></Dialog.Root>;
 }
 

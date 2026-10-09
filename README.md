@@ -11,7 +11,7 @@ data/                 日报源文件 YYYY-MM-DD.{json,png}（构建输入）
 scripts/
   build_site.py       生成静态站（支持 BASE_PATH）
   export_pack.py      单日 ZIP 导出
-web/                  React 阅读界面与 Canvas 导出源码、测试和依赖锁
+web/                  React 阅读界面与 HTML/CSS 图片导出源码、测试和依赖锁
 site/reader/          已编译的阅读界面（每日 Python 构建直接复用）
 site/css/style.css    无 JavaScript 时的静态阅读样式
 dist/                 构建输出（可直接 wrangler pages deploy）
@@ -71,7 +71,7 @@ python3 scripts/build_site.py
 - 小红书组图：1080×1440，包含要点与完整分类正文，按内容分页。
 - JSON：下载当期原始数据，不附加页面内部字段。
 
-图片支持清爽白底与暖色纸张、修改标题与署名、显示来源开关。页面保留 Bot 原始 PNG 和原有 ZIP；图片模板在浏览器本地绘制。平台内上传和正式发布验收另行执行。
+图片默认复用 Grok Bot 的原版渐变页头、彩色编号、来源标签和看点卡片，另有暖色纸张变体；支持修改标题与署名、显示来源开关。原始模板脚本保存在 `reference/bot-template/`，Web 模板位于 `web/src/bot-template.js` 与 `bot-template.css`。浏览器直接用当期 JSON 排版并生成 PNG，不依赖 Bot 预生成图片；组图按实际字体与卡片高度分页，超长正文重复标题继续下一页。中文字体随站点自托管，导出时仅嵌入当前内容用到的字集。页面保留 Bot 原始 PNG 和原有 ZIP。公众号封面为 1080×460，正文配图高度随内容变化；小红书为 1080×1440。平台内上传和正式发布验收另行执行。
 
 ## GitHub 自动发布（当前生产方式）
 

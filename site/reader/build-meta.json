@@ -1,11 +1,14 @@
 {
   "sources": {
-    "web/package-lock.json": "f2e0c57aa14b52e27e74d40adb92e65cfcc7408cdfb5685363d73af359bdd66f",
-    "web/package.json": "1c43af7de332105ca4d1bd231c23e3e48585feb307abcc1213a9d441987c3fed",
-    "web/scripts/build-meta.mjs": "44d40f40927c0ac710fa89b48b42eeb03a23cd2b1671dc600e00347dae20461c",
-    "web/src/App.jsx": "9a5f874063893711198ad88697266ea4e5f1674dde725d5b796292ec54e776e7",
+    "web/package-lock.json": "1489eb79e48276c89993625bf8f267b091c8a630ed95294db2269a27f95da1fb",
+    "web/package.json": "ecfc558e413885570205088ed955f6cdf72b211b0e65c50ae64719327337f984",
+    "web/scripts/build-meta.mjs": "3ba2cffec97e2d99126655643eb2f18c7f1c356b80e0070440a63256f0127160",
+    "web/src/App.jsx": "a7fba668e15eac997e9161f2361a0325ac067412718bcee15e5745fda5e0ab17",
+    "web/src/bot-template.css": "e6a689dd8cc8cc9c84f145b613191011ee2812f2f183239d19729d6775b4733d",
+    "web/src/bot-template.js": "d8e29ee9fb1e6b5ea888fc1f04592b26f92e798e0d9f1c27c7aac0d58776f8b6",
     "web/src/data.js": "c49ba0a8d5eb6de94ce358b88f2af8be7459699cd996701e82eff63b84b8d855",
-    "web/src/export.js": "b3515dc37ac22f055e1ed06cd0e6b39f72a486984de22be3a872eebbb89d8fbd",
+    "web/src/export-fonts.js": "067d29470efda829882c29b856e09c61ecab452ec7c923b78af2eea8a80f3283",
+    "web/src/export.js": "76f362e364728ea974ee7049d4dec6cc7628b14520bd43212bd3e659aed0a7ed",
     "web/src/main.jsx": "a56ff1175c7e8f62423aa2a07d0dbb66e15bd664969adbff785e09afda387a5c",
     "web/src/styles.css": "adb9f01c1bb6b06f4d0f1ce8bf31ad36284b300d1e0762899e62c27326a55912",
     "web/vite.config.mjs": "e29eda5e39256d4e03f594f6fe570478fc3f13cf2974f00a00428e131a4c3427"

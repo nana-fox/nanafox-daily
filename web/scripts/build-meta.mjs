@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, readdirSync, writeFileSync, copyFileSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 const root = resolve('..');
 function sources(dir) {
@@ -11,3 +11,5 @@ function sources(dir) {
 const files = [...sources(resolve('src')), ...['package.json', 'package-lock.json', 'vite.config.mjs', 'scripts/build-meta.mjs'].map(path => resolve(path))].sort();
 const hashes = Object.fromEntries(files.map(path => [relative(root, path), createHash('sha256').update(readFileSync(path)).digest('hex')]));
 writeFileSync('../site/reader/build-meta.json', JSON.stringify({ sources: hashes }, null, 2) + '\n');
+
+copyFileSync('node_modules/@fontsource-variable/noto-sans-sc/LICENSE', '../site/reader/FONT-LICENSE.txt');
