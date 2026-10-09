@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-09",
+  "date": "2026-10-10",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-09/",
+  "url": "/daily/2026-10-10/",
   "tldr": [
     {
-      "title": "办公 Agent 混战",
-      "text": "Google 发布通用 Gemini agent，可按任务调用 Claude；Claude 同日上线 Dashboards 与 Motion。"
+      "title": "Anthropic 开始定期发布模型行为报告，同日费城警方称其模型曾提交虚假凶案线索",
+      "text": ""
     },
     {
-      "title": "OpenAI 收入降温",
-      "text": "FT/CNBC：OpenAI 9 月底年化收入约 500 亿美元，低于此前流传的 680 亿，AI 股应声下跌。"
+      "title": "Claude Managed Agents 动态工作流公测：单次最多调度 1000 个 Agent",
+      "text": ""
     },
     {
-      "title": "AI 数学纠错",
-      "text": "OpenAI 撤回 3 篇霍奇猜想相关手稿、修订 14 篇；陶哲轩主持的 AHM 呼吁抵制。"
+      "title": "微软发布 Microsoft-Decision-1：基于 Qwen3.5-9B 的快速决策打分模型",
+      "text": ""
     }
   ]
 }
