@@ -11,7 +11,9 @@ data/                 日报源文件 YYYY-MM-DD.{json,png}（构建输入）
 scripts/
   build_site.py       生成静态站（支持 BASE_PATH）
   export_pack.py      单日 ZIP 导出
-site/css/style.css    样式
+web/                  React 阅读界面与 Canvas 导出源码、测试和依赖锁
+site/reader/          已编译的阅读界面（每日 Python 构建直接复用）
+site/css/style.css    无 JavaScript 时的静态阅读样式
 dist/                 构建输出（可直接 wrangler pages deploy）
   index.html          → 跳转到 /daily/
   daily/              站点本体（BASE_PATH=/daily）
@@ -40,9 +42,36 @@ python3 -m http.server 8080 --directory dist
 | `dist/daily/index.html` | 最新一期 |
 | `dist/daily/archive/` | 归档 |
 | `dist/daily/latest.json` | 最新日期与三条摘要，供后续集成使用 |
+| `dist/daily/issues.json` | 全部公开期数，日期倒序 |
+| `dist/daily/reader/` | 带内容哈希的阅读界面资源 |
 | `dist/daily/YYYY-MM-DD/` | 历史日页 |
 | `dist/daily/assets/*` | PNG / JSON |
 | `dist/daily/export/*.zip` | 图+JSON 打包 |
+
+## 修改网站与导出模板
+
+日常更新只需要 Python。仓库已提交 `site/reader/` 编译产物，Bot 不需要安装 Node，也不需要重新编译前端。
+
+修改 `web/` 源码或依赖时，维护者先执行（Node.js 20.19+ 或 22.12+）：
+
+```bash
+npm --prefix web ci
+npm --prefix web test
+npm --prefix web run build
+python3 -m unittest discover -s tests -v
+python3 scripts/build_site.py
+```
+
+提交 `web/`、`site/reader/` 与重新生成的 `dist/`。构建器在清空输出目录之前校验源码与编译产物是否匹配；发现过期产物会停止并提示重新编译。使用 sparse checkout 时须包含 `web/`、`site/`、`scripts/`、`data/` 和 `dist/`。
+
+阅读页左侧按月份选择历史，手机端使用历史抽屉；最新页、日期页和归档均由真实数据生成。导出绑定当前阅读的完整一期，没有第二次日期选择：
+
+- 长图：1080 像素宽，完整一期导出为 PNG。
+- 微信公众号图文配图：封面、要点和分类正文，按内容分页，ZIP 按页码排序。
+- 小红书组图：1080×1440，包含要点与完整分类正文，按内容分页。
+- JSON：下载当期原始数据，不附加页面内部字段。
+
+图片支持清爽白底与暖色纸张、修改标题与署名、显示来源开关。页面保留 Bot 原始 PNG 和原有 ZIP；图片模板在浏览器本地绘制。平台内上传和正式发布验收另行执行。
 
 ## GitHub 自动发布（当前生产方式）
 
@@ -56,7 +85,7 @@ git commit -m "Publish daily briefing"
 git push origin main
 ```
 
-Pages 直接发布 `dist/`，提交前必须重新构建。构建会重建整个输出目录，`data/` 中应保留所有需要公开的历史期数，并保持同名 JSON/PNG 成对。Grok 的采集、筛选与长图生成流程继续负责写入 `data/`。
+Pages 直接发布 `dist/`，提交前必须重新构建。构建会重建整个输出目录，`data/` 中应保留所有需要公开的历史期数，并保持同名 JSON/PNG 成对。Grok 的采集、筛选与长图生成流程继续负责写入 `data/`。每日写入前同步最新 main；只提交每日 `data/` 和完整 `dist/`。推送冲突先同步再重建，禁止强推或用 Bot 外部旧模板覆盖仓库源码。
 
 网页正文按「今日要点 → 分类摘要 → 一图总览」呈现；长图默认折叠。首页、归档和日期页使用 NanaFox 品牌导航并提供返回官网入口。
 

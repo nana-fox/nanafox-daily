@@ -1,0 +1,13 @@
+{
+  "sources": {
+    "web/package-lock.json": "f2e0c57aa14b52e27e74d40adb92e65cfcc7408cdfb5685363d73af359bdd66f",
+    "web/package.json": "1c43af7de332105ca4d1bd231c23e3e48585feb307abcc1213a9d441987c3fed",
+    "web/scripts/build-meta.mjs": "44d40f40927c0ac710fa89b48b42eeb03a23cd2b1671dc600e00347dae20461c",
+    "web/src/App.jsx": "9a5f874063893711198ad88697266ea4e5f1674dde725d5b796292ec54e776e7",
+    "web/src/data.js": "c49ba0a8d5eb6de94ce358b88f2af8be7459699cd996701e82eff63b84b8d855",
+    "web/src/export.js": "b3515dc37ac22f055e1ed06cd0e6b39f72a486984de22be3a872eebbb89d8fbd",
+    "web/src/main.jsx": "a56ff1175c7e8f62423aa2a07d0dbb66e15bd664969adbff785e09afda387a5c",
+    "web/src/styles.css": "adb9f01c1bb6b06f4d0f1ce8bf31ad36284b300d1e0762899e62c27326a55912",
+    "web/vite.config.mjs": "e29eda5e39256d4e03f594f6fe570478fc3f13cf2974f00a00428e131a4c3427"
+  }
+}
