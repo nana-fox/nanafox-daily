@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-09",
+  "title": "AI 前沿日报",
+  "url": "/daily/2026-10-09/",
+  "tldr": [
+    {
+      "title": "办公 Agent 混战",
+      "text": "Google 发布通用 Gemini agent，可按任务调用 Claude；Claude 同日上线 Dashboards 与 Motion。"
+    },
+    {
+      "title": "OpenAI 收入降温",
+      "text": "FT/CNBC：OpenAI 9 月底年化收入约 500 亿美元，低于此前流传的 680 亿，AI 股应声下跌。"
+    },
+    {
+      "title": "AI 数学纠错",
+      "text": "OpenAI 撤回 3 篇霍奇猜想相关手稿、修订 14 篇；陶哲轩主持的 AHM 呼吁抵制。"
+    }
+  ]
+}

@@ -7,8 +7,8 @@ node_modules/
 *.pyc
 __pycache__/
 
-# Optional: keep latest 1–2 days in git; ignore bulk history if you add more later
-# Uncomment if data/ grows large:
+# Keep the complete public history for the current Git Pages pipeline.
+# Only ignore binary history after configuring a separate archive store:
 # data/*.png
 # dist/daily/assets/*.png
 # dist/daily/export/*.zip

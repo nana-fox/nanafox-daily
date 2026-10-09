@@ -2,7 +2,7 @@
 
 面向 [nanafox.com/daily/](https://nanafox.com/daily/) 的静态站点仓库：每天把一图总览 PNG + 结构化 JSON 建成可部署到 **Cloudflare Pages** 的站点。
 
-本仓库归属 GitHub 组织 **nana-fox**，用于版本化站点代码与近期样例内容；**日常发布推荐 Wrangler 直传 `dist/`**，不必每次把大图推进 Git。
+本仓库归属 GitHub 组织 **nana-fox**。2026-10-09 核实：Cloudflare Pages 已连接本仓库的 `main`，输出目录为 `dist`，构建命令为空；推送生产分支即发布已生成的 `dist/`。官网与日报独立发布，官网通过 Cloudflare Worker 访问本项目。
 
 ## 目录结构
 
@@ -39,13 +39,30 @@ python3 -m http.server 8080 --directory dist
 |------|------|
 | `dist/daily/index.html` | 最新一期 |
 | `dist/daily/archive/` | 归档 |
+| `dist/daily/latest.json` | 官网读取的最新日期与三条摘要 |
 | `dist/daily/YYYY-MM-DD/` | 历史日页 |
 | `dist/daily/assets/*` | PNG / JSON |
 | `dist/daily/export/*.zip` | 图+JSON 打包 |
 
-## Wrangler 直传（推荐）
+## GitHub 自动发布（当前生产方式）
 
-用户已选定 **Wrangler Direct Upload**，不要把 Cloudflare API Token 提交进 Git。
+```bash
+python3 -m unittest discover -s tests -v
+python3 scripts/build_site.py
+git add data dist scripts site
+git commit -m "Publish daily briefing"
+git push origin main
+```
+
+Pages 直接发布 `dist/`，提交前必须重新构建。构建会重建整个输出目录，`data/` 中应保留所有需要公开的历史期数，并保持同名 JSON/PNG 成对。Grok 的采集、筛选与长图生成流程继续负责写入 `data/`。
+
+网页正文按「今日要点 → 分类摘要 → 一图总览」呈现；长图默认折叠。首页、归档和日期页使用 NanaFox 品牌导航并提供返回官网入口。
+
+`/daily/latest.json` 由构建器自动生成，格式为 `{date, title, url, tldr: [{title, text}]}`；`date` 为 ISO 日期，摘要最多三条，缓存 60 秒。官网客户端读取该文件，日报更新不需要重新发布官网。
+
+## Wrangler 直传（可选）
+
+Git 集成项目仍可用 Wrangler 直传。后续推送 `main` 会再次发布仓库中的 `dist/`，因此应同步仓库产物，避免旧版本覆盖直传版本。不要把 Cloudflare API Token 提交进 Git。
 
 ```bash
 export CLOUDFLARE_API_TOKEN=...    # Account · Cloudflare Pages · Edit
@@ -65,8 +82,8 @@ npx wrangler pages deploy dist --project-name=nanafox-daily
 
 官网（另仓）与日报（本仓）分开维护时：
 
-1. Cloudflare 上建好 Pages 项目 `nanafox-daily`，用 Wrangler 每天上传 `dist/`。
-2. 在 `nanafox.com` 所在账号里用 **Workers 路由 / 反向代理**，把 `nanafox.com/daily/*` 指到本项目（保留路径前缀 `/daily`，与 `BASE_PATH=/daily` 一致）。
+1. Pages 项目 `nanafox-daily` 已连接 `main`，从 `dist/` 独立发布。
+2. 官网仓库中的 Worker `nanafox-daily-router` 将主域名与 www 下的 `/daily/` 请求转发到本项目（保留路径前缀）。`/daily` 自动跳转到 `/daily/`，其他路径回到官网。Worker 源码和回退说明在 `nanafox-landing/cloudflare/daily-router/` 与官网 `DEPLOY.md`。
 3. 官网仓库本身不必包含日报大图。
 
 ## 每日流水线（含周末）
@@ -74,10 +91,10 @@ npx wrangler pages deploy dist --project-name=nanafox-daily
 ```text
 1. 采集 + 筛选 + 渲染 → data/YYYY-MM-DD.{json,png}
 2. python3 scripts/build_site.py
-3. npx wrangler pages deploy dist --project-name=nanafox-daily
+3. 提交完整 data/ 与 dist/，推送 main → Pages 自动部署
 ```
 
-可选：把近 1–2 天的 `data/` 与 `dist/` 提交本仓库做备份；历史大图可不进 Git（见 `.gitignore` 说明）。
+使用 Git 自动部署时，仓库中的输出应包含完整公开历史。采用独立上传与外部归档存储之前，不要只保留最近一期再重建整个 `dist/`。
 
 ## 自定义域名路径
 

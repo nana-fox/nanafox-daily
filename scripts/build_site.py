@@ -92,7 +92,7 @@ def tldr_html(data: dict) -> str:
 
 
 def item_li(item: dict) -> str:
-    """Compact link-list row: title + tag + related links."""
+    """Readable article summary with original and related sources."""
     title = esc(item.get("title") or "无标题")
     url = item.get("url") or ""
     tag = item.get("tag")
@@ -104,6 +104,9 @@ def item_li(item: dict) -> str:
     else:
         title_html = f'<span class="link-title">{title}</span>'
     tag_html = f'<span class="tag">{esc(tag)}</span>' if tag else ""
+    detail_html = f'<p class="item-detail">{esc(item["detail"])}</p>' if item.get("detail") else ""
+    why_html = f'<p class="item-why"><strong>关注点：</strong>{esc(item["why"])}</p>' if item.get("why") else ""
+    source_html = f'<p class="item-source">来源：{esc(item["source"])}</p>' if item.get("source") else ""
 
     links = []
     for i, label in enumerate(related):
@@ -120,14 +123,15 @@ def item_li(item: dict) -> str:
     )
 
     return (
-        f"<li><div class=\"link-row\">{title_html}{tag_html}{related_html}</div></li>"
+        f'<li><div class="link-row">{title_html}{tag_html}</div>'
+        f'<div class="item-body">{detail_html}{why_html}{source_html}{related_html}</div></li>'
     )
 
 
 def sections_html(data: dict) -> str:
     sections = data.get("sections") or []
     chunks = []
-    for sec in sections:
+    for index, sec in enumerate(sections, 1):
         heading = esc(sec.get("heading") or "条目")
         note = sec.get("note") or ""
         items = sec.get("items") or []
@@ -138,23 +142,30 @@ def sections_html(data: dict) -> str:
         )
         note_html = f'<p class="note">{esc(note)}</p>' if note else ""
         chunks.append(
-            f'<section class="section"><h2>{heading}</h2>{note_html}{body}</section>'
+            f'<section class="section" id="section-{index}"><h2>{heading}</h2>{note_html}{body}</section>'
         )
     return "\n".join(chunks)
 
 
-def layout(*, title: str, active: str, body: str, base: str) -> str:
+def layout(*, title: str, active: str, body: str, base: str, canonical_path: str | None = None) -> str:
     latest_href = f"{base}/" if base else "/"
     archive_href = join_base(base, "archive") + "/"
     css_href = join_base(base, "css", "style.css")
 
     nav = [
+        ("home", "https://nanafox.com/", "返回官网"),
         ("latest", latest_href, "最新"),
         ("archive", archive_href, "归档"),
     ]
     nav_html = "".join(
         f'<a class="{"active" if key == active else ""}" href="{href}">{label}</a>'
         for key, href, label in nav
+    )
+    canonical_url = f"https://nanafox.com{canonical_path}" if canonical_path else ""
+    canonical_html = (
+        f'<link rel="canonical" href="{esc(canonical_url)}" />'
+        f'<meta property="og:url" content="{esc(canonical_url)}" />'
+        if canonical_url else ""
     )
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
@@ -163,16 +174,20 @@ def layout(*, title: str, active: str, body: str, base: str) -> str:
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{esc(title)}</title>
   <meta name="description" content="{esc(SITE_TAGLINE)}" />
-  <meta name="theme-color" content="#070b16" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="{esc(title)} · NanaFox" />
+  <meta property="og:description" content="{esc(SITE_TAGLINE)}" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+{canonical_html}
   <link rel="stylesheet" href="{esc(css_href)}" />
 </head>
 <body>
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="{esc(latest_href)}">{esc(SITE_TITLE)}
-        <small>{esc(SITE_TAGLINE)}</small>
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
       </a>
-      <nav class="nav">{nav_html}</nav>
+      <nav class="nav" aria-label="日报导航">{nav_html}</nav>
     </div>
   </header>
   <main class="wrap">
@@ -180,7 +195,7 @@ def layout(*, title: str, active: str, body: str, base: str) -> str:
   </main>
   <footer class="footer">
     <div class="wrap">
-      <span>每日自动生成 · 图片可下载转发</span>
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
       <a href="{esc(archive_href)}">全部归档</a>
     </div>
   </footer>
@@ -231,9 +246,17 @@ def day_body(
     actions = [
         f'<a class="btn primary" href="{esc(img_src)}" download="{day}.png">下载原图</a>',
         f'<a class="btn" href="{esc(img_src)}" target="_blank" rel="noopener">查看大图</a>',
-        f'<a class="btn" href="{esc(json_href)}" download="{day}.json">JSON</a>',
-        f'<a class="btn" href="{esc(zip_href)}">ZIP</a>',
     ]
+    download_menu = (
+        '<details class="download-menu"><summary>更多下载</summary><div>'
+        f'<a href="{esc(json_href)}" download="{day}.json">结构化数据 JSON</a>'
+        f'<a href="{esc(zip_href)}" download="{day}.zip">图片与数据 ZIP</a>'
+        '</div></details>'
+    )
+    toc = ''.join(
+        f'<a href="#section-{index}">{esc(section.get("heading") or "条目")}</a>'
+        for index, section in enumerate(data.get("sections") or [], 1)
+    )
 
     nav = (
         day_nav_html(data, base=base, prev_day=prev_day, next_day=next_day)
@@ -243,20 +266,23 @@ def day_body(
 
     return f"""
     <div class="page-head">
-      <p class="eyebrow">Daily AI Briefing{badge}</p>
+      <p class="eyebrow">NanaFox · Daily AI Briefing{badge}</p>
       <h1>{page_title}</h1>
       <p class="date-line">{display_date}</p>
     </div>
-    <figure class="hero-image">
-      <a href="{esc(img_src)}" target="_blank" rel="noopener">
-        <img src="{esc(img_src)}" alt="{page_title} {display_date} 一图总览" loading="eager" />
-      </a>
-      <div class="hero-actions">
-        {"".join(actions)}
-      </div>
-    </figure>
     {tldr_html(data)}
+    <nav class="section-nav" aria-label="日报分类">{toc}</nav>
     {sections_html(data)}
+    <section class="poster-section" aria-labelledby="poster-heading">
+      <div class="poster-heading"><div><h2 id="poster-heading">一图总览</h2><p>保存长图，随时回看或分享。</p></div></div>
+      <div class="hero-actions">{"".join(actions)}{download_menu}</div>
+      <details class="poster-preview">
+        <summary>展开长图预览</summary>
+        <a href="{esc(img_src)}" target="_blank" rel="noopener">
+          <img src="{esc(img_src)}" alt="{page_title} {display_date} 一图总览" loading="lazy" />
+        </a>
+      </details>
+    </section>
     {nav}
 """
 
@@ -361,6 +387,7 @@ def build(
             active="latest" if is_latest else "",
             body=body,
             base=base,
+            canonical_path=join_base(base, day) + "/",
         )
         write(site_root / day / "index.html", page)
         built.append(day)
@@ -380,10 +407,23 @@ def build(
                 active="latest",
                 body=home_body,
                 base=base,
+                canonical_path=join_base(base),
             )
             write(site_root / "index.html", home)
+            summaries = [
+                {"title": str(item.get("title") or ""), "text": str(item.get("text") or "")}
+                if isinstance(item, dict) else {"title": str(item), "text": ""}
+                for item in (data.get("tldr") or [])[:3]
+            ]
+            write(site_root / "latest.json", json.dumps({
+                "date": day,
+                "title": data.get("title") or SITE_TITLE,
+                "url": join_base(base, day) + "/",
+                "tldr": summaries,
+            }, ensure_ascii=False, indent=2) + "\n")
 
     if not digests:
+        write(site_root / "latest.json", json.dumps({"date": None, "tldr": []}) + "\n")
         empty = layout(
             title=f"{SITE_TITLE} · 暂无内容",
             active="latest",
@@ -397,6 +437,7 @@ def build(
         active="archive",
         body=archive_body(digests, base=base),
         base=base,
+        canonical_path=join_base(base, "archive") + "/",
     )
     write(site_root / "archive" / "index.html", arch)
 
@@ -419,7 +460,8 @@ def build(
     (site_root / "_headers").write_text(
         "/*\n  X-Content-Type-Options: nosniff\n"
         "/assets/*\n  Cache-Control: public, max-age=86400\n"
-        + (f"{base}/assets/*\n  Cache-Control: public, max-age=86400\n" if base else ""),
+        + (f"{base}/assets/*\n  Cache-Control: public, max-age=86400\n" if base else "")
+        + f"{join_base(base, 'latest.json')}\n  Cache-Control: public, max-age=60, must-revalidate\n",
         encoding="utf-8",
     )
 
@@ -489,7 +531,7 @@ def main() -> None:
     print(f"Built {len(built)} digests → {args.dist} (BASE_PATH={normalize_base(args.base_path)!r})")
     for day in built:
         print(f"  - {day}/")
-    print("Next: npx wrangler pages deploy dist --project-name=nanafox-daily")
+    print("Next: commit data/ and dist/ to main for the connected Pages deployment.")
 
 
 if __name__ == "__main__":
