@@ -68,73 +68,22 @@
 .bot-export .footer { white-space:normal; align-items:center; }
 .bot-export .footer span:last-child { text-align:right; }
 .bot-export .signature { font-size:20px; color:#c7d2fe; }
-.bot-export.paper.card { background:#faf6ee; }
-.bot-export.paper .item,.bot-export.paper .tldr,.bot-export.paper .bullets { background:#fffdf9; }
-.bot-export.paper .header { background:radial-gradient(circle at 85% 10%,#ab794855,transparent 45%),linear-gradient(135deg,#352b26,#655044 60%,#96704f); }
-.bot-export .channel-header { padding:26px 48px 20px; display:flex; align-items:center; justify-content:space-between; color:#c7d2fe; background:#1e1b4b; font-size:20px; }
-.bot-export .channel-header strong { font-size:30px; color:#fff; }
-.bot-export.paper .channel-header { background:#655044; }
-.bot-export .channel-header span { max-width:55%; text-align:right; }
-.bot-export .channel-body { padding:34px 48px 16px; flex:1; min-height:0; }
-.bot-export .channel-body .section { margin-bottom:0; }
-.bot-export .channel-body .tldr { margin:0; }
-.bot-export .channel-body .item:last-child { margin-bottom:0; }
-.bot-export .page-footer { padding:18px 56px 32px; display:flex; justify-content:space-between; color:#94a3b8; font-size:20px; }
-.bot-export.page { display:flex; flex-direction:column; }
-.bot-export .continuation { font-size:19px; font-weight:500; color:#94a3b8; }
-.bot-export.xhs .title { font-size:34px; }
-.bot-export.xhs .detail { font-size:29px; line-height:1.65; }
-.bot-export.xhs .why { font-size:25px; }
-.bot-export.xhs .source.inline { font-size:20px; }
-.bot-export.xhs .bullet .txt { font-size:29px; }
-.bot-export.xhs .bullet .bt { font-size:32px; }
-.bot-export.xhs .section h2 { font-size:38px; }
-.bot-export.xhs .tldr .tt { font-size:29px; }
-.bot-export.xhs .header { padding-bottom:64px; }
-.bot-export.xhs.cover .channel-body { padding-top:0; }
-.bot-export.xhs.cover .channel-body .tldr { margin-top:-30px; }
+
 .bot-export .bullet .source { display:block; width:fit-content; }
-.bot-export .wechat-cover { height:460px; padding-bottom:38px; display:flex; flex-direction:column; justify-content:space-between; }
-.bot-export .wechat-cover .header { padding:38px 48px 28px; flex:1; }
-.bot-export .wechat-cover .header h1 { font-size:60px; }
-.bot-export .cover-topics { display:flex; gap:16px; margin-top:24px; position:relative; }
-.bot-export .cover-topics span { flex:1; border-radius:14px; padding:16px; background:#ffffff18; font-size:24px; font-weight:700; color:white; }
-.bot-export .cover-brand { font-size:20px; color:#c7d2fe; margin-top:24px; }
-.bot-export.xhs-cover { color:#fff; background:radial-gradient(circle at 88% 8%,rgba(139,92,246,.55),transparent 42%),radial-gradient(circle at 8% 95%,rgba(14,165,233,.4),transparent 48%),linear-gradient(145deg,#0b1023 0%,#1e1b4b 55%,#312e81 100%); }
-.bot-export.xhs-cover .header { background:transparent; padding:72px 56px 28px; }
-.bot-export.xhs-cover .header h1 { font-size:72px; }
-.bot-export.xhs-cover .cover-blocks { flex:1; padding:24px 56px; display:flex; flex-direction:column; justify-content:center; gap:24px; }
-.bot-export .cover-point { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); border-radius:20px; padding:26px 30px; }
-.bot-export .cover-point b { display:block; font-size:34px; font-weight:800; color:#fff; margin-bottom:10px; }
-.bot-export .cover-point p { font-size:29px; line-height:1.65; color:#c7d2fe; }
-.bot-export.xhs-cover .page-footer { color:#a5b4fc; padding:28px 56px 48px; }
-.bot-export.paper.xhs-cover { background:radial-gradient(circle at 88% 8%,#ab794855,transparent 42%),linear-gradient(145deg,#352b26,#655044 60%,#96704f); }
-.bot-export .cover-point .tn { font-size:24px; margin-right:10px; color:#a5b4fc; }
-
 .bot-export.card { background:#f6f7fb; }
-.bot-export.paper.card { background:#faf6ee; }
-.bot-export.xhs-cover.card { background:radial-gradient(circle at 88% 8%,rgba(139,92,246,.55),transparent 42%),radial-gradient(circle at 8% 95%,rgba(14,165,233,.4),transparent 48%),linear-gradient(145deg,#0b1023 0%,#1e1b4b 55%,#312e81 100%); }
-.bot-export.paper.xhs-cover.card { background:linear-gradient(145deg,#352b26,#655044 60%,#96704f); }
-
-/* Isolate template classes from the legacy website's .related flex layout. */
+/* Isolate the Bot template from the website's inherited styles. */
 .bot-export .related { display:block; }
 .bot-export .related .rl { white-space:nowrap; }
 .bot-export .section h2 .bar,.bot-export .section h2 .count { flex-shrink:0; }
-.bot-export .wechat-cover { height:auto; min-height:0; flex:1; padding-bottom:0; }
-.bot-export .wechat-cover .header { padding:30px 48px 20px; }
-.bot-export .wechat-cover .header h1 { line-height:1.2; }
-.bot-export .wechat-cover .eyebrow { font-size:18px; }
-.bot-export .wechat-cover .meta { margin-top:18px; }
-.bot-export .wechat-cover .pill { font-size:20px; padding:4px 16px; }
-.bot-export .wechat-cover .signature { font-size:18px; }
-.bot-export .wechat-cover .cover-topics { margin-top:18px; }
-.bot-export .wechat-cover .cover-topics span { font-size:22px; padding:12px; }
-.bot-export.wechat-cover-page .page-footer { padding:12px 48px 18px; font-size:16px; background:#1e1b4b; color:#c7d2fe; }
-.bot-export.paper.wechat-cover-page .page-footer { background:#655044; }
-
-.bot-export .channel-body .bullets { margin-bottom:18px; }
-.bot-export .channel-body .bullets:last-child { margin-bottom:0; }
-
 .bot-export .tldr { border:0; border-top:6px solid #6366f1; }
 .bot-export .footer { border:0; background:transparent; }
 .bot-export .section h2 { letter-spacing:normal; }
+/* The main image uses the same header and highlight card, with larger readable type. */
+.bot-export.digest-main .tldr { padding:32px 36px 14px; }
+.bot-export.digest-main .th { font-size:30px; margin-bottom:4px; }
+.bot-export.digest-main .tl { gap:20px; padding:24px 0; border-bottom:1px solid #e8edf5; }
+.bot-export.digest-main .tl:last-child { border-bottom:0; }
+.bot-export.digest-main .tn { width:44px; height:44px; font-size:24px; margin-top:4px; }
+.bot-export.digest-main .tt { flex:1; min-width:0; font-size:32px; line-height:1.65; color:#475569; }
+.bot-export.digest-main .tt b { display:block; font-size:38px; line-height:1.4; margin-bottom:8px; }
+.bot-export.digest-main .footer { padding-top:32px; }

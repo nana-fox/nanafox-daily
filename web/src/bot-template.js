@@ -26,61 +26,13 @@ export function highlightsHTML(issue, rows = issue.data.tldr) {
 export function headerHTML(issue, settings) {
   return `<div class="header"><div class="grid-deco"></div><div class="eyebrow">${esc(issue.data.eyebrow || 'DAILY AI BRIEFING')}</div><h1>${esc(settings.title || issue.data.title)}</h1><div class="meta"><span class="pill date">${esc(issue.data.date || issue.day)}</span><span class="signature">${esc(settings.signature)}</span></div></div>`;
 }
-export const footerHTML = (issue,settings,page,count) => `<div class="page-footer"><span>${esc(settings.signature || issue.data.brand || 'AI 前沿日报')} · nanafox.com/daily</span><span>${page+1} / ${count}</span></div>`;
 export function longHTML(issue,settings) {
   return `${headerHTML(issue,settings)}${highlightsHTML(issue)}<div class="body">${issue.data.sections.map((section,index) => {
     const color=accentFor(section,index);
     return `<div class="section">${sectionHeadHTML({...section,color})}${section.style==='bullets' ? '<div class="bullets">'+section.items.map((item,i)=>itemHTML(item,i+1,color,settings,false,true).replace(/^<div class="bullets">|<\/div>$/g,'')).join('')+'</div>' : section.items.map((item,i)=>itemHTML(item,i+1,color,settings)).join('')}</div>`;
   }).join('')}</div><div class="footer"><span>原文链接见日报网站</span><span>${esc(settings.signature || issue.data.brand)}</span></div>`;
 }
-// Whole cards stay together. Oversized cards are split before calling this helper.
-export function packCards(cards, available, gap = 18) {
-  const pages=[]; let page=[]; let used=0;
-  for (const card of cards) {
-    if (card.height > available) throw new Error('单条内容无法放入组图，请使用长图或 JSON 导出。');
-    const next=card.height+(page.length ? gap : 0);
-    if (used+next > available && page.length) { pages.push(page); page=[]; used=0; }
-    used+=card.height+(page.length ? gap : 0); page.push(card);
-  }
-  if (page.length) pages.push(page);
-  return pages;
-}
 
-// A single very long story repeats its heading, but never loses any body text.
-export function splitOversized(item,number,accent,settings,bullets,available,measure) {
-  const fields=['summary','detail','why'];
-  const remaining={...item,summary:item.summary===item.detail ? '' : item.summary};
-  const output=[]; let continued=false;
-  if (!fields.some(field=>remaining[field])) throw new Error('单条标题或来源过长，请使用长图或 JSON 导出。');
-  while (fields.some(field=>remaining[field])) {
-    // Reserve the source block during fitting so it stays with the final body fragment.
-    const part={...item,summary:'',detail:'',why:''};
-    let progress=false;
-    for (const field of fields) {
-      const value=remaining[field] || '';
-      if (!value) continue;
-      const chars=Array.from(value); let low=0,high=chars.length;
-      while (low<high) {
-        const mid=Math.ceil((low+high)/2);part[field]=chars.slice(0,mid).join('');
-        if (measure(itemHTML(part,number,accent,settings,continued,bullets))<=available) low=mid; else high=mid-1;
-      }
-      part[field]=chars.slice(0,low).join('');remaining[field]=chars.slice(low).join('');progress ||= low>0;
-      if (low<chars.length) break;
-    }
-    if (!progress) throw new Error('单条标题或来源过长，无法清晰分页，请使用长图或 JSON 导出。');
-    part.source='';part.related=[];part.related_urls=[];
-    output.push(part);continued=true;
-  }
-  // Sources and related labels are kept in a trailing card if they do not fit.
-  const last=output.at(-1);
-  if (last) { last.source=item.source;last.related=item.related;last.related_urls=item.related_urls; }
-  if (last && measure(itemHTML(last,number,accent,settings,output.length>1,bullets))>available) {
-    last.source='';last.related=[];last.related_urls=[];
-    output.push({...item,summary:'',detail:'',why:''});
-  }
-  return output.map((part,index)=>{
-    const html=itemHTML(part,number,accent,settings,index>0,bullets);const height=measure(html);
-    if (height>available) throw new Error('单条标题或来源过长，请使用长图或 JSON 导出。');
-    return {html,height};
-  });
+export function mainHTML(issue, settings) {
+  return `${headerHTML(issue, settings)}${highlightsHTML(issue).replaceAll('</b>　', '</b>') || '<div class="tldr"><div class="th">今日要点</div><div class="tt">今日暂无要点</div></div>'}<div class="footer"><span>每日 AI 动态 · nanafox.com/daily</span><span>${esc(settings.signature || issue.data.brand)}</span></div>`;
 }
