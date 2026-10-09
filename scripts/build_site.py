@@ -91,47 +91,37 @@ def tldr_html(data: dict) -> str:
     return f'<section class="tldr"><h2>{heading}</h2><ol>{"".join(lis)}</ol></section>'
 
 
-def item_html(item: dict) -> str:
+def item_li(item: dict) -> str:
+    """Compact link-list row: title + tag + related links."""
     title = esc(item.get("title") or "无标题")
     url = item.get("url") or ""
     tag = item.get("tag")
-    detail = item.get("detail") or item.get("summary") or ""
-    why = item.get("why") or ""
-    source = item.get("source") or ""
     related = item.get("related") or []
     related_urls = item.get("related_urls") or []
 
     if url:
-        title_html = f'<a href="{esc(url)}" target="_blank" rel="noopener">{title}</a>'
+        title_html = f'<a class="link-title" href="{esc(url)}" target="_blank" rel="noopener">{title}</a>'
     else:
-        title_html = title
+        title_html = f'<span class="link-title">{title}</span>'
     tag_html = f'<span class="tag">{esc(tag)}</span>' if tag else ""
-
-    parts = [
-        f'<article class="item">',
-        f'<h3 class="item-title">{title_html}{tag_html}</h3>',
-    ]
-    if detail:
-        parts.append(f'<p class="detail">{esc(detail)}</p>')
-    if why:
-        parts.append(f'<p class="why">💡 {esc(why)}</p>')
-    if source:
-        parts.append(f'<p class="source">{esc(source)}</p>')
 
     links = []
     for i, label in enumerate(related):
         href = related_urls[i] if i < len(related_urls) else ""
         if href:
             links.append(f'<a href="{esc(href)}" target="_blank" rel="noopener">{esc(label)}</a>')
-        else:
-            links.append(esc(label))
+        elif label:
+            links.append(f"<span>{esc(label)}</span>")
     for href in related_urls[len(related) :]:
         if href:
             links.append(f'<a href="{esc(href)}" target="_blank" rel="noopener">另见</a>')
-    if links:
-        parts.append(f'<p class="related">🔗 另见：{" · ".join(links)}</p>')
-    parts.append("</article>")
-    return "\n".join(parts)
+    related_html = (
+        f'<div class="related">{"".join(links)}</div>' if links else ""
+    )
+
+    return (
+        f"<li><div class=\"link-row\">{title_html}{tag_html}{related_html}</div></li>"
+    )
 
 
 def sections_html(data: dict) -> str:
@@ -141,8 +131,12 @@ def sections_html(data: dict) -> str:
         heading = esc(sec.get("heading") or "条目")
         note = sec.get("note") or ""
         items = sec.get("items") or []
-        body = "\n".join(item_html(it) for it in items) or '<p class="empty">暂无条目</p>'
-        note_html = f'<p class="source">{esc(note)}</p>' if note else ""
+        body = (
+            f'<ul class="link-list">{"".join(item_li(it) for it in items)}</ul>'
+            if items
+            else '<p class="empty">暂无条目</p>'
+        )
+        note_html = f'<p class="note">{esc(note)}</p>' if note else ""
         chunks.append(
             f'<section class="section"><h2>{heading}</h2>{note_html}{body}</section>'
         )
@@ -150,16 +144,6 @@ def sections_html(data: dict) -> str:
 
 
 def layout(*, title: str, active: str, body: str, base: str) -> str:
-    home = join_base(base) if base else "/"
-    # Prefer trailing-slash-friendly paths for Pages
-    home_href = join_base(base, "") if base else "/"
-    if home_href != "/" and not home_href.endswith("/"):
-        home_href = home_href + "/" if home_href == base else home_href
-    # index
-    latest_href = join_base(base, "") if base else "/"
-    if latest_href != "/" and not latest_href.endswith("/"):
-        latest_href += "/"
-    # Actually join_base(base) with no parts returns base/
     latest_href = f"{base}/" if base else "/"
     archive_href = join_base(base, "archive") + "/"
     css_href = join_base(base, "css", "style.css")
@@ -179,6 +163,7 @@ def layout(*, title: str, active: str, body: str, base: str) -> str:
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{esc(title)}</title>
   <meta name="description" content="{esc(SITE_TAGLINE)}" />
+  <meta name="theme-color" content="#070b16" />
   <link rel="stylesheet" href="{esc(css_href)}" />
 </head>
 <body>
@@ -195,8 +180,8 @@ def layout(*, title: str, active: str, body: str, base: str) -> str:
   </main>
   <footer class="footer">
     <div class="wrap">
-      <span>由本地日报流水线每日生成 · 图片可下载转发</span>
-      <a href="{esc(archive_href)}">查看全部归档</a>
+      <span>每日自动生成 · 图片可下载转发</span>
+      <a href="{esc(archive_href)}">全部归档</a>
     </div>
   </footer>
 </body>
@@ -204,29 +189,64 @@ def layout(*, title: str, active: str, body: str, base: str) -> str:
 """
 
 
-def day_body(data: dict, *, base: str, is_latest: bool) -> str:
+def day_nav_html(
+    data: dict,
+    *,
+    base: str,
+    prev_day: str | None,
+    next_day: str | None,
+) -> str:
+    parts = []
+    if prev_day:
+        href = join_base(base, prev_day) + "/"
+        parts.append(f'<a href="{esc(href)}">← {esc(prev_day)}</a>')
+    else:
+        parts.append('<span class="spacer"></span>')
+    parts.append('<span class="spacer"></span>')
+    if next_day:
+        href = join_base(base, next_day) + "/"
+        parts.append(f'<a href="{esc(href)}">{esc(next_day)} →</a>')
+    else:
+        parts.append('<span class="spacer"></span>')
+    return f'<nav class="day-nav" aria-label="相邻日期">{"".join(parts)}</nav>'
+
+
+def day_body(
+    data: dict,
+    *,
+    base: str,
+    is_latest: bool,
+    prev_day: str | None = None,
+    next_day: str | None = None,
+    show_day_nav: bool = True,
+) -> str:
     day = data["_day"]
     display_date = esc(data.get("date") or day)
     page_title = esc(data.get("title") or SITE_TITLE)
     img_src = join_base(base, "assets", f"{day}.png")
     json_href = join_base(base, "assets", f"{day}.json")
     zip_href = join_base(base, "export", f"{day}.zip")
-    badge = " · 最新一期" if is_latest else ""
+    badge = '<span class="pill">最新一期</span>' if is_latest else ""
 
     actions = [
-        f'<a class="btn primary" href="{esc(img_src)}" download="{day}.png">下载原图 PNG</a>',
-        f'<a class="btn" href="{esc(img_src)}" target="_blank" rel="noopener">新窗口查看大图</a>',
-        f'<a class="btn" href="{esc(json_href)}" download="{day}.json">下载 JSON</a>',
-        f'<a class="btn" href="{esc(zip_href)}">下载 ZIP（图+数据）</a>',
+        f'<a class="btn primary" href="{esc(img_src)}" download="{day}.png">下载原图</a>',
+        f'<a class="btn" href="{esc(img_src)}" target="_blank" rel="noopener">查看大图</a>',
+        f'<a class="btn" href="{esc(json_href)}" download="{day}.json">JSON</a>',
+        f'<a class="btn" href="{esc(zip_href)}">ZIP</a>',
     ]
 
+    nav = (
+        day_nav_html(data, base=base, prev_day=prev_day, next_day=next_day)
+        if show_day_nav and (prev_day or next_day)
+        else ""
+    )
+
     return f"""
-    <div class="hero-meta">
-      <p class="eyebrow">DAILY AI BRIEFING{badge}</p>
+    <div class="page-head">
+      <p class="eyebrow">Daily AI Briefing{badge}</p>
       <h1>{page_title}</h1>
       <p class="date-line">{display_date}</p>
     </div>
-    {tldr_html(data)}
     <figure class="hero-image">
       <a href="{esc(img_src)}" target="_blank" rel="noopener">
         <img src="{esc(img_src)}" alt="{page_title} {display_date} 一图总览" loading="eager" />
@@ -235,7 +255,9 @@ def day_body(data: dict, *, base: str, is_latest: bool) -> str:
         {"".join(actions)}
       </div>
     </figure>
+    {tldr_html(data)}
     {sections_html(data)}
+    {nav}
 """
 
 
@@ -251,20 +273,23 @@ def archive_body(digests: list[dict], *, base: str) -> str:
         if tldr:
             first = tldr[0]
             if isinstance(first, dict):
-                summary = f'{first.get("title", "")}：{first.get("text", "")}'
+                title = first.get("title") or ""
+                text = first.get("text") or ""
+                summary = f"{title}：{text}" if title else text
             else:
                 summary = str(first)
         day_href = join_base(base, day) + "/"
         lis.append(
             f'<li><a href="{esc(day_href)}">'
-            f'<span class="d">{esc(day)}</span>{date_label}'
-            f'<div class="s">{esc(summary)}</div></a></li>'
+            f'<span class="d">{esc(day)}</span>'
+            f'<div class="meta"><p class="title">{date_label}</p>'
+            f'<p class="s">{esc(summary)}</p></div></a></li>'
         )
     return f"""
-    <div class="hero-meta">
-      <p class="eyebrow">ARCHIVE</p>
+    <div class="page-head">
+      <p class="eyebrow">Archive</p>
       <h1>归档</h1>
-      <p class="date-line">共 {len(digests)} 期</p>
+      <p class="date-line">共 {len(digests)} 期 · 按日期倒序</p>
     </div>
     <ul class="archive-list">{"".join(lis)}</ul>
 """
@@ -289,7 +314,6 @@ def build(
         shutil.rmtree(dist)
     dist.mkdir(parents=True)
 
-    # Nest under BASE_PATH so root deploy serves /daily/...
     site_root = dist / base.lstrip("/") if base else dist
     site_root.mkdir(parents=True, exist_ok=True)
 
@@ -302,6 +326,9 @@ def build(
     assets.mkdir()
     export_dir = site_root / "export"
     export_dir.mkdir()
+
+    # Chronological neighbors: digests are newest-first
+    day_index = {d["_day"]: i for i, d in enumerate(digests)}
 
     built: list[str] = []
 
@@ -316,8 +343,19 @@ def build(
             zf.write(data["_png_path"], arcname=f"{day}.png")
             zf.write(data["_json_path"], arcname=f"{day}.json")
 
+        # prev = older (next in newest-first list), next = newer (previous index)
+        older = digests[i + 1]["_day"] if i + 1 < len(digests) else None
+        newer = digests[i - 1]["_day"] if i > 0 else None
+
         is_latest = i == 0
-        body = day_body(data, base=base, is_latest=is_latest)
+        body = day_body(
+            data,
+            base=base,
+            is_latest=is_latest,
+            prev_day=older,
+            next_day=newer,
+            show_day_nav=True,
+        )
         page = layout(
             title=f'{data.get("title") or SITE_TITLE} · {day}',
             active="latest" if is_latest else "",
@@ -328,10 +366,19 @@ def build(
         built.append(day)
 
         if is_latest:
+            # Homepage: same content as latest day page (no day-nav clutter optional)
+            home_body = day_body(
+                data,
+                base=base,
+                is_latest=True,
+                prev_day=older,
+                next_day=None,
+                show_day_nav=bool(older),
+            )
             home = layout(
                 title=f'{data.get("title") or SITE_TITLE} · 最新',
                 active="latest",
-                body=day_body(data, base=base, is_latest=True),
+                body=home_body,
                 base=base,
             )
             write(site_root / "index.html", home)
@@ -376,7 +423,6 @@ def build(
         encoding="utf-8",
     )
 
-    # Root redirect when nested under /daily/
     if base:
         write(
             dist / "index.html",
@@ -394,7 +440,6 @@ def build(
 </html>
 """,
         )
-        # Also place _headers / 404 at dist root for Pages
         shutil.copy2(site_root / "_headers", dist / "_headers")
         write(
             dist / "404.html",
