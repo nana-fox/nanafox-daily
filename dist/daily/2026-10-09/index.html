@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI 前沿日报 · 2026-10-09</title>
+  <meta name="description" content="前沿动态 · 高质量文章 · 一图总览" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="/daily/">AI 前沿日报
+        <small>前沿动态 · 高质量文章 · 一图总览</small>
+      </a>
+      <nav class="nav"><a class="active" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <div class="hero-meta">
+      <p class="eyebrow">DAILY AI BRIEFING · 最新一期</p>
+      <h1>AI 前沿日报</h1>
+      <p class="date-line">2026-10-09 周五</p>
+    </div>
+    <section class="tldr"><h2>⚡ 今日要点</h2><ol><li><strong>办公 Agent 混战</strong> — Google 发布通用 Gemini agent，可按任务调用 Claude；Claude 同日上线 Dashboards 与 Motion。</li><li><strong>OpenAI 收入降温</strong> — FT/CNBC：OpenAI 9 月底年化收入约 500 亿美元，低于此前流传的 680 亿，AI 股应声下跌。</li><li><strong>AI 数学纠错</strong> — OpenAI 撤回 3 篇霍奇猜想相关手稿、修订 14 篇；陶哲轩主持的 AHM 呼吁抵制。</li></ol></section>
+    <figure class="hero-image">
+      <a href="/daily/assets/2026-10-09.png" target="_blank" rel="noopener">
+        <img src="/daily/assets/2026-10-09.png" alt="AI 前沿日报 2026-10-09 周五 一图总览" loading="eager" />
+      </a>
+      <div class="hero-actions">
+        <a class="btn primary" href="/daily/assets/2026-10-09.png" download="2026-10-09.png">下载原图 PNG</a><a class="btn" href="/daily/assets/2026-10-09.png" target="_blank" rel="noopener">新窗口查看大图</a><a class="btn" href="/daily/assets/2026-10-09.json" download="2026-10-09.json">下载 JSON</a><a class="btn" href="/daily/export/2026-10-09.zip">下载 ZIP（图+数据）</a>
+      </div>
+    </figure>
+    <section class="section"><h2>🔥 模型发布与评测</h2><article class="item">
+<h3 class="item-title"><a href="https://x.com/OpenAIDevs/status/2108262812489531498" target="_blank" rel="noopener">GPT-6.1 Sol Ultrafast：速度最高 8 倍</a><span class="tag">模型发布</span></h3>
+<p class="detail">OpenAI 为 GPT-6.1 Sol 推出 Ultrafast 模式，覆盖 API、Codex 与 ChatGPT Work，官方称智能接近 Astra、速度最高为 Sol Standard 的 8 倍。据 TestingCatalog，定价 $12/$60（每百万 token）。Epoch 实测 6.1 Sol 缓存输入价减半、长提示处理更快。</p>
+<p class="why">💡 对延迟敏感的编码与 Agent 循环可以直接换档</p>
+<p class="source">OpenAI Developers（X）· 10/9 02:26</p>
+<p class="related">🔗 另见：<a href="https://x.com/thsottiaux/status/2108275041276420573" target="_blank" rel="noopener">Codex Day 4：即时 steering</a> · <a href="https://x.com/EpochAIResearch/status/2108306213943586979" target="_blank" rel="noopener">Epoch 实测</a></p>
+</article>
+<article class="item">
+<h3 class="item-title"><a href="https://epoch.ai/publications/can-ai-automate-epoch" target="_blank" rel="noopener">Epoch 自动化报告：前沿模型还替代不了研究员</a><span class="tag">评测</span></h3>
+<p class="detail">Epoch AI 从自家真实研究工作中抽取开放式任务，并按内部标准人工评分。Claude Fable 5.1 与 GPT-6 Astra 领先，但离完全自动化 Epoch 的工作还很远：明确定义的任务做得稳，开放式环节仍会失败。</p>
+<p class="why">💡 比静态 benchmark 更接近「能否替代知识工作」</p>
+<p class="source">Epoch AI · 10/9 01:36</p>
+<p class="related">🔗 另见：<a href="https://epoch.ai/benchmarks/epoch-automation-reports" target="_blank" rel="noopener">另见</a></p>
+</article>
+<article class="item">
+<h3 class="item-title"><a href="https://huggingface.co/JetBrains/Mellum2.1-12B-A2.5B-Thinking" target="_blank" rel="noopener">JetBrains Mellum2.1：12B MoE 编码小模型开源</a><span class="tag">开源</span></h3>
+<p class="detail">12B 总参、2.5B 激活的思考型 MoE，Apache 2.0，131K 上下文，架构不变，提升主要来自真实软件环境中的 RL。模型卡自报 LiveCodeBench v6 82.0、SWE-bench Verified 47.0、Terminal-Bench 2.1 17.4；GGUF 7GB 起。</p>
+<p class="why">💡 可本地部署的编码子 Agent 底座</p>
+<p class="source">Hugging Face 模型卡（自报）· 10/8 02:43</p>
+<p class="related">🔗 另见：<a href="https://www.marktechpost.com/2026/10/08/jetbrains-releases-mellum2-1-a-12b-moe-open-model-for-coding-agents/" target="_blank" rel="noopener">MarkTechPost 解读</a></p>
+</article></section>
+<section class="section"><h2>🤖 Agent 与 AI 编程</h2><article class="item">
+<h3 class="item-title"><a href="https://cloud.google.com/blog/products/ai-machine-learning/welcome-to-gemini-at-work-2026/" target="_blank" rel="noopener">Google 发布通用 Gemini agent，可调用 Claude</a><span class="tag">Agent</span></h3>
+<p class="detail">Gemini at Work 大会上，Google Cloud CEO Thomas Kurian 发布面向企业的单一通用 Agent，入口在 Gemini Enterprise：一个输入框规划任务、调用工具、写并运行代码，并直接嵌入 Gmail/Docs/Sheets 等。它按任务自动挑选底层模型，目前覆盖 Gemini 与 Anthropic Claude。「同事 Agent」拥有独立邮箱、存储和身份。金融、法律行业版进入预览。</p>
+<p class="why">💡 大厂首次在自家 Agent 里接入竞品模型，多模型路由成默认</p>
+<p class="source">Google Cloud 博客 · 10/8 22:28</p>
+<p class="related">🔗 另见：<a href="https://www.theverge.com/tech/1007904/google-gemini-ai-agent-enterprise" target="_blank" rel="noopener">The Verge</a> · <a href="https://www.qbitai.com/2026/10/502083.html" target="_blank" rel="noopener">量子位</a></p>
+</article>
+<article class="item">
+<h3 class="item-title"><a href="https://x.com/NousResearch/status/2108231536772596193" target="_blank" rel="noopener">Hermes Agent 上架微软商店</a><span class="tag">Agent</span></h3>
+<p class="detail">Nous Research 的开源 Agent Hermes Agent 上架 Microsoft Store（获官方推荐），支持一键安装；团队称更多 Windows 生态更新即将推出。</p>
+<p class="why">💡 开源个人 Agent 开始走向普通 Windows 用户</p>
+<p class="source">Nous Research（X）· 10/9 00:22</p>
+</article></section>
+<section class="section"><h2>📱 产品与应用</h2><article class="item">
+<h3 class="item-title"><a href="https://claude.com/resources/articles/dashboards-and-motion" target="_blank" rel="noopener">Claude Dashboards 与 Motion 开启 beta</a><span class="tag">产品</span></h3>
+<p class="detail">Dashboards 连接 BigQuery、Snowflake、Databricks、Salesforce 等，用自然语言生成随数据自动更新的看板，每个数字都可点开查看背后的查询，也可以转到 Hex、Grafana 等工具继续分析。Motion 用代码生成可编辑的动画讲解，可导出 MP4，不使用视频生成模型。Dashboards 面向付费用户，Motion 面向 Team/Enterprise；Docs、Slides、Design 结束 beta，对所有用户（含免费）开放。</p>
+<p class="why">💡 「问数据」和「做讲解动画」不再需要分析师</p>
+<p class="source">Claude 官方 · 10/9 03:01</p>
+<p class="related">🔗 另见：<a href="https://x.com/claudeai/status/2108271552991252810" target="_blank" rel="noopener">X 主帖 2.5 万赞</a> · <a href="https://the-decoder.com/claude-can-now-generate-animated-explainer-videos-and-live-data-dashboards-from-text-prompts/" target="_blank" rel="noopener">The Decoder</a></p>
+</article>
+<article class="item">
+<h3 class="item-title"><a href="https://www.theverge.com/tech/1007985/google-ai-notetaking-app-transcribe-offline" target="_blank" rel="noopener">Google AI Edge Foresight：完全离线的会议笔记</a><span class="tag">产品</span></h3>
+<p class="detail">Google 推出实验性 macOS 笔记应用，用端侧 EmbeddingGemma 2 在本地转写和总结会议与音频，不连云端，免费使用，对标 Granola 和 Wispr Flow。</p>
+<p class="why">💡 隐私敏感场景的本地 AI 笔记方案</p>
+<p class="source">The Verge · 10/8 23:27</p>
+<p class="related">🔗 另见：<a href="https://techcrunch.com/2026/10/08/google-releases-a-new-local-first-granola-competitor/" target="_blank" rel="noopener">TechCrunch</a></p>
+</article></section>
+<section class="section"><h2>📄 论文与研究</h2><article class="item">
+<h3 class="item-title"><a href="https://github.com/openai/math/blob/main/history.md" target="_blank" rel="noopener">更新：OpenAI 撤回 3 篇 AI 数学手稿</a><span class="tag">论文</span></h3>
+<p class="detail">openai/math 仓库发布首份更新日志：撤回 3 篇、修订 14 篇，手稿从 722 篇降为 719 篇。撤回的 3 篇都与霍奇猜想（K3 曲面）相关，起因是一处关键论证的符号把 -1 写成了 +1。同时，陶哲轩主持的人类数学协会（AHM）呼吁数学家抵制与 OpenAI 合作。</p>
+<p class="why">💡 AI 证明的验证成本，成了数学界的新瓶颈</p>
+<p class="source">GitHub openai/math · 10/8 18:27（机器之心报道）</p>
+<p class="related">🔗 另见：<a href="https://the-decoder.com/some-mathematicians-call-for-openai-boycott-after-ai-generated-proofs-flood-their-field/" target="_blank" rel="noopener">The Decoder：AHM 抵制</a> · <a href="https://www.jiqizhixin.com/articles/2026-10-08-9" target="_blank" rel="noopener">机器之心</a></p>
+</article>
+<article class="item">
+<h3 class="item-title"><a href="https://x.com/sundarpichai/status/2108329198955958339" target="_blank" rel="noopener">AMIE 首次真实门诊前瞻研究登上《柳叶刀》</a><span class="tag">研究</span></h3>
+<p class="detail">Google 与 BIDMC 在真实急诊/门诊中评估研究型医疗对话系统 AMIE（患者就诊前与它聊天）。100 次患者交互中没有触发任何安全叫停，90% 的病例与医生诊断一致。这是首个面向患者的对话式诊断前瞻性研究。</p>
+<p class="why">💡 医疗 AI 从模拟考走向真实临床</p>
+<p class="source">Google Research / Sundar Pichai（X）· 10/9 06:50</p>
+<p class="related">🔗 另见：<a href="https://x.com/GoogleResearch/status/2108326125676192100" target="_blank" rel="noopener">另见</a></p>
+</article>
+<article class="item">
+<h3 class="item-title"><a href="https://arxiv.org/abs/2610.08791" target="_blank" rel="noopener">世界模型物理大考：最高只有 57.76 分</a><span class="tag">评测</span></h3>
+<p class="detail">Einsia 发布 World Models&#x27; Last Exam in Physics：用 40 个受控任务、9 类物理规律测 8 个 SOTA 视频世界模型，最高分 57.76/100。通过一致性筛查的自由落体视频，平均综合分也只有 26.61。MiniMax 称其开源 H3 在此榜接近闭源 SOTA（声称）。</p>
+<p class="why">💡 「看起来真」不等于「符合物理」</p>
+<p class="source">arXiv 2610.08791 · 10/8 22:30</p>
+<p class="related">🔗 另见：<a href="https://github.com/Einsia/phys-last-exam" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.jiqizhixin.com/articles/2026-10-08-6" target="_blank" rel="noopener">机器之心</a></p>
+</article></section>
+<section class="section"><h2>💼 行业 · 投融资 · 政策</h2><article class="item">
+<h3 class="item-title"><a href="https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html" target="_blank" rel="noopener">OpenAI 年化收入约 500 亿美元，低于传闻</a><span class="tag">市场</span></h3>
+<p class="detail">据 FT 首发、CNBC 证实（据报道），OpenAI 向投资人披露 9 月底年化收入约 500 亿美元，低于上月广泛流传的 680 亿美元。知情人士称 680 亿含合作伙伴的总收入。消息传出后，Nvidia、Oracle、CoreWeave 等 AI 股下跌。</p>
+<p class="why">💡 AI 估值叙事第一次被收入口径「打折」</p>
+<p class="source">CNBC（FT 首发）· 10/9 00:52</p>
+<p class="related">🔗 另见：<a href="https://news.ycombinator.com/item?id=50008187" target="_blank" rel="noopener">HN 349 分</a></p>
+</article>
+<article class="item">
+<h3 class="item-title"><a href="https://www.anthropic.com/news/anthropic-cyber-mission" target="_blank" rel="noopener">Anthropic 启动 Cyber Mission</a><span class="tag">政策</span></h3>
+<p class="detail">包含两项新举措：一是关键基础设施防御计划（CIDP），为电网、水务、交通等 OT 防御方提供前沿模型、驻场工程师和威胁研究，首批合作方包括 CrowdStrike（据 Axios）；二是 OSS Scanner，用最强模型免费为开源项目定期扫描漏洞。Project Glasswing 已并入扩大后的网安验证计划。</p>
+<p class="why">💡 前沿模型厂商把攻防能力主动投向防守方</p>
+<p class="source">Anthropic 官方 · 10/9 05:04</p>
+<p class="related">🔗 另见：<a href="https://www.theverge.com/ai-artificial-intelligence/1008521/anthropic-open-source-oss-scanner" target="_blank" rel="noopener">The Verge：OSS Scanner</a></p>
+</article>
+<article class="item">
+<h3 class="item-title"><a href="https://www.anthropic.com/news/2026-usage-policy-update" target="_blank" rel="noopener">Anthropic 新版使用政策：禁止虐待 Claude</a><span class="tag">政策</span></h3>
+<p class="detail">年度政策更新于 11/12 生效。整合了针对影响力行动的「欺骗性活动」专章；新增 Claude 自主执行物理动作时的管控，明确医疗、金融等高风险用途的要求；首次把「持续且无谓地虐待模型」列为违规，可能导致封号。</p>
+<p class="why">💡 Agent 进入物理世界，规则先行</p>
+<p class="source">Anthropic 官方 · 10/8</p>
+<p class="related">🔗 另见：<a href="https://the-decoder.com/being-mean-to-claude-can-now-get-your-account-suspended-under-anthropics-new-tos/" target="_blank" rel="noopener">The Decoder</a> · <a href="https://news.ycombinator.com/item?id=50008565" target="_blank" rel="noopener">HN 142 评论</a></p>
+</article></section>
+<section class="section"><h2>🇨🇳 国内动态</h2><p class="source">DeepSeek / Qwen / Kimi / GLM / MiniMax 本窗口无新模型发布（已查 X 官号与 HF 组织页）；阶跃 Step 5 限免、Meta 封禁字节广告（付费墙）等未收录。</p><article class="item">
+<h3 class="item-title"><a href="https://www.jiqizhixin.com/articles/2026-10-08-11" target="_blank" rel="noopener">生数 Vidu Q4 Preview：视频生成 0.09 元/秒起</a><span class="tag">模型发布</span></h3>
+<p class="detail">Vidu Q4 正式版的创作者预览版，重点提升人物表演、镜头调度和复杂特效。支持最多 15 张参考图、参考音色输入，以及 2K/4K 输出；首发价 0.09 元/秒起，官方称同样预算最多可生成 5 倍内容。</p>
+<p class="why">💡 国产视频模型继续打价格+可控性</p>
+<p class="source">机器之心（据报道）· 10/8 21:30</p>
+</article></section>
+<section class="section"><h2>💬 讨论热点</h2><article class="item">
+<h3 class="item-title"><a href="https://techcrunch.com/2026/10/08/fired-openai-safety-researchers-dispute-misconduct-claims-warn-of-chilling-effect/" target="_blank" rel="noopener">被解雇的 OpenAI 安全研究员发公开信</a></h3>
+<p class="detail">Jasmine Wang、Tomek Korbak、Mikita Balesni 否认违规处理敏感信息，警告这会形成寒蝉效应；同日 Bengio 表示，重视安全的人或许该离开前沿实验室。</p>
+<p class="related">🔗 另见：<a href="https://x.com/ShakeelHashim/status/2108294430046486806" target="_blank" rel="noopener">另见</a></p>
+</article>
+<article class="item">
+<h3 class="item-title"><a href="https://x.com/Techmeme/status/2108243700753313944" target="_blank" rel="noopener">特朗普：用「人工智能」一词的人是「敌人」</a></h3>
+<p class="detail">特朗普要求改称「超级智能」（Super Intelligence），HN 52 评论；Simon Willison 直言「太蠢了」。</p>
+<p class="related">🔗 另见：<a href="https://x.com/simonw/status/2108346075874734127" target="_blank" rel="noopener">另见</a></p>
+</article>
+<article class="item">
+<h3 class="item-title"><a href="https://news.ycombinator.com/item?id=50012043" target="_blank" rel="noopener">AI 数学进展引发密码学担忧</a></h3>
+<p class="detail">密码学家 Matthew Green 发帖「我们可能会失去公钥密码学」；以太坊研究者讨论钱包安全的「地堡模式」（HN 55/58 分）。</p>
+<p class="related">🔗 另见：<a href="https://the-decoder.com/ai-math-breakthroughs-have-ethereum-researchers-debating-how-fast-wallet-security-could-collapse/" target="_blank" rel="noopener">另见</a></p>
+</article></section>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>由本地日报流水线每日生成 · 图片可下载转发</span>
+      <a href="/daily/archive/">查看全部归档</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Secrets / local wrangler
+wrangler.toml
+.wrangler/
+.node-modules/
+node_modules/
+.DS_Store
+*.pyc
+__pycache__/
+
+# Optional: keep latest 1–2 days in git; ignore bulk history if you add more later
+# Uncomment if data/ grows large:
+# data/*.png
+# dist/daily/assets/*.png
+# dist/daily/export/*.zip

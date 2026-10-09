@@ -1,0 +1,302 @@
+{
+  "eyebrow": "DAILY AI BRIEFING",
+  "title": "AI 前沿日报",
+  "date": "2026-10-08 周四",
+  "tldr": [
+    {
+      "title": "价格战升级",
+      "text": "Claude Haiku 5.5 比前代便宜 90%，GPT-6 向免费用户全量开放，Nano Banana 2.1 也降价一半。"
+    },
+    {
+      "title": "西方开源反攻",
+      "text": "Mistral Large 4（1T）预览上线、Reflection Beam（501B）预告本月放权重；Google 同时开源 EmbeddingGemma 2。"
+    },
+    {
+      "title": "AI 批量做数学",
+      "text": "OpenAI 公开 719 篇 AI 数学手稿，声称攻克唯一游戏猜想等名题，数学界赞叹与抵制并存。"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "items": [
+        {
+          "title": "Claude Haiku 5.5：小模型价格打到一折",
+          "tag": "模型发布",
+          "detail": "Anthropic 新小模型，首个支持 effort 调节的 Haiku。≤10 万 token 请求定价 $0.10/$0.50（每百万 token），比 4.5 便宜 90%；OSWorld 2.1 达 72.4%（4.5 仅 15.7%）。Sonnet 5.5 缓存读取同步降价一半。",
+          "why": "做 subagent、电脑操作的性价比拐点",
+          "source": "Anthropic 官方 · 10/8 02:22",
+          "url": "https://www.anthropic.com/claude-haiku-5-5",
+          "related": [
+            "Simon Willison 实测",
+            "Latent Space 对比 GPT-6 Luna",
+            "量子位"
+          ],
+          "related_urls": [
+            "https://simonwillison.net/2026/Oct/7/claude-haiku-5-5/",
+            "https://www.latent.space/p/ainews-claude-haiku-55-better-than",
+            "https://www.qbitai.com/2026/10/501832.html"
+          ]
+        },
+        {
+          "title": "EmbeddingGemma 2：740M 全模态嵌入",
+          "tag": "开源",
+          "detail": "Google DeepMind 开源（Apache 2.0）端侧嵌入模型：740M 参数，把文本、代码、图像、音频、视频映射到同一向量空间；纯文本只需 270M，向量可从 768 维截到 128 维，存储最多省 6 倍。",
+          "why": "本地多模态 RAG / 搜索的现成底座",
+          "source": "Google DeepMind 博客 · 10/7",
+          "url": "https://deepmind.google/blog/embeddinggemma-2-an-open-lightweight-multimodal-embedding-model/",
+          "related": [
+            "Simon Willison 笔记",
+            "HN 422 分"
+          ],
+          "related_urls": [
+            "https://simonwillison.net/2026/Oct/6/hn-49983751/",
+            "https://news.ycombinator.com/item?id=49980487"
+          ]
+        },
+        {
+          "title": "Mistral Large 4「Le Chonk」预览",
+          "tag": "模型发布",
+          "detail": "1T 总参 / 52B 激活的原生多模态模型，在欧洲自建机房用 3,800 块 Grace Blackwell 从零训练；API 预览已开，权重月底开放。官方称 DeepSWE v1.1 达 61.7%，编码 Agent 综合分超 DeepSeek V4 Pro。",
+          "why": "欧美最强开源权重，主打不拒答的网安能力",
+          "source": "Mistral 官方 · 10/7 03:00",
+          "url": "https://mistral.ai/news/mistral-large-4/",
+          "related": [
+            "Artificial Analysis：美中以外最强",
+            "Simon Willison 笔记",
+            "HN 2012 分"
+          ],
+          "related_urls": [
+            "https://artificialanalysis.ai/articles/mistral-large-4-france-ai",
+            "https://simonwillison.net/2026/Oct/6/le-chonk/",
+            "https://news.ycombinator.com/item?id=49977979"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "items": [
+        {
+          "title": "OpenAI Codex「28 天连更」",
+          "tag": "工程",
+          "detail": "OpenAI 承诺 28 天每天给 Codex/Work 一项改进，否则重置用量。Day 2 四连发：Auto-review 免费、API 付费档 5 并 3（最高档门槛 $1000→$500）、Meetings 插件、Decisions API 公测；Codex+Work 活跃用户达 4000 万。",
+          "why": "让第二个 Agent 替你审批，解决长任务审批疲劳",
+          "source": "@thsottiaux · 10/7",
+          "url": "https://x.com/thsottiaux/status/2107575657014468879",
+          "related": [
+            "Decisions API 公告",
+            "机器之心解读",
+            "Simon Willison 插件"
+          ],
+          "related_urls": [
+            "https://x.com/OpenAIDevs/status/2107573382229188645",
+            "https://www.jiqizhixin.com/articles/2026-10-07-2",
+            "https://simonwillison.net/2026/Oct/6/llm-openai-decisions/"
+          ]
+        },
+        {
+          "title": "Strands Box：开源 Agent 沙箱",
+          "tag": "工程",
+          "detail": "AWS 开源的本地 Agent 沙箱（开发者预览），内核级隔离加 Dogwood 语义策略，能写「测试通过才允许 git push」「支付 API 每天限额 $100」这类规则。",
+          "why": "Agent 安全从「能不能调」细化到「何时能调」",
+          "source": "Strands 博客 · 10/7",
+          "url": "https://strandsagents.com/blog/strands-box-the-big-picture/"
+        },
+        {
+          "title": "Meta、Walmart、Stripe 推「个人 Agent 协议」",
+          "tag": "标准",
+          "detail": "Meta、Walmart、Stripe、Shopify、Sierra 等发布开放标准，让商家识别来访的是代表真人的 Agent 还是爬虫，并对其行为和支付信息获得可见性与控制。由 OpenAI 董事长 Bret Taylor 牵头，OpenAI 与 Anthropic 暂未加入。",
+          "why": "Meta Muse 爆火后，Agent 上网的「OAuth 时刻」",
+          "source": "CNBC · 10/7 02:15",
+          "url": "https://www.cnbc.com/2026/10/06/meta-joins-companies-to-tame-chaos-of-doing-business-with-ai-bots.html"
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "items": [
+        {
+          "title": "GPT-6 + Intelligent UI 全量上线",
+          "tag": "产品",
+          "detail": "ChatGPT 聊天页升级 GPT-6，并推出 Intelligent UI：回答里可直接出现图表、按钮、表单等交互组件。付费档由 GPT-6 Sol 驱动，Free/Go 档从 10/8 起用 GPT-6 Luna；Work 与 Codex 背后的模型不变。",
+          "why": "从「文字回答」走向「即时生成小应用」",
+          "source": "OpenAI 官方 · 10/8 02:05",
+          "url": "https://openai.com/index/gpt-6-for-everyone/",
+          "related": [
+            "官方 X 公告",
+            "量子位：拒答变少",
+            "机器之心"
+          ],
+          "related_urls": [
+            "https://x.com/OpenAI/status/2107895006350791071",
+            "https://www.qbitai.com/2026/10/501834.html",
+            "https://www.jiqizhixin.com/articles/2026-10-08-2"
+          ]
+        },
+        {
+          "title": "SynthID Detector 向所有人开放",
+          "tag": "产品",
+          "detail": "任何人都能检测图片、视频、音频里的 SynthID 水印，加滤镜等编辑后仍可识别；覆盖 Google 及 OpenAI、NVIDIA、Kakao 等合作方生成的内容，Apple 即将加入。",
+          "why": "AI 内容溯源开始跨厂商统一",
+          "source": "@GoogleDeepMind · 10/7 22:03",
+          "url": "https://x.com/GoogleDeepMind/status/2107834249680499136",
+          "related": [
+            "HN 114 分"
+          ],
+          "related_urls": [
+            "https://news.ycombinator.com/item?id=49993188"
+          ]
+        },
+        {
+          "title": "Nano Banana 2.1：做图更强、价格减半",
+          "tag": "产品",
+          "detail": "Google 新图像生成/编辑模型，基于 Gemini 3.6 Flash；文字渲染、跨轮角色一致性、信息图明显提升，最多支持 14 张参考图。价格约为 Nano Banana 2 的一半：1K 图 3.36 美分，4K 图 7.56 美分。",
+          "why": "信息图、设计稿的生成成本再降一半",
+          "source": "Google 模型卡 / The Decoder · 10/7",
+          "url": "https://deepmind.google/models/model-cards/nano-banana-2-1/",
+          "related": [
+            "The Decoder 定价对比"
+          ],
+          "related_urls": [
+            "https://the-decoder.com/googles-new-image-model-nano-banana-2-1-generates-better-images-for-less-money/"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "items": [
+        {
+          "title": "OpenAI 一次公开 719 篇 AI 数学手稿",
+          "tag": "研究",
+          "detail": "未发布的内部模型尝试约 4000 个开放问题，整理出 372 个成果族、719 篇手稿，部分附 Lean 形式化；声称包括准黎曼猜想（θ=7/8）、唯一游戏猜想等名题，平均每个结果约耗 3 小时 ChatGPT Pro 算力。",
+          "why": "Aaronson 称「数学史上最重大的日子之一」，AHM 则呼吁抵制",
+          "source": "OpenAI / GitHub openai/math · 10/7 06:30",
+          "url": "https://openai.com/index/sharing-ai-progress-in-mathematics",
+          "related": [
+            "GitHub 仓库",
+            "Scott Aaronson 博客",
+            "AHM 声明",
+            "Scientific American",
+            "机器之心"
+          ],
+          "related_urls": [
+            "https://github.com/openai/math",
+            "https://scottaaronson.blog/?p=10169",
+            "https://www.ahmath.org/statements",
+            "https://www.scientificamerican.com/article/openai-unleashes-hundreds-more-math-results-upon-a-field-already-in-shock/",
+            "https://www.jiqizhixin.com/articles/2026-10-07-4"
+          ]
+        },
+        {
+          "title": "开头一个词，就能「唤醒」基座模型推理",
+          "tag": "论文",
+          "detail": "Efros、Sewon Min 等人发现：固定回答开头的「Okay」类线索词，能让 Olmo-3-7B 的 MATH-500 从 42% 升到 78%，接近 RL 版本；RL 主要是在提高这类线索出现的概率。改动训练数据甚至能把「chicken」变成推理开关。",
+          "why": "RL 到底教会了什么？答案可能在预训练数据里",
+          "source": "arXiv 2610.06851 · 10/6",
+          "url": "https://arxiv.org/abs/2610.06851"
+        },
+        {
+          "title": "Lean 通过 ≠ 证明正确",
+          "tag": "论文",
+          "detail": "剑桥与伦敦国王学院作者指出：AI 把证明译成 Lean 并编译通过，不等于原文证明正确。以 OpenAI 早前的 Navier-Stokes 证明为例，Lean 版需要 m+5 阶导数，原文写的是 m+4，结论更弱。",
+          "why": "读 AI 数学成果时，别把「Lean 通过」当成「证明正确」",
+          "source": "arXiv 2610.08144 · 10/6 18:58",
+          "url": "https://arxiv.org/abs/2610.08144"
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "items": [
+        {
+          "title": "Anthropic 扩大网安验证计划",
+          "tag": "政策",
+          "detail": "Anthropic 把 Project Glasswing 并入网安验证计划，分三档向经审核的安全团队开放 Opus 5.5、Mythos 5.1 等模型并放宽拦截。官方称合作方 4–7 月发现至少 12.9 万个已验证漏洞，超 3.3 万个为高危或严重。",
+          "why": "与 Mistral「不拒答」路线形成对照：分级放开",
+          "source": "Anthropic 官方 · 10/7 03:35",
+          "url": "https://www.anthropic.com/news/cyber-verification-program",
+          "related": [
+            "Reuters"
+          ],
+          "related_urls": [
+            "https://www.reuters.com/legal/litigation/anthropic-opens-its-most-powerful-ai-models-more-security-teams-2026-10-06/"
+          ]
+        },
+        {
+          "title": "犹他州试点：AI 无需医生监督直接开药",
+          "tag": "政策",
+          "detail": "犹他州允许 Nolla Health 的 AI 独立诊断轻中度痤疮，并从 8 种获批药物中开处方，为期一年。前 100 张处方需医生预审，之后改为每周回溯复核，最终阶段医生每月抽查至少 10%。",
+          "why": "美国首个由 AI 替代医生开处方的州级试点",
+          "source": "TechSpot / Bloomberg · 10/7",
+          "url": "https://www.techspot.com/news/114111-utah-become-first-state-ai-examine-patients-prescribe.html",
+          "related": [
+            "HN 138 分"
+          ],
+          "related_urls": [
+            "https://news.ycombinator.com/item?id=49981197"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🇨🇳 国内动态",
+      "note": "DeepSeek / Qwen / Kimi / GLM / MiniMax 本期无新模型发布（已查 X 官号与 HF 组织页）；壁仞增发、中国算力报告等只有付费墙标题或旧数据，未收录。",
+      "items": [
+        {
+          "title": "Qwen 提出 TRACE：FP4 强化学习提速 5.4 倍",
+          "tag": "论文",
+          "detail": "Qwen 团队的 FP4 强化学习框架：用 rollout 端的量化结果指导训练端 FP4 取整，缩小训推差异。在 4 个大规模 MoE 上实现 FP4 权重、激活与 KV cache 的 rollout，效果接近 BF16，rollout 最高提速 5.4 倍。",
+          "why": "RL 成本大头在 rollout，FP4 是下一个降本杠杆",
+          "source": "arXiv 2610.07767 · HF 87 赞",
+          "url": "https://huggingface.co/papers/2610.07767"
+        },
+        {
+          "title": "Manus 完成超 5 亿美元融资",
+          "tag": "融资",
+          "detail": "Manus 母公司蝴蝶效应宣布完成超 5 亿美元融资，博裕资本、IDG 领投，腾讯、HSG、真格跟投；这是监管叫停 Meta 20 亿美元收购后的首轮融资。此前 Bloomberg 报道称估值将翻倍至 40 亿美元。",
+          "why": "收购被叫停后独立运营，资本仍看好 Agent",
+          "source": "CNBC · 10/8 14:32",
+          "url": "https://www.cnbc.com/2026/10/08/manus-fund-raise-meta-muse-tencent.html"
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "Reflection Beam：「美国版 DeepSeek」之争",
+          "detail": "Reflection 发布 501B/23B 激活的开源模型，目前只开放候补名单，权重本月放出；自报编码能力对标 GLM 5.2。X 主帖 8.5k 赞，不少人指出成绩均为自报。",
+          "url": "https://reflection.ai/beam",
+          "related_urls": [
+            "https://x.com/reflection_ai/status/2107186849370247235",
+            "https://www.latent.space/p/ainews-reflection-beam-501b-a23b"
+          ]
+        },
+        {
+          "title": "GitHub 热榜被 Agent Skills 刷屏",
+          "detail": "morluto/rea（用 Agent 逆向工程任意软件）单日 +4,655 星；mattpocock/skills、addyosmani/agent-skills、cloudflare/security-audit-skill 同时上榜，「技能包」成编码 Agent 新分发形态。",
+          "url": "https://github.com/morluto/rea",
+          "related_urls": [
+            "https://github.com/trending?since=daily",
+            "https://github.com/mattpocock/skills",
+            "https://github.com/addyosmani/agent-skills",
+            "https://github.com/cloudflare/security-audit-skill"
+          ]
+        },
+        {
+          "title": "「决策模型」成新品类",
+          "detail": "不生成文本、只在选项里挑答案并给可信度分：Liquid AI 开源 d1-3B（Jetson AGX Thor 上 16ms 出结果），Strands 发布 Decider 2B（HN 278 分）。",
+          "url": "https://huggingface.co/blog/LiquidAI/open-d1",
+          "related_urls": [
+            "https://strandsagents.com/blog/introducing-strands-decider/",
+            "https://news.ycombinator.com/item?id=49987076"
+          ]
+        }
+      ]
+    }
+  ],
+  "brand": "AI 前沿日报"
+}

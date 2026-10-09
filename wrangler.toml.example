@@ -1,0 +1,10 @@
+# 复制为 wrangler.toml 后按需修改（不要把 Token 写进文件）
+# 部署：npx wrangler pages deploy dist --project-name=nanafox-daily
+#
+# 认证用环境变量：
+#   CLOUDFLARE_API_TOKEN
+#   CLOUDFLARE_ACCOUNT_ID
+
+name = "nanafox-daily"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-10-01"
