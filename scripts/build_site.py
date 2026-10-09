@@ -10,12 +10,15 @@ from __future__ import annotations
 
 import argparse
 import html
+import hashlib
 import json
 import os
 import re
 import shutil
 import zipfile
+from datetime import date
 from pathlib import Path
+from urllib.parse import urlparse
 
 REPO = Path(__file__).resolve().parents[1]  # repo root
 SITE = REPO / "site"
@@ -59,6 +62,7 @@ def load_digests(digest_dir: Path) -> list[dict]:
         if not m:
             continue
         day = m.group(1)
+        date.fromisoformat(day)
         png = digest_dir / f"{day}.png"
         if not png.is_file():
             print(f"skip {path.name}: missing {png.name}")
@@ -91,20 +95,29 @@ def tldr_html(data: dict) -> str:
     return f'<section class="tldr"><h2>{heading}</h2><ol>{"".join(lis)}</ol></section>'
 
 
+def safe_url(value: object) -> str:
+    if isinstance(value, str):
+        parsed = urlparse(value)
+        if parsed.scheme in ("http", "https") and parsed.netloc:
+            return value
+    return ""
+
+
 def item_li(item: dict) -> str:
     """Readable article summary with original and related sources."""
     title = esc(item.get("title") or "无标题")
-    url = item.get("url") or ""
+    url = safe_url(item.get("url"))
     tag = item.get("tag")
     related = item.get("related") or []
-    related_urls = item.get("related_urls") or []
+    related_urls = [safe_url(value) for value in (item.get("related_urls") or [])]
 
     if url:
         title_html = f'<a class="link-title" href="{esc(url)}" target="_blank" rel="noopener">{title}</a>'
     else:
         title_html = f'<span class="link-title">{title}</span>'
     tag_html = f'<span class="tag">{esc(tag)}</span>' if tag else ""
-    detail_html = f'<p class="item-detail">{esc(item["detail"])}</p>' if item.get("detail") else ""
+    detail = item.get("detail") or item.get("summary")
+    detail_html = f'<p class="item-detail">{esc(detail)}</p>' if detail else ""
     why_html = f'<p class="item-why"><strong>关注点：</strong>{esc(item["why"])}</p>' if item.get("why") else ""
     source_html = f'<p class="item-source">来源：{esc(item["source"])}</p>' if item.get("source") else ""
 
@@ -147,7 +160,7 @@ def sections_html(data: dict) -> str:
     return "\n".join(chunks)
 
 
-def layout(*, title: str, active: str, body: str, base: str, canonical_path: str | None = None) -> str:
+def layout(*, title: str, active: str, body: str, base: str, canonical_path: str | None = None, reader: dict | None = None, reader_assets: dict | None = None) -> str:
     latest_href = f"{base}/" if base else "/"
     archive_href = join_base(base, "archive") + "/"
     css_href = join_base(base, "css", "style.css")
@@ -167,7 +180,7 @@ def layout(*, title: str, active: str, body: str, base: str, canonical_path: str
         f'<meta property="og:url" content="{esc(canonical_url)}" />'
         if canonical_url else ""
     )
-    return f"""<!DOCTYPE html>
+    page = f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
@@ -202,6 +215,32 @@ def layout(*, title: str, active: str, body: str, base: str, canonical_path: str
 </body>
 </html>
 """
+
+    if reader is not None and reader_assets:
+        # JSON remains original data. Escape HTML script delimiters without changing it.
+        payload = json.dumps(reader, ensure_ascii=False).replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
+        css = "".join(f'<link rel="stylesheet" href="{esc(join_base(base, "reader", path))}" />' for path in reader_assets.get("css", []))
+        script = esc(join_base(base, "reader", reader_assets["file"]))
+        page = page.replace("</head>", css + "\n</head>")
+        page = page.replace("<body>", '<body><div id="daily-reader">')
+        page = page.replace("</body>", f'</div><script id="daily-data" type="application/json">{payload}</script><script type="module" src="{script}"></script></body>')
+    return page
+
+
+def load_reader_assets() -> dict:
+    bundle = SITE / "reader"
+    meta = json.loads((bundle / "build-meta.json").read_text(encoding="utf-8"))
+    for name, expected in meta["sources"].items():
+        actual = hashlib.sha256((REPO / name).read_bytes()).hexdigest()
+        if actual != expected:
+            raise ValueError("Reader source changed: run npm --prefix web run build before building the site")
+    manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
+    entry = manifest["src/main.jsx"]
+    for name in [entry["file"], *entry.get("css", [])]:
+        if not (bundle / name).is_file():
+            raise ValueError(f"Missing reader asset: {name}; rebuild web")
+    return entry
+
 
 
 def day_nav_html(
@@ -335,6 +374,18 @@ def build(
 ) -> list[str]:
     base = normalize_base(base)
     digests = load_digests(digest_dir)
+    # Validate bundled UI before replacing output; daily publishing needs Python only.
+    reader_assets = load_reader_assets()
+    history = []
+    for data in digests:
+        first = (data.get("tldr") or [""])[0]
+        summary = str(first.get("title") or first.get("text") or "") if isinstance(first, dict) else str(first)
+        history.append({"day": data["_day"], "title": data.get("title") or SITE_TITLE,
+                        "url": join_base(base, data["_day"]) + "/", "summary": summary,
+                        "count": sum(len(section.get("items") or []) for section in (data.get("sections") or []))})
+    def bootstrap(data=None, view="reader"):
+        raw = json.loads(data["_json_path"].read_text(encoding="utf-8")) if data else None
+        return {"base": base, "view": view, "day": data["_day"] if data else None, "data": raw, "issues": history}
 
     if dist.exists():
         shutil.rmtree(dist)
@@ -342,6 +393,9 @@ def build(
 
     site_root = dist / base.lstrip("/") if base else dist
     site_root.mkdir(parents=True, exist_ok=True)
+
+    shutil.copytree(SITE / "reader", site_root / "reader")
+    write(site_root / "issues.json", json.dumps({"issues": history}, ensure_ascii=False, indent=2) + "\n")
 
     css_src = SITE / "css" / "style.css"
     css_dst = site_root / "css" / "style.css"
@@ -366,8 +420,13 @@ def build(
 
         zpath = export_dir / f"{day}.zip"
         with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-            zf.write(data["_png_path"], arcname=f"{day}.png")
-            zf.write(data["_json_path"], arcname=f"{day}.json")
+            # Worktree checkout times must not change otherwise identical packs.
+            issue_date = date.fromisoformat(day)
+            for suffix, source in [("png", data["_png_path"]), ("json", data["_json_path"])]:
+                info = zipfile.ZipInfo(f"{day}.{suffix}", (issue_date.year, issue_date.month, issue_date.day, 0, 0, 0))
+                info.compress_type = zipfile.ZIP_DEFLATED
+                info.external_attr = 0o644 << 16
+                zf.writestr(info, source.read_bytes())
 
         # prev = older (next in newest-first list), next = newer (previous index)
         older = digests[i + 1]["_day"] if i + 1 < len(digests) else None
@@ -388,6 +447,7 @@ def build(
             body=body,
             base=base,
             canonical_path=join_base(base, day) + "/",
+            reader=bootstrap(data), reader_assets=reader_assets,
         )
         write(site_root / day / "index.html", page)
         built.append(day)
@@ -408,6 +468,7 @@ def build(
                 body=home_body,
                 base=base,
                 canonical_path=join_base(base),
+                reader=bootstrap(data), reader_assets=reader_assets,
             )
             write(site_root / "index.html", home)
             summaries = [
@@ -428,7 +489,7 @@ def build(
             title=f"{SITE_TITLE} · 暂无内容",
             active="latest",
             body='<div class="empty">还没有日报。生成 YYYY-MM-DD.json 与 .png 后再构建。</div>',
-            base=base,
+            base=base, reader=bootstrap(), reader_assets=reader_assets,
         )
         write(site_root / "index.html", empty)
 
@@ -438,6 +499,7 @@ def build(
         body=archive_body(digests, base=base),
         base=base,
         canonical_path=join_base(base, "archive") + "/",
+        reader=bootstrap(view="archive"), reader_assets=reader_assets,
     )
     write(site_root / "archive" / "index.html", arch)
 
@@ -459,9 +521,11 @@ def build(
 
     (site_root / "_headers").write_text(
         "/*\n  X-Content-Type-Options: nosniff\n"
-        "/assets/*\n  Cache-Control: public, max-age=86400\n"
-        + (f"{base}/assets/*\n  Cache-Control: public, max-age=86400\n" if base else "")
-        + f"{join_base(base, 'latest.json')}\n  Cache-Control: public, max-age=60, must-revalidate\n",
+        "/assets/*\n  Cache-Control: public, max-age=0, must-revalidate\n"
+        + (f"{base}/assets/*\n  Cache-Control: public, max-age=0, must-revalidate\n" if base else "")
+        + f"{join_base(base, 'reader', 'assets')}/*\n  Cache-Control: public, max-age=31536000, immutable\n"
+        + f"{join_base(base, 'latest.json')}\n  Cache-Control: public, max-age=60, must-revalidate\n"
+        + f"{join_base(base, 'issues.json')}\n  Cache-Control: public, max-age=0, must-revalidate\n",
         encoding="utf-8",
     )
 

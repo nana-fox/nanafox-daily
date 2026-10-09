@@ -11,7 +11,9 @@ data/                 日报源文件 YYYY-MM-DD.{json,png}（构建输入）
 scripts/
   build_site.py       生成静态站（支持 BASE_PATH）
   export_pack.py      单日 ZIP 导出
-site/css/style.css    样式
+web/                  React 阅读界面与 HTML/CSS 图片导出源码、测试和依赖锁
+site/reader/          已编译的阅读界面（每日 Python 构建直接复用）
+site/css/style.css    无 JavaScript 时的静态阅读样式
 dist/                 构建输出（可直接 wrangler pages deploy）
   index.html          → 跳转到 /daily/
   daily/              站点本体（BASE_PATH=/daily）
@@ -40,9 +42,37 @@ python3 -m http.server 8080 --directory dist
 | `dist/daily/index.html` | 最新一期 |
 | `dist/daily/archive/` | 归档 |
 | `dist/daily/latest.json` | 最新日期与三条摘要，供后续集成使用 |
+| `dist/daily/issues.json` | 全部公开期数，日期倒序 |
+| `dist/daily/reader/` | 带内容哈希的阅读界面资源 |
 | `dist/daily/YYYY-MM-DD/` | 历史日页 |
 | `dist/daily/assets/*` | PNG / JSON |
 | `dist/daily/export/*.zip` | 图+JSON 打包 |
+
+## 修改网站与导出模板
+
+日常更新只需要 Python。仓库已提交 `site/reader/` 编译产物，Bot 不需要安装 Node，也不需要重新编译前端。
+
+修改 `web/` 源码或依赖时，维护者先执行（Node.js 20.19+ 或 22.12+）：
+
+```bash
+npm --prefix web ci
+npm --prefix web test
+npm --prefix web run build
+python3 -m unittest discover -s tests -v
+python3 scripts/build_site.py
+```
+
+提交 `web/`、`site/reader/` 与重新生成的 `dist/`。构建器在清空输出目录之前校验源码与编译产物是否匹配；发现过期产物会停止并提示重新编译。使用 sparse checkout 时须包含 `web/`、`site/`、`scripts/`、`data/` 和 `dist/`。
+
+阅读页左侧按月份选择历史，手机端使用历史抽屉；最新页、日期页和归档均由真实数据生成。第一版导出绑定当前阅读的一期，无需重新选择日期：
+
+- 主图：当天全部要点，标题与摘要分层，1080 像素宽，高度随实际内容变化；不限制三条。
+- 长图：Bot 原版页头与分类卡片，完整保留要点、正文、看点和来源，1080 像素宽。
+- 一键下载两张 PNG，ZIP 文件按 `01-主图.png`、`02-长图.png` 排序。
+
+网页直接用当前 JSON 生成两张图片，不依赖 Bot PNG 的像素裁剪。长图沿用原版 HTML/CSS，主图复用相同页头与要点卡片，并放大要点字号。原始脚本在 `reference/bot-template/`，Web 模板在 `web/src/bot-template.js` 与 `bot-template.css`。中文字体随站点自托管，导出时只嵌入当前内容需要的字集。
+
+第一版不提供渠道分页、模板选择和自定义字段。公开 JSON、原始 Bot PNG 和原有 ZIP 路径保留。公众号与小红书平台上传、生产发布和定时任务实跑另行验收。
 
 ## GitHub 自动发布（当前生产方式）
 
@@ -56,7 +86,7 @@ git commit -m "Publish daily briefing"
 git push origin main
 ```
 
-Pages 直接发布 `dist/`，提交前必须重新构建。构建会重建整个输出目录，`data/` 中应保留所有需要公开的历史期数，并保持同名 JSON/PNG 成对。Grok 的采集、筛选与长图生成流程继续负责写入 `data/`。
+Pages 直接发布 `dist/`，提交前必须重新构建。构建会重建整个输出目录，`data/` 中应保留所有需要公开的历史期数，并保持同名 JSON/PNG 成对。Grok 的采集、筛选与长图生成流程继续负责写入 `data/`。每日写入前同步最新 main；只提交每日 `data/` 和完整 `dist/`。推送冲突先同步再重建，禁止强推或用 Bot 外部旧模板覆盖仓库源码。
 
 网页正文按「今日要点 → 分类摘要 → 一图总览」呈现；长图默认折叠。首页、归档和日期页使用 NanaFox 品牌导航并提供返回官网入口。
 

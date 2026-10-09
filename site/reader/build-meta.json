@@ -1,0 +1,16 @@
+{
+  "sources": {
+    "web/package-lock.json": "1489eb79e48276c89993625bf8f267b091c8a630ed95294db2269a27f95da1fb",
+    "web/package.json": "ecfc558e413885570205088ed955f6cdf72b211b0e65c50ae64719327337f984",
+    "web/scripts/build-meta.mjs": "3ba2cffec97e2d99126655643eb2f18c7f1c356b80e0070440a63256f0127160",
+    "web/src/App.jsx": "d5580be6aeaf7cb6e4ee258593b2c318efa5d71b322bcd7c6e74722a93847dbe",
+    "web/src/bot-template.css": "d8c1b1d2aad668ba3a4a16e64a8d289d8cd4b93ad384d5a31d16541a2f8ca28a",
+    "web/src/bot-template.js": "a52a2d38de00816ebf51aa6c89507fcde7c365a5b9e5be1cd6954990b9c2b14f",
+    "web/src/data.js": "c49ba0a8d5eb6de94ce358b88f2af8be7459699cd996701e82eff63b84b8d855",
+    "web/src/export-fonts.js": "067d29470efda829882c29b856e09c61ecab452ec7c923b78af2eea8a80f3283",
+    "web/src/export.js": "4e25a4060e0cc8b500b76d14dfbfa548d258cbb50e8c658dd18b51179a2d5deb",
+    "web/src/main.jsx": "a56ff1175c7e8f62423aa2a07d0dbb66e15bd664969adbff785e09afda387a5c",
+    "web/src/styles.css": "6b2e1dffb48db7b9154dd5bf41cea5e1bf5172206f55c242a4e4e44db2eb6a00",
+    "web/vite.config.mjs": "e29eda5e39256d4e03f594f6fe570478fc3f13cf2974f00a00428e131a4c3427"
+  }
+}

@@ -1,0 +1,89 @@
+/* Ported from Grok Bot render.py; source preserved in reference/bot-template. */
+.bot-export * { box-sizing: border-box; margin: 0; padding: 0; }
+.bot-export { background: #eef1f7; }
+.bot-export { width: 1080px; font-family: "Noto Sans SC Variable", "Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+       color: #0f172a; -webkit-font-smoothing: antialiased; }
+.bot-export .card { margin: 0; background: #f6f7fb; }
+.bot-export .header { position: relative; overflow: hidden; padding: 64px 64px 86px;
+  background: radial-gradient(circle at 85% 10%, rgba(139,92,246,.55), transparent 45%),
+              radial-gradient(circle at 10% 100%, rgba(14,165,233,.45), transparent 50%),
+              linear-gradient(135deg, #0b1023 0%, #1e1b4b 60%, #312e81 100%); color: #fff; }
+.bot-export .header .eyebrow { font-size: 22px; letter-spacing: 6px; color: #a5b4fc; font-weight: 700; }
+.bot-export .header h1 { font-size: 76px; font-weight: 900; letter-spacing: 4px; margin-top: 10px; line-height: 1.1; }
+.bot-export .header .meta { display: flex; gap: 14px; margin-top: 26px; align-items: center; flex-wrap: wrap; }
+.bot-export .pill { font-size: 24px; padding: 8px 20px; border-radius: 999px; background: rgba(255,255,255,.12);
+        border: 1px solid rgba(255,255,255,.22); color: #e0e7ff; }
+.bot-export .pill.date { background: #fff; color: #1e1b4b; font-weight: 800; border: none; }
+.bot-export .grid-deco { position: absolute; right: -40px; top: -40px; width: 360px; height: 360px; opacity: .18;
+  background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
+  background-size: 36px 36px; transform: rotate(12deg); border-radius: 40px; }
+.bot-export .body { padding: 44px 48px 28px; }
+.bot-export .section { margin-bottom: 40px; }
+.bot-export .section:last-child { margin-bottom: 14px; }
+.bot-export .section h2 { font-size: 36px; font-weight: 900; display: flex; align-items: center; gap: 14px; margin: 0 8px 22px; }
+.bot-export .section h2 .bar { width: 8px; height: 34px; border-radius: 4px; }
+.bot-export .section h2 .count { margin-left: auto; font-size: 20px; color: #94a3b8; font-weight: 500; }
+.bot-export .item { position: relative; display: flex; gap: 22px; align-items: flex-start; background: #fff; border-radius: 22px;
+  padding: 26px 30px 24px 26px; margin-bottom: 18px; box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 6px 20px rgba(15,23,42,.06); }
+.bot-export .idx { flex: none; width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  font-size: 23px; font-weight: 900; color: #fff; font-family: "Noto Sans SC Variable", "Noto Sans", "DejaVu Sans", sans-serif; margin-top: 2px; }
+.bot-export .content { flex: 1; min-width: 0; }
+.bot-export .row1 { display: flex; align-items: flex-start; gap: 14px; }
+.bot-export .title { font-size: 31px; font-weight: 800; line-height: 1.35; flex: 1; min-width: 0; color: #0f172a; }
+.bot-export .tag { flex: none; font-size: 19px; font-weight: 700; padding: 5px 13px; border-radius: 10px; margin-top: 4px; }
+.bot-export .summary { font-size: 24px; color: #475569; line-height: 1.5; margin-top: 8px;
+           white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bot-export .detail { font-size: 25px; color: #334155; line-height: 1.68; margin-top: 10px; }
+.bot-export .why { display: flex; gap: 10px; align-items: baseline; margin-top: 14px; padding: 10px 16px; border-radius: 12px;
+       font-size: 23px; line-height: 1.55; font-weight: 600; }
+.bot-export .why .label { flex: none; font-weight: 800; }
+.bot-export .source { display: inline-block; margin-top: 14px; font-size: 19px; color: #64748b; background: #f1f5f9;
+          padding: 4px 12px; border-radius: 8px; font-family: "Noto Sans SC Variable", "Noto Sans", "Noto Sans CJK SC", sans-serif; }
+.bot-export .source.inline { margin: 0; padding: 2px 10px; font-size: 18px; vertical-align: 2px; white-space: nowrap; }
+.bot-export .bullets { background: #fff; border-radius: 22px; padding: 10px 30px;
+  box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 6px 20px rgba(15,23,42,.06); }
+.bot-export .bullet { display: flex; gap: 16px; align-items: flex-start; padding: 18px 0; border-bottom: 1px dashed #e2e8f0; }
+.bot-export .bullet:last-child { border-bottom: none; }
+.bot-export .bullet .dot { flex: none; width: 12px; height: 12px; border-radius: 50%; margin-top: 15px; }
+.bot-export .bullet .txt { font-size: 24px; line-height: 1.65; color: #475569; }
+.bot-export .bullet .bt { font-size: 26px; font-weight: 800; color: #0f172a; margin-right: 10px; }
+.bot-export .tldr { margin: -30px 48px 0; position: relative; background: #fff; border-radius: 24px; padding: 26px 32px 18px;
+  box-shadow: 0 10px 30px rgba(30,27,75,.16); border-top: 6px solid #6366f1; }
+.bot-export .tldr .th { font-size: 30px; font-weight: 900; color: #1e1b4b; margin-bottom: 8px; }
+.bot-export .tldr .tl { display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; }
+.bot-export .tldr .tn { flex: none; width: 34px; height: 34px; border-radius: 50%; background: #eef2ff; color: #4f46e5; font-weight: 900;
+  font-size: 19px; display: flex; align-items: center; justify-content: center; margin-top: 3px; font-family: "Noto Sans SC Variable", sans-serif; }
+.bot-export .tldr .tt { font-size: 25px; line-height: 1.6; color: #334155; }
+.bot-export .tldr .tt b { color: #0f172a; font-weight: 800; }
+.bot-export .sec-note { margin: -10px 8px 18px; font-size: 22px; line-height: 1.6; color: #64748b; padding: 10px 16px; border-radius: 12px;
+  background: #fff; border: 1px dashed #cbd5e1; }
+.bot-export .related { margin-top: 12px; font-size: 20px; line-height: 1.6; color: #64748b; }
+.bot-export .related .rl { font-weight: 700; color: #94a3b8; margin-right: 6px; }
+.bot-export .footer { padding: 6px 56px 40px; display: flex; justify-content: space-between; gap: 24px; white-space: nowrap; color: #94a3b8; font-size: 20px; }
+
+.bot-export { line-height:normal; width:1080px; text-align:left; overflow-wrap:anywhere; }
+.bot-export .card { width:1080px; }
+.bot-export .summary { white-space:normal; overflow:visible; text-overflow:clip; }
+.bot-export .source.inline { white-space:normal; }
+.bot-export .footer { white-space:normal; align-items:center; }
+.bot-export .footer span:last-child { text-align:right; }
+.bot-export .signature { font-size:20px; color:#c7d2fe; }
+
+.bot-export .bullet .source { display:block; width:fit-content; }
+.bot-export.card { background:#f6f7fb; }
+/* Isolate the Bot template from the website's inherited styles. */
+.bot-export .related { display:block; }
+.bot-export .related .rl { white-space:nowrap; }
+.bot-export .section h2 .bar,.bot-export .section h2 .count { flex-shrink:0; }
+.bot-export .tldr { border:0; border-top:6px solid #6366f1; }
+.bot-export .footer { border:0; background:transparent; }
+.bot-export .section h2 { letter-spacing:normal; }
+/* The main image uses the same header and highlight card, with larger readable type. */
+.bot-export.digest-main .tldr { padding:32px 36px 14px; }
+.bot-export.digest-main .th { font-size:30px; margin-bottom:4px; }
+.bot-export.digest-main .tl { gap:20px; padding:24px 0; border-bottom:1px solid #e8edf5; }
+.bot-export.digest-main .tl:last-child { border-bottom:0; }
+.bot-export.digest-main .tn { width:44px; height:44px; font-size:24px; margin-top:4px; }
+.bot-export.digest-main .tt { flex:1; min-width:0; font-size:32px; line-height:1.65; color:#475569; }
+.bot-export.digest-main .tt b { display:block; font-size:38px; line-height:1.4; margin-bottom:8px; }
+.bot-export.digest-main .footer { padding-top:32px; }

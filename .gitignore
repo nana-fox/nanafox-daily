@@ -12,3 +12,6 @@ __pycache__/
 # data/*.png
 # dist/daily/assets/*.png
 # dist/daily/export/*.zip
+
+# Local visual comparison and downloaded verification artifacts
+qa/
