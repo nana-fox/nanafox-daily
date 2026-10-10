@@ -1,14 +1,20 @@
 // HTML port of Grok Bot's render.py. No image pixels or pre-generated PNG input.
 export const SECTION_ACCENTS = ['#f97316','#10b981','#3b82f6','#8b5cf6','#0ea5e9','#ef4444','#ec4899'];
 const TAG_COLORS = {'模型发布':['#ede9fe','#6d28d9'],'产品':['#dbeafe','#1d4ed8'],'研究':['#dcfce7','#15803d'],'论文':['#d1fae5','#047857'],'文章':['#fef3c7','#b45309'],'观点':['#ffe4e6','#be123c'],'工程':['#e0f2fe','#0369a1'],'开源':['#fce7f3','#be185d'],'融资':['#f1f5f9','#334155'],'Agent':['#d1fae5','#047857'],'政策':['#fee2e2','#b91c1c'],'市场':['#e0e7ff','#4338ca'],'标准':['#ccfbf1','#0f766e'],'芯片':['#fef9c3','#a16207']};
-export const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+// Exported pictures contain readable news and source names, never visible web addresses.
+// The original JSON and links in the reader are untouched.
+export const exportText = value => String(value ?? '')
+  .replace(/https?:\/\/[^\s<>"'，。；！？）】]+/giu, '')
+  .replace(/\b(?:www\.)?(?:[a-z0-9-]+\.)+(?:com|org|net|io|ai|cn|dev|app|edu|gov|co)(?:\/[^\s<>"'，。；！？）】]*)?(?![a-z0-9-])/giu, '')
+  .replace(/[ \t]{2,}/g, ' ').trim();
+export const esc = value => exportText(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 export const accentFor = (section, index) => /^#[\da-f]{6}$/i.test(section.accent || '') ? section.accent : SECTION_ACCENTS[index % 7];
 const tint = hex => `rgba(${[1,3,5].map(start => parseInt(hex.slice(start,start+2),16)).join(',')},0.09)`;
 export function itemHTML(item, number, accent, settings, continued = false, bullets = false) {
   const [bg,fg] = TAG_COLORS[item.tag] || ['#f1f5f9','#475569'];
   const tag = item.tag ? `<span class="tag" style="background:${bg};color:${fg}">${esc(item.tag)}</span>` : '';
   const source = settings.sources && item.source ? `<span class="source inline">${esc(item.source)}</span>` : '';
-  const related = settings.sources && item.related?.length ? `<div class="related"><span class="rl">🔗 另见</span>${item.related.map(esc).join(' · ')}</div>` : '';
+  const related = settings.sources && item.related?.length ? `<div class="related"><span class="rl">另见</span>${item.related.map(esc).join(' · ')}</div>` : '';
   const summary = item.summary && item.summary !== item.detail ? `<div class="summary">${esc(item.summary)}</div>` : '';
   const detail = item.detail ? `<div class="detail">${esc(item.detail)} ${source}</div>` : source;
   const why = item.why ? `<div class="why" style="background:${tint(accent)};color:#1e293b"><span class="label" style="color:${accent}">💡 看点</span><span>${esc(item.why)}</span></div>` : '';
@@ -30,9 +36,9 @@ export function longHTML(issue,settings) {
   return `${headerHTML(issue,settings)}${highlightsHTML(issue)}<div class="body">${issue.data.sections.map((section,index) => {
     const color=accentFor(section,index);
     return `<div class="section">${sectionHeadHTML({...section,color})}${section.style==='bullets' ? '<div class="bullets">'+section.items.map((item,i)=>itemHTML(item,i+1,color,settings,false,true).replace(/^<div class="bullets">|<\/div>$/g,'')).join('')+'</div>' : section.items.map((item,i)=>itemHTML(item,i+1,color,settings)).join('')}</div>`;
-  }).join('')}</div><div class="footer"><span>原文链接见日报网站</span><span>${esc(settings.signature || issue.data.brand)}</span></div>`;
+  }).join('')}</div><div class="footer"><span>每日 AI 动态</span><span>${esc(settings.signature || issue.data.brand)}</span></div>`;
 }
 
 export function mainHTML(issue, settings) {
-  return `${headerHTML(issue, settings)}${highlightsHTML(issue).replaceAll('</b>　', '</b>') || '<div class="tldr"><div class="th">今日要点</div><div class="tt">今日暂无要点</div></div>'}<div class="footer"><span>每日 AI 动态 · nanafox.com/daily</span><span>${esc(settings.signature || issue.data.brand)}</span></div>`;
+  return `${headerHTML(issue, settings)}${highlightsHTML(issue).replaceAll('</b>　', '</b>') || '<div class="tldr"><div class="th">今日要点</div><div class="tt">今日暂无要点</div></div>'}<div class="footer"><span>每日 AI 动态</span><span>${esc(settings.signature || issue.data.brand)}</span></div>`;
 }

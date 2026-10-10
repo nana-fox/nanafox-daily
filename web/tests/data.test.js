@@ -43,3 +43,24 @@ test('main image retains every highlight while the long image retains all storie
   assert.equal(JSON.stringify(raw),snapshot);
   assert.ok(mainHTML({...issue,data:{...issue.data,tldr:[]}},settings).includes('今日暂无要点'));
 });
+
+
+test('export omits visible addresses while keeping dates, stories, source names and original JSON', () => {
+  const raw = { title:'AI 日报', date:'2026-10-10 周六',
+    tldr:[{title:'今日要点',text:'重要事实 https://example.com/story 继续正文'}],
+    sections:[{heading:'新闻',items:[{title:'独立标题',detail:'完整正文 www.example.org/report 后续事实',why:'完整看点',source:'官方机构 https://example.com',related:['相关机构 example.cn/reference'],url:'https://example.com/story'}]}] };
+  const original = JSON.stringify(raw);
+  const issue = {day:'2026-10-10',data:normalizeDigest(raw)};
+  const settings = {signature:'NanaFox',sources:true};
+  const main = mainHTML(issue,settings), long = longHTML(issue,settings);
+  for (const html of [main,long]) {
+    assert.ok(html.includes(raw.date));
+    assert.ok(html.includes('重要事实'));
+    assert.ok(html.includes('继续正文'));
+    assert.ok(!/https?:|www\.|example\.|nanafox\.com|原文链接/.test(html));
+    assert.ok(!/<a\b|href=/.test(html));
+  }
+  for (const text of ['独立标题','完整正文','后续事实','完整看点','官方机构','相关机构']) assert.ok(long.includes(text));
+  assert.equal(JSON.stringify(raw),original);
+  assert.equal(issue.data.sections[0].items[0].url,raw.sections[0].items[0].url);
+});

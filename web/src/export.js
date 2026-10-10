@@ -17,7 +17,7 @@ export async function renderPages(issue, signal) {
   const check = () => { if (signal?.aborted) throw new DOMException('Canceled', 'AbortError'); };
   try {
     const settings = { title: issue.data.title, signature: 'NanaFox', sources: true };
-    const fontEmbedCSS = await exportFonts(JSON.stringify(issue.data) + '今日要点 今日暂无要点 每日 AI 动态 原文链接见日报网站 看点 另见 NanaFox nanafox.com/daily 0123456789');
+    const fontEmbedCSS = await exportFonts(JSON.stringify(issue.data) + '今日要点 今日暂无要点 每日 AI 动态 看点 另见 NanaFox 0123456789');
     check();
     const specs = [
       { label: '主图', html: mainHTML(issue, settings), className: 'digest-main' },
