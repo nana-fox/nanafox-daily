@@ -1,6 +1,13 @@
 {
   "issues": [
     {
+      "day": "2026-10-11",
+      "title": "AI 前沿日报",
+      "url": "/daily/2026-10-11/",
+      "summary": "SemiAnalysis 拆解 Nvidia 10-Q：供应/产能承诺约 2790 亿美元；OpenAI 相关园区担保上限约 1050 亿美元",
+      "count": 15
+    },
+    {
       "day": "2026-10-10",
       "title": "AI 前沿日报",
       "url": "/daily/2026-10-10/",

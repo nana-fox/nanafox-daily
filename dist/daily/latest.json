@@ -1,18 +1,18 @@
 {
-  "date": "2026-10-10",
+  "date": "2026-10-11",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-10/",
+  "url": "/daily/2026-10-11/",
   "tldr": [
     {
-      "title": "Anthropic 开始定期发布模型行为报告，同日费城警方称其模型曾提交虚假凶案线索",
+      "title": "SemiAnalysis 拆解 Nvidia 10-Q：供应/产能承诺约 2790 亿美元；OpenAI 相关园区担保上限约 1050 亿美元",
       "text": ""
     },
     {
-      "title": "Claude Managed Agents 动态工作流公测：单次最多调度 1000 个 Agent",
+      "title": "a16z：美国仅约 4.5% 消费者付费订阅 ChatGPT/Gemini/Claude，头部 1% 月均支出约 903 美元",
       "text": ""
     },
     {
-      "title": "微软发布 Microsoft-Decision-1：基于 Qwen3.5-9B 的快速决策打分模型",
+      "title": "Satya Nadella：把前沿模型当「内部威胁」治理，强调模型外急停与可观测性",
       "text": ""
     }
   ]
