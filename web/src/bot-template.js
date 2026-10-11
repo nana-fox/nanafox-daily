@@ -5,7 +5,7 @@ const TAG_COLORS = {'模型发布':['#ede9fe','#6d28d9'],'产品':['#dbeafe','#1
 // The original JSON and links in the reader are untouched.
 export const exportText = value => String(value ?? '')
   .replace(/https?:\/\/[^\s<>"'，。；！？）】]+/giu, '')
-  .replace(/\b(?:www\.)?(?:[a-z0-9-]+\.)+(?:com|org|net|io|ai|cn|dev|app|edu|gov|co)(?:\/[^\s<>"'，。；！？）】]*)?(?![a-z0-9-])/giu, '')
+  .replace(/\b(?:www\.)?(?:[a-z0-9-]+\.)+(?:[a-z]{2,63})(?:\/[^\s<>"'，。；！？）】]*)?(?![a-z0-9-])/giu, '')
   .replace(/[ \t]{2,}/g, ' ').trim();
 export const esc = value => exportText(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 export const accentFor = (section, index) => /^#[\da-f]{6}$/i.test(section.accent || '') ? section.accent : SECTION_ACCENTS[index % 7];
