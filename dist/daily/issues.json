@@ -1,6 +1,13 @@
 {
   "issues": [
     {
+      "day": "2026-10-12",
+      "title": "AI 前沿日报",
+      "url": "/daily/2026-10-12/",
+      "summary": "Decision 3.0 开源：d3（26B）Jev Index 自报 64.7，Apache-2.0",
+      "count": 12
+    },
+    {
       "day": "2026-10-11",
       "title": "AI 前沿日报",
       "url": "/daily/2026-10-11/",
