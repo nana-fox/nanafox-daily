@@ -1,18 +1,18 @@
 {
-  "date": "2026-10-12",
+  "date": "2026-10-13",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-12/",
+  "url": "/daily/2026-10-13/",
   "tldr": [
     {
-      "title": "Decision 3.0 开源：d3（26B）Jev Index 自报 64.7，Apache-2.0",
+      "title": "Meta 发布 Muse Wonder 系列：AA 智能指数 52/56，Full 版逼近 Opus 5.5",
       "text": ""
     },
     {
-      "title": "Vals：多 Agent 写网页贵 1.8–5.1×，仅 Sol 中档团队显著 +7.3 分",
+      "title": "微软 Maia 300：2027 起多吉瓦部署，成自家产品主力推理芯片",
       "text": ""
     },
     {
-      "title": "Karpathy：能力认知呈漏斗——约 0.2% 已见编码 Agent 竖直跃迁",
+      "title": "DeepMind AlphaProof Nexus 登 Science：解 9 道 Erdős 题、44 个 OEIS 猜想",
       "text": ""
     }
   ]
