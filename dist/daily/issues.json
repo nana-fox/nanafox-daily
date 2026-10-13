@@ -1,6 +1,13 @@
 {
   "issues": [
     {
+      "day": "2026-10-14",
+      "title": "AI 前沿日报",
+      "url": "/daily/2026-10-14/",
+      "summary": "谷歌发布新旗舰 Gemini 4 Argon，第三方评测追平 GPT-6 Astra 且更便宜，前沿模型又多一个好选择。",
+      "count": 13
+    },
+    {
       "day": "2026-10-13",
       "title": "AI 前沿日报",
       "url": "/daily/2026-10-13/",

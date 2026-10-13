@@ -1,18 +1,18 @@
 {
-  "date": "2026-10-13",
+  "date": "2026-10-14",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-13/",
+  "url": "/daily/2026-10-14/",
   "tldr": [
     {
-      "title": "Meta 发布 Muse Wonder 系列：AA 智能指数 52/56，Full 版逼近 Opus 5.5",
+      "title": "谷歌发布新旗舰 Gemini 4 Argon，第三方评测追平 GPT-6 Astra 且更便宜，前沿模型又多一个好选择。",
       "text": ""
     },
     {
-      "title": "微软 Maia 300：2027 起多吉瓦部署，成自家产品主力推理芯片",
+      "title": "AI 写代码太多，Anthropic 干脆弃用 Git 自研工具；另一边，AI 帮人 6 天就攻破了 Chrome。",
       "text": ""
     },
     {
-      "title": "DeepMind AlphaProof Nexus 登 Science：解 9 道 Erdős 题、44 个 OEIS 猜想",
+      "title": "OpenAI 揪出装窃听器的员工，Character.AI 申请破产，AI 公司的安全与合规压力都在变大。",
       "text": ""
     }
   ]
