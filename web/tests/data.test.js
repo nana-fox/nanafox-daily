@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { normalizeDigest, safeUrl } from '../src/data.js';
-import { itemHTML, accentFor, mainHTML, longHTML } from '../src/bot-template.js';
+import { itemHTML, accentFor, mainHTML, longHTML, exportText } from '../src/bot-template.js';
 
 test('legacy and incomplete fields remain readable without modifying original JSON', () => {
   const raw = { tldr: ['旧摘要', null], sections: [{ items: [{ summary: '旧正文', url: 'javascript:alert(1)', related_urls: ['https://example.com', 'data:text/html,bad'] }] }, {}] };
@@ -63,4 +63,22 @@ test('export omits visible addresses while keeping dates, stories, source names 
   for (const text of ['独立标题','完整正文','后续事实','完整看点','官方机构','相关机构']) assert.ok(long.includes(text));
   assert.equal(JSON.stringify(raw),original);
   assert.equal(issue.data.sections[0].items[0].url,raw.sections[0].items[0].url);
+});
+
+
+test('company names survive in highlights, titles, body and sources while addresses do not', () => {
+  const raw = { title:'AI 日报', date:'2026-10-14 周三', tldr:['Character.AI 申请破产'],
+    sections:[{heading:'行业', items:[{title:'Character.AI 申请破产',detail:'公司 Character.AI 继续运营',source:'Character.AI 官方',url:'https://character.ai/'}]}] };
+  const snapshot = JSON.stringify(raw);
+  const issue = {day:'2026-10-14', data:normalizeDigest(raw)};
+  const settings = {signature:'NanaFox',sources:true};
+  assert.ok(mainHTML(issue,settings).includes('Character.AI 申请破产'));
+  const long = longHTML(issue,settings);
+  for (const text of ['Character.AI 申请破产','公司 Character.AI 继续运营','Character.AI 官方']) assert.ok(long.includes(text));
+  assert.ok(!/<a\b|href=/.test(long));
+  assert.equal(JSON.stringify(raw),snapshot);
+  for (const address of ['https://Character.AI','www.Character.AI','Character.AI/path','Character.AI?ref=1','Character.AI#about','Character.AI:443','blog.Character.AI','character.ai']) {
+    assert.equal(exportText(`前文 ${address} 后文`),'前文 后文',address);
+  }
+  assert.equal(exportText('联系 editor@Character.AI'),'联系 editor@');
 });

@@ -1,11 +1,14 @@
 // HTML port of Grok Bot's render.py. No image pixels or pre-generated PNG input.
 export const SECTION_ACCENTS = ['#f97316','#10b981','#3b82f6','#8b5cf6','#0ea5e9','#ef4444','#ec4899'];
 const TAG_COLORS = {'模型发布':['#ede9fe','#6d28d9'],'产品':['#dbeafe','#1d4ed8'],'研究':['#dcfce7','#15803d'],'论文':['#d1fae5','#047857'],'文章':['#fef3c7','#b45309'],'观点':['#ffe4e6','#be123c'],'工程':['#e0f2fe','#0369a1'],'开源':['#fce7f3','#be185d'],'融资':['#f1f5f9','#334155'],'Agent':['#d1fae5','#047857'],'政策':['#fee2e2','#b91c1c'],'市场':['#e0e7ff','#4338ca'],'标准':['#ccfbf1','#0f766e'],'芯片':['#fef9c3','#a16207']};
-// Exported pictures contain readable news and source names, never visible web addresses.
-// The original JSON and links in the reader are untouched.
+// Domain-shaped company names are plain text, not navigation addresses.
+// Keep this explicit registry shared by image export and WeChat caption validation.
+export const COMPANY_NAMES = ['Character.AI'];
+const isCompanyName = (match, offset, text) => COMPANY_NAMES.includes(match) && text[offset - 1] !== '@';
 export const exportText = value => String(value ?? '')
   .replace(/https?:\/\/[^\s<>"'，。；！？）】]+/giu, '')
-  .replace(/\b(?:www\.)?(?:[a-z0-9-]+\.)+(?:[a-z]{2,63})(?:\/[^\s<>"'，。；！？）】]*)?(?![a-z0-9-])/giu, '')
+  .replace(/\b(?:www\.)?(?:[a-z0-9-]+\.)+(?:[a-z]{2,63})(?::\d+)?(?:[/?#][^\s<>"'，。；！？）】]*)?(?![a-z0-9-])/giu,
+    (match, offset, text) => isCompanyName(match, offset, text) ? match : '')
   .replace(/[ \t]{2,}/g, ' ').trim();
 export const esc = value => exportText(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 export const accentFor = (section, index) => /^#[\da-f]{6}$/i.test(section.accent || '') ? section.accent : SECTION_ACCENTS[index % 7];
