@@ -1,18 +1,18 @@
 {
-  "date": "2026-10-15",
+  "date": "2026-10-16",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-15/",
+  "url": "/daily/2026-10-16/",
   "tldr": [
     {
-      "title": "据《金融时报》，Anthropic 三季度收入约 168 亿美元并已按调整口径盈利，头部 AI 公司开始真正赚钱、离上市更近。",
+      "title": "Meta 开源权重模型 Muse Spark Open，自称美系开源最强，还能在两台苹果 Mac Studio 上本地跑编程 Agent。",
       "text": ""
     },
     {
-      "title": "美国 8 个州同时起诉 OpenAI，指 ChatGPT 对孩子不安全，AI 聊天产品的未成年人保护开始被追责。",
+      "title": "ChatGPT 语音换上 GPT-Live-1.1，全量用户可用；Chrome 插件还能直接看你打开的标签页并帮你填表、对比。",
       "text": ""
     },
     {
-      "title": "据《财经》，DeepSeek 新一轮融资翻倍到约 1000 亿元，若完成将是今年国内一级市场最大的一笔。",
+      "title": "Anthropic 让安全评测机构 METR 以近似员工权限进驻；同时 FTC 发调查令，投资者据报道把 IPO 估值预期从约 2 万亿下调到 1.5 万亿。",
       "text": ""
     }
   ]

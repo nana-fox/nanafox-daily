@@ -1,6 +1,13 @@
 {
   "issues": [
     {
+      "day": "2026-10-16",
+      "title": "AI 前沿日报",
+      "url": "/daily/2026-10-16/",
+      "summary": "Meta 开源权重模型 Muse Spark Open，自称美系开源最强，还能在两台苹果 Mac Studio 上本地跑编程 Agent。",
+      "count": 11
+    },
+    {
       "day": "2026-10-15",
       "title": "AI 前沿日报",
       "url": "/daily/2026-10-15/",
