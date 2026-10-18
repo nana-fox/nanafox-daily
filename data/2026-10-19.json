@@ -1,0 +1,94 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "DAILY AI BRIEFING",
+  "date": "2026-10-19 周一",
+  "tldr": [
+    "Anthropic 拿出 5% 股份成立公益基金，公司越值钱投入越多，想回应“AI 红利谁来分”。",
+    "破产中的 AI 陪伴应用 Character.AI，多数员工将被迪士尼整体接收。",
+    "“推代码前先考你看懂没”的开源小工具冲上 HN 首页：AI 写的代码越多，人越得看懂。"
+  ],
+  "sections": [
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#10b981",
+      "items": [
+        {
+          "title": "Sphinx：推代码前先考你看懂没",
+          "tag": "开源",
+          "detail": "开源小工具 Sphinx 挂在 Git 推送这一步：AI 写的代码要上线前，它先读改动，出题问你“出错时会怎样”，答对才放行，答错会讲清原因。支持 Codex、Claude Code、Cursor 等，你的回答不会传给编程 Agent。HN 首页约 240 分。",
+          "why": "AI 写得越多，越要防“代码能跑但没人懂”",
+          "source": "Show HN",
+          "url": "https://sphinx-six-theta.vercel.app/",
+          "related": ["HN 讨论"],
+          "related_urls": ["https://news.ycombinator.com/item?id=50137950"]
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "accent": "#0ea5e9",
+      "items": [
+        {
+          "title": "Anthropic 拿出 5% 股份做公益基金",
+          "tag": "市场",
+          "detail": "Anthropic 宣布成立全资的“公共利益基金”，先投入 5% 股份（需股东批准），公司越值钱、可追加的比例越高。钱可以大额捐给非营利组织，也可以直接发给特定人群，官方举例的方向是 AI 对就业的冲击；基金不得用于游说和政治捐款，治理细节几个月内公布。",
+          "why": "AI 公司开始正面回应“红利谁来分”，看后续怎么花",
+          "source": "Anthropic 官方",
+          "url": "https://www.anthropic.com/news/public-benefit-fund",
+          "related": ["X 1 万赞", "TechCrunch", "Jack Clark", "HN 讨论"],
+          "related_urls": [
+            "https://x.com/AnthropicAI/status/2111881963657412903",
+            "https://techcrunch.com/2026/10/18/anthropic-says-its-committing-5-of-its-shares-to-a-public-benefit-fund/",
+            "https://x.com/jackclarkSF/status/2111918212946309445",
+            "https://news.ycombinator.com/item?id=50143755"
+          ]
+        },
+        {
+          "title": "更新：迪士尼接收 Character.AI 多数员工",
+          "tag": "市场",
+          "detail": "据报道，破产中的聊天陪伴应用 Character.AI 在法庭文件中披露：迪士尼将向它的多数员工发 offer，年薪合计约 6000 万美元，绝大多数人已接受。这只是“保底报价”（先定一个收购方，别家还能出更高价），仍需破产法官批准。",
+          "why": "明星 AI 陪伴公司收场，团队被内容巨头打包带走",
+          "source": "Bloomberg（据 TechCrunch）",
+          "url": "https://techcrunch.com/2026/10/18/disney-agrees-to-hire-the-majority-of-character-ais-workforce/",
+          "related": ["Techmeme"],
+          "related_urls": ["https://www.techmeme.com/261017/p21#a261017p21"]
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "AI 让数学进黄金时代还是黑暗时代？",
+          "summary": "陶哲轩博客刊出数学家 Francesco Maggi 的客座长文：AI 证明能力是真的，但若新知识集中在少数人手里、人类越来越看不懂，就是“黑暗时代”。HN 约 160 条评论。",
+          "url": "https://terrytao.wordpress.com/2026/10/18/will-it-be-a-golden-age-or-a-dark-age-for-mathematics-and-science/",
+          "related": ["HN 讨论"],
+          "related_urls": ["https://news.ycombinator.com/item?id=50141681"]
+        },
+        {
+          "title": "AI 代办涌入，服务该变好还是变差？",
+          "summary": "沃顿商学院教授 Mollick 发帖说，政府和企业正被 AI Agent 发来的大量请求淹没，要选是把服务做差来挡，还是借机做好；The Verge 也报道不少网站开始封堵 AI Agent。",
+          "url": "https://x.com/emollick/status/2111595040913100837",
+          "related": ["The Verge", "HN 讨论"],
+          "related_urls": [
+            "https://www.theverge.com/ai-artificial-intelligence/1013195/ai-agents-blocked-web",
+            "https://news.ycombinator.com/item?id=50141657"
+          ]
+        },
+        {
+          "title": "AI 基建降温信号增多",
+          "summary": "据 Techmeme 汇总：微软退出英国 Nscale 数据中心的主租户协议，Nscale 约 300 亿美元的上市估值遭投资人压价；《纽约时报》称 CoreWeave 债券收益率已超 15%。",
+          "url": "https://www.techmeme.com/261018/p4#a261018p4",
+          "related": ["Bloomberg", "纽约时报"],
+          "related_urls": [
+            "https://www.techmeme.com/261018/p12#a261018p12",
+            "https://www.techmeme.com/261018/p5#a261018p5"
+          ]
+        }
+      ]
+    }
+  ],
+  "brand": ""
+}
