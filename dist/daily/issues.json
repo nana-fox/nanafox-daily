@@ -1,6 +1,13 @@
 {
   "issues": [
     {
+      "day": "2026-10-21",
+      "title": "AI 前沿日报",
+      "url": "/daily/2026-10-21/",
+      "summary": "DeepSeek 把自家线上服务用的推理引擎 DeepInfer 整套开源，X 上 3 万多赞、HN 两千多分，自己部署 DeepSeek 模型会更便宜。",
+      "count": 21
+    },
+    {
       "day": "2026-10-20",
       "title": "AI 前沿日报",
       "url": "/daily/2026-10-20/",
