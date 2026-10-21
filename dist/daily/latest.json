@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-21",
+  "date": "2026-10-22",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-21/",
+  "url": "/daily/2026-10-22/",
   "tldr": [
     {
-      "title": "DeepSeek 把自家线上服务用的推理引擎 DeepInfer 整套开源，X 上 3 万多赞、HN 两千多分，自己部署 DeepSeek 模型会更便宜。",
-      "text": ""
+      "title": "Claude 也有了主动型助理",
+      "text": "Anthropic 推出 Claude Duet，每天早上主动给你汇报、替你跑腿办事，官方帖 3 万多赞，个人 Agent 之争又多一家。"
     },
     {
-      "title": "据《华尔街日报》看到的上市文件，Anthropic 上半年收入 163 亿美元，但因会计处理账面亏损 807 亿美元，AI 公司的烧钱规模第一次被摊开。",
-      "text": ""
+      "title": "AI 挖出 PHP 大漏洞",
+      "text": "OpenAI 和 Wiz 用 AI 找到两个能远程接管服务器的 PHP 漏洞，约七成网站受影响，所有 PHP 站点要马上升级。"
     },
     {
-      "title": "OpenAI 一天连发多项更新：ChatGPT 能给聊天上锁，API 缓存延长到 12 小时，还收购了药物研发平台 Orchestra Bio。",
-      "text": ""
+      "title": "OpenAI 模型上谷歌云",
+      "text": "GPT-6 系列进驻 Google Cloud，谷歌云成了唯一能同时用上 OpenAI、Anthropic、Gemini 三家模型的大云厂商。"
     }
   ]
 }
