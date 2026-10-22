@@ -1,6 +1,13 @@
 {
   "issues": [
     {
+      "day": "2026-10-23",
+      "title": "AI 前沿日报",
+      "url": "/daily/2026-10-23/",
+      "summary": "Claude 默认自动放行",
+      "count": 18
+    },
+    {
       "day": "2026-10-22",
       "title": "AI 前沿日报",
       "url": "/daily/2026-10-22/",

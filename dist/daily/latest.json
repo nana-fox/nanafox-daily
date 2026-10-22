@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-22",
+  "date": "2026-10-23",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-22/",
+  "url": "/daily/2026-10-23/",
   "tldr": [
     {
-      "title": "Claude 也有了主动型助理",
-      "text": "Anthropic 推出 Claude Duet，每天早上主动给你汇报、替你跑腿办事，官方帖 3 万多赞，个人 Agent 之争又多一家。"
+      "title": "Claude 默认自动放行",
+      "text": "下周起 Claude 网页/桌面/手机在 Pro、Max、Team 上默认用自动模式：不用每步点同意，由安全检查拦危险操作；官方帖约 9500 赞。"
     },
     {
-      "title": "AI 挖出 PHP 大漏洞",
-      "text": "OpenAI 和 Wiz 用 AI 找到两个能远程接管服务器的 PHP 漏洞，约七成网站受影响，所有 PHP 站点要马上升级。"
+      "title": "Agent Skills 捐给基金会",
+      "text": "Anthropic 把 Agent Skills 开放标准捐给 Linux 基金会旗下 AAIF（和当年 MCP 同一家），已有 70 多家平台接入，含 ChatGPT、Cursor、Copilot。"
     },
     {
-      "title": "OpenAI 模型上谷歌云",
-      "text": "GPT-6 系列进驻 Google Cloud，谷歌云成了唯一能同时用上 OpenAI、Anthropic、Gemini 三家模型的大云厂商。"
+      "title": "银行开始挡 AI 代登录",
+      "text": "摩根士丹利、摩根大通等美国大行限制外部 AI Agent 用客户账号登录；同天 1Password 推出不把密码交给 Agent 的代登录方案。"
     }
   ]
 }
