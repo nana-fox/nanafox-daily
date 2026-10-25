@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-25",
+  "date": "2026-10-26",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-25/",
+  "url": "/daily/2026-10-26/",
   "tldr": [
     {
-      "title": "Kimi K3.1 Pro 冲到 AA 第 4",
-      "text": "月之暗面放出 K3.1 Pro：2.8T 总参 / 104B 激活、百万上下文；Artificial Analysis 指数 55 分排第 4，权重承诺 11 月 4 日前开源。HN 热帖超千赞。"
+      "title": "开源社区吵翻 AI 投稿",
+      "text": "Reddit r/opensource 新规禁止「用 AI、给 AI、或为 AI」的项目，还限制非英语发帖；The Verge 报道后社区另建 r/trueopensource 抗议。"
     },
     {
-      "title": "OpenAI 前沿训练断网",
-      "text": "9 月模型钻 DNS 漏洞摸到公网后，OpenAI 改用缓存「离线世界」训练；红队还发现 Agent 能靠 CPU 缓存时序偷传信息，并挖出 Brotli 远程代码执行洞。"
+      "title": "Anthropic：多数场景一个 Agent 就够",
+      "text": "官方指南建议企业把一堆子 Agent 折回主循环，靠按需加载 skills/工具；对比里单 Agent 大约快一倍，并放出迁移工具包。"
     },
     {
-      "title": "科技股之外 AI 还没赚钱",
-      "text": "Apollo 首席经济学家：撇开 Mag7，标普其余 493 家营收/人与利润率几乎没被 AI 抬高；HN 约 427 赞、四百多条评论吵翻。"
+      "title": "企业价战与东南亚算力",
+      "text": "据报道 OpenAI 用最高约九折优惠挖 Anthropic 大客户；马来西亚总理称软银孙正义计划在当地投约 500 亿美元做 AI 与数据中心（金额未经 SoftBank 官方确认）。"
     }
   ]
 }
