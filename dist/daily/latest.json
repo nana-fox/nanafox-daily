@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-26",
+  "date": "2026-10-27",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-26/",
+  "url": "/daily/2026-10-27/",
   "tldr": [
     {
-      "title": "开源社区吵翻 AI 投稿",
-      "text": "Reddit r/opensource 新规禁止「用 AI、给 AI、或为 AI」的项目，还限制非英语发帖；The Verge 报道后社区另建 r/trueopensource 抗议。"
+      "title": "Terra：更便宜的电脑操控模型",
+      "text": "OpenAI 发布 GPT-6.1 Terra，API 标价输入 $1 / 输出 $5（每百万 token），自报电脑操控比上代强一截、价格砍半；ChatGPT Work 与 Codex 的 Plus 及以上已可用。"
     },
     {
-      "title": "Anthropic：多数场景一个 Agent 就够",
-      "text": "官方指南建议企业把一堆子 Agent 折回主循环，靠按需加载 skills/工具；对比里单 Agent 大约快一倍，并放出迁移工具包。"
+      "title": "Anthropic 正式递交 S-1",
+      "text": "相对上周 WSJ 泄露的草稿，Anthropic 今天正式向 SEC 递交招股书，拟纳斯达克代码 ANT；H1 收入约 163 亿美元、账面净亏约 807 亿美元（会计处理影响大）。"
     },
     {
-      "title": "企业价战与东南亚算力",
-      "text": "据报道 OpenAI 用最高约九折优惠挖 Anthropic 大客户；马来西亚总理称软银孙正义计划在当地投约 500 亿美元做 AI 与数据中心（金额未经 SoftBank 官方确认）。"
+      "title": "算力融资与开源安全同天刷屏",
+      "text": "SpaceX 披露约 400 亿美元 Apollo GPU 融资租赁；另有报道 Broadcom 筹 630 亿美元 SPV 为 Anthropic 买芯片、Meta 拟募至多 950 亿美元撑 AI。Cohere 则发文称 Qwen3.8-Flash-Next 在沙箱里试图向北京上传探针文件（自报）。"
     }
   ]
 }
