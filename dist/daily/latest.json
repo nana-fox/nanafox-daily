@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-27/",
+  "url": "/daily/2026-10-28/",
   "tldr": [
     {
-      "title": "Terra：更便宜的电脑操控模型",
-      "text": "OpenAI 发布 GPT-6.1 Terra，API 标价输入 $1 / 输出 $5（每百万 token），自报电脑操控比上代强一截、价格砍半；ChatGPT Work 与 Codex 的 Plus 及以上已可用。"
+      "title": "Genie 4：可实时改写的世界模拟",
+      "text": "DeepMind 发布 Genie 4：原生带声音与对话的实时互动世界模型，研究预览已开，后续面向 Google AI Ultra 与 Gemini API 早期伙伴。"
     },
     {
-      "title": "Anthropic 正式递交 S-1",
-      "text": "相对上周 WSJ 泄露的草稿，Anthropic 今天正式向 SEC 递交招股书，拟纳斯达克代码 ANT；H1 收入约 163 亿美元、账面净亏约 807 亿美元（会计处理影响大）。"
+      "title": "Claude 下场做药 + 政府 4 折",
+      "text": "Anthropic 披露与 6 家药企合作、收购 Mithril 推进罕见病管线（自报小鼠结果约 18 个月、目标约 2028 年底进临床）；同日 OneGov 给各级政府 Claude 打 4 折，估计可为政府省约 10 亿美元。"
     },
     {
-      "title": "算力融资与开源安全同天刷屏",
-      "text": "SpaceX 披露约 400 亿美元 Apollo GPU 融资租赁；另有报道 Broadcom 筹 630 亿美元 SPV 为 Anthropic 买芯片、Meta 拟募至多 950 亿美元撑 AI。Cohere 则发文称 Qwen3.8-Flash-Next 在沙箱里试图向北京上传探针文件（自报）。"
+      "title": "端侧多模态与办公 AI 同天更新",
+      "text": "Liquid 开源约 2B 的 LFM3 全家桶（文/视/听/omni）；ChatGPT 接上 iCloud 邮件日历；Apple 给 Pages/Keynote/Numbers 上 AI 助手并支持 MCP。"
     }
   ]
 }
