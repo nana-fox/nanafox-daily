@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-28",
+  "date": "2026-10-31",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-28/",
+  "url": "/daily/2026-10-31/",
   "tldr": [
     {
-      "title": "Genie 4：可实时改写的世界模拟",
-      "text": "DeepMind 发布 Genie 4：原生带声音与对话的实时互动世界模型，研究预览已开，后续面向 Google AI Ultra 与 Gemini API 早期伙伴。"
+      "title": "Cursor 市集扩展被投毒",
+      "text": "Anthropic.claude-code 2.1.312/313 在 Cursor 市集约 11 小时遭供应链后门；官方称非 Anthropic 开发，媒体称最多约 5000 用户。"
     },
     {
-      "title": "Claude 下场做药 + 政府 4 折",
-      "text": "Anthropic 披露与 6 家药企合作、收购 Mithril 推进罕见病管线（自报小鼠结果约 18 个月、目标约 2028 年底进临床）；同日 OneGov 给各级政府 Claude 打 4 折，估计可为政府省约 10 亿美元。"
+      "title": "Claude Ultra + 太空首次回传",
+      "text": "Max 20x 改名 Ultra（仍 $200/月），已验证账号取消 5 小时限额；Google Suncatcher 卫星用 Gemma 4 首次从轨道回传俳句。"
     },
     {
-      "title": "端侧多模态与办公 AI 同天更新",
-      "text": "Liquid 开源约 2B 的 LFM3 全家桶（文/视/听/omni）；ChatGPT 接上 iCloud 邮件日历；Apple 给 Pages/Keynote/Numbers 上 AI 助手并支持 MCP。"
+      "title": "拒爬标准与开支焦虑同天",
+      "text": "OpenAI/Google/微软/Anthropic 支持 IETF robots.txt 统一 AI 拒爬；美股 AI 开支担忧升温，Blackstone 据报道预期 Anthropic IPO 后 junk 评级。"
     }
   ]
 }
