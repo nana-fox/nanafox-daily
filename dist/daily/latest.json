@@ -1,19 +1,19 @@
 {
-  "date": "2026-10-31",
+  "date": "2026-11-01",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-10-31/",
+  "url": "/daily/2026-11-01/",
   "tldr": [
     {
-      "title": "Cursor 市集扩展被投毒",
-      "text": "Anthropic.claude-code 2.1.312/313 在 Cursor 市集约 11 小时遭供应链后门；官方称非 Anthropic 开发，媒体称最多约 5000 用户。"
+      "title": "OpenAI 融资据报道缩水",
+      "text": "WSJ/FT 链：本轮已募约 110 亿美元，不及最初 300 亿目标；估值约 1.25 万亿，目标或下调至约 200 亿。"
     },
     {
-      "title": "Claude Ultra + 太空首次回传",
-      "text": "Max 20x 改名 Ultra（仍 $200/月），已验证账号取消 5 小时限额；Google Suncatcher 卫星用 Gemma 4 首次从轨道回传俳句。"
+      "title": "安全两边同时响",
+      "text": "Anthropic 放出自动化「涌现错位」红队；Parameter Labs 展示 ChatGPT 公开分享链可接管会话（已修，赏金 5000 美元）。"
     },
     {
-      "title": "拒爬标准与开支焦虑同天",
-      "text": "OpenAI/Google/微软/Anthropic 支持 IETF robots.txt 统一 AI 拒爬；美股 AI 开支担忧升温，Blackstone 据报道预期 Anthropic IPO 后 junk 评级。"
+      "title": "Agent 从游戏到木马",
+      "text": "GPT-5.6 Sol 和平通关 Factorio；Cisco Talos 披露 VOLTA 木马用 LLM 给受害者资产排优先级。"
     }
   ]
 }
