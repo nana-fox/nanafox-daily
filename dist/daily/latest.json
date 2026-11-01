@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-01",
+  "date": "2026-11-02",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-11-01/",
+  "url": "/daily/2026-11-02/",
   "tldr": [
     {
-      "title": "OpenAI 融资据报道缩水",
-      "text": "WSJ/FT 链：本轮已募约 110 亿美元，不及最初 300 亿目标；估值约 1.25 万亿，目标或下调至约 200 亿。"
+      "title": "周末最大热度：HackerTube",
+      "text": "Karpathy 嫌 YouTube 推荐「劣化」，指挥 Opus 5.5 约 2 小时做出只播 HN 评论推荐片的站点；6454 条视频，HN≈2195。"
     },
     {
-      "title": "安全两边同时响",
-      "text": "Anthropic 放出自动化「涌现错位」红队；Parameter Labs 展示 ChatGPT 公开分享链可接管会话（已修，赏金 5000 美元）。"
+      "title": "额度与围栏同时收紧",
+      "text": "OpenAI：12 月起 ChatGPT 与 Codex 共享 Plus/Pro/Business 额度并按 token 计；另限制同一卡/设备挂过多付费号。Anthropic：用户称触碰训练更大模型相关用法即被封。"
     },
     {
-      "title": "Agent 从游戏到木马",
-      "text": "GPT-5.6 Sol 和平通关 Factorio；Cisco Talos 披露 VOLTA 木马用 LLM 给受害者资产排优先级。"
+      "title": "算力政治进入选举周",
+      "text": "OpenAI 筹备中期选举后政策攻势，拟把数据中心改称「AI compute campuses」；SemiAnalysis：2028 扩建窗口两党收紧，德州许可冻结是最大风险。"
     }
   ]
 }
