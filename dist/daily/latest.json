@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-02",
+  "date": "2026-11-03",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-11-02/",
+  "url": "/daily/2026-11-03/",
   "tldr": [
     {
-      "title": "周末最大热度：HackerTube",
-      "text": "Karpathy 嫌 YouTube 推荐「劣化」，指挥 Opus 5.5 约 2 小时做出只播 HN 评论推荐片的站点；6454 条视频，HN≈2195。"
+      "title": "Anthropic 修订 S-1 成主热",
+      "text": "Q3 营收近 170 亿美元（约同比 12 倍），净亏约 233 亿，算力/机房承诺约 8954 亿；风险披露称或「即将」触达递归自我改进（RSI）。"
     },
     {
-      "title": "额度与围栏同时收紧",
-      "text": "OpenAI：12 月起 ChatGPT 与 Codex 共享 Plus/Pro/Business 额度并按 token 计；另限制同一卡/设备挂过多付费号。Anthropic：用户称触碰训练更大模型相关用法即被封。"
+      "title": "权重空间编程冲上 HN",
+      "text": "MIT 团队：GPT-6 Astra 直接读写神经网络权重；改 Qwen3.5-0.8B 约万分之一点六权重，MATH-500 从 7.9% 到 48.1%。"
     },
     {
-      "title": "算力政治进入选举周",
-      "text": "OpenAI 筹备中期选举后政策攻势，拟把数据中心改称「AI compute campuses」；SemiAnalysis：2028 扩建窗口两党收紧，德州许可冻结是最大风险。"
+      "title": "电网承诺与长对话 API 同日落地",
+      "text": "OpenAI 推 Grid Protectors（佐治亚最多约 1000 兆瓦柔性负荷）；Anthropic Messages API 公测 Message Threads，闲置约 5 分钟过期、计价不变。"
     }
   ]
 }

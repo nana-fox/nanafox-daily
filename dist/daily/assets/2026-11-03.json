@@ -1,0 +1,238 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "DAILY AI BRIEFING",
+  "date": "2026-11-03",
+  "brand": "",
+  "tldr": [
+    {
+      "title": "Anthropic 修订 S-1 成主热",
+      "text": "Q3 营收近 170 亿美元（约同比 12 倍），净亏约 233 亿，算力/机房承诺约 8954 亿；风险披露称或「即将」触达递归自我改进（RSI）。"
+    },
+    {
+      "title": "权重空间编程冲上 HN",
+      "text": "MIT 团队：GPT-6 Astra 直接读写神经网络权重；改 Qwen3.5-0.8B 约万分之一点六权重，MATH-500 从 7.9% 到 48.1%。"
+    },
+    {
+      "title": "电网承诺与长对话 API 同日落地",
+      "text": "OpenAI 推 Grid Protectors（佐治亚最多约 1000 兆瓦柔性负荷）；Anthropic Messages API 公测 Message Threads，闲置约 5 分钟过期、计价不变。"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "items": [
+        {
+          "title": "OpenAI LifeVal：测 AI 能不能办完「过日子」的事",
+          "tag": "评测",
+          "detail": "OpenAI 发布 LifeVal：按美国人时间使用调查等筛选出育儿、健康、教育、理财、购物、政务等高频日常任务，再测模型能否真正办完而不是只会聊天。官方案例分数多在九成以上（如搬家后选幼儿园约 93.1%、帮家人找房约 100%）；并说过去一年在浏览器/电脑操控与连接器上刻意练过。自报评测，跨模型对比细节仍少。",
+          "why": "做个人助手的人：这是把「帮普通人办事」写进排行榜，比纯刷学术题更贴产品验收",
+          "source": "OpenAI",
+          "url": "https://openai.com/index/lifeval",
+          "related": [
+            "官方介绍"
+          ],
+          "related_urls": [
+            "https://openai.com/index/lifeval/"
+          ]
+        },
+        {
+          "title": "SemiAnalysis GDPx：11 个「值钱」域的前沿 Agent 榜，最高约 12%",
+          "tag": "评测",
+          "detail": "SemiAnalysis 推出 GDPx，覆盖 RSI、硬件/芯片设计、网安、生物、金融、法律、量化交易、软件工程、材料与对齐等 11 域，强调高 ROI 行业而非全职业 GDP 均摊。自报当前最好模型总分才约 12%；Claude Opus 5.5 居首，并提示安全分类器会拖累网安/生物/对齐分数。正文多为付费墙，细节以摘要为准。",
+          "why": "看 Agent 落地的人：分数低提醒「能写代码」≠「能干活」，榜单本身也在定义什么叫值钱能力",
+          "source": "SemiAnalysis · 付费墙",
+          "url": "https://newsletter.semianalysis.com/p/gdpx-measuring-frontier-model-capabilities",
+          "related": [
+            "付费墙原文"
+          ],
+          "related_urls": []
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#10b981",
+      "items": [
+        {
+          "title": "Anthropic：Messages API 公测 Message Threads",
+          "tag": "Agent",
+          "detail": "ClaudeDevs：Messages API 上线 message threads 公测——服务端短时缓存对话，后续回合只发新消息和上一条回复 ID，不必每轮重传整段历史。官方文档：线程闲置约 5 分钟过期、最晚约 1 小时删除；计价与速率限制不变；需 beta 头 message-threads-2026-08-12。适合长 Agent 循环降首字等待与上行体积。",
+          "why": "写 Agent 的人：长工具循环终于少传一遍历史，记得自己仍要存完整对话以便过期后重放",
+          "source": "ClaudeDevs · Docs",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/message-threads",
+          "related": [
+            "ClaudeDevs 公告",
+            "宝玉摘要"
+          ],
+          "related_urls": [
+            "https://x.com/ClaudeDevs/status/2117332449382510884",
+            "https://x.com/dotey/status/2117339521683448221"
+          ]
+        },
+        {
+          "title": "据报道：高盛收回交易员/银行家的 AI 编程工具",
+          "tag": "工程",
+          "detail": "The Decoder 援引 Bloomberg：高盛按 10 月内部指引，把 Claude Code、GitHub Copilot 等高级 AI 编程工具从交易员和银行家收回，原则上只留给工程师。此前数月非技术岗曾用其盯盘流、写内容；7 月 CIO 还公开夸过「vibe coding」。发言人称试验期结束，出于「生产力与风险管理」等因素收窄范围。",
+          "why": "在大机构推 AI 编程的人：热情试点之后常会缩回「谁能长期扛风险」——权限与合规会压过演示热度",
+          "source": "Decoder · 据报道",
+          "url": "https://the-decoder.com/goldman-sachs-pulls-ai-coding-tools-from-traders-and-bankers/",
+          "related": [
+            "据 Bloomberg"
+          ],
+          "related_urls": []
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#8b5cf6",
+      "items": [
+        {
+          "title": "OpenAI Grid Protectors：算力园区承诺电网紧张时让电",
+          "tag": "产品",
+          "detail": "OpenAI 启动全国性 Grid Protectors：未来算力园区与公用事业约定，在电网紧张时主动降负荷，必要时用场内发电/储能平滑用电。佐治亚 Effingham 试点与 Georgia Power 约定最多约 1000 兆瓦柔性需求响应，官方称约等于 70 万户空调用电；并承诺自付基础设施与用电成本。背景是数据中心反弹与电价争议升温。",
+          "why": "盯算力政治的人：这是把「AI campus」话术落到可调用的兆瓦数，用来回应社区对抢电的批评",
+          "source": "OpenAI · Verge",
+          "url": "https://openai.com/index/grid-protectors-program",
+          "related": [
+            "The Verge",
+            "Techmeme"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/ai-artificial-intelligence/1024604/openai-data-center-grid-protection-program",
+            "https://www.techmeme.com/261102/p34#a261102p34"
+          ]
+        },
+        {
+          "title": "ChatGPT 桌面端将合并 Chat 与 Work 标签",
+          "tag": "产品",
+          "detail": "TechCrunch 援引 OpenAI 发给用户的邮件：桌面端 ChatGPT 内原先分开的 Chat 与 Work 将合并，先给部分用户试用再铺开，方便从「聊想法」直接进到带文件/插件的执行；Codex 仍是独立入口。邮件称合并后 ChatGPT 与 Codex 从同一额度池扣 token——对多数人影响不大，但部分用法可能更常撞重置。与 12 月额度政策同一方向的产品整合。",
+          "why": "天天开桌面端的人：少一层标签迷路；若你 Chat 和 Codex 都打满，共享池会更早碰到墙",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/11/02/openai-is-finally-merging-chatgpts-chat-and-work-tabs/",
+          "related": [
+            "据用户邮件"
+          ],
+          "related_urls": []
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "accent": "#06b6d4",
+      "items": [
+        {
+          "title": "Weight-space programming：Astra 直接改 Qwen 权重抬数学",
+          "tag": "研究",
+          "detail": "MIT CSAIL（Takehi / Teoh / Zhang / Khattab）：前沿模型可原生读写神经网络权重。演示里 GPT-6 Astra 不写训练循环，只改 Qwen3.5-0.8B 约 0.016% 权重，修复官方卡也提到的推理死循环，MATH-500 从 7.9% 升到 48.1%，IFEval 约 3×。HN≈1660。仍是研究原型，不等于生产级「自动改别人模型」。",
+          "why": "做训练与对齐的人：权重本身变成可编程介质——以后「修模型」可能少一截梯度管线",
+          "source": "Takehi 等 · HN",
+          "url": "https://rikiyat.github.io/blog/weight-space-programming/",
+          "related": [
+            "HN≈1660",
+            "Techmeme"
+          ],
+          "related_urls": [
+            "https://news.ycombinator.com/item?id=50341174",
+            "https://www.techmeme.com/261102/p36#a261102p36"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🏭 行业·投融资·政策",
+      "accent": "#eab308",
+      "items": [
+        {
+          "title": "更新：Anthropic 修订 S-1——营收暴涨、巨亏与「即将」RSI",
+          "tag": "市场",
+          "detail": "修订招股书披露：Q3 营收近 170 亿美元（约同比 12 倍），净亏损约 233 亿美元，运营开支约 175 亿；已签算力与机房采购/租赁承诺约 8954 亿美元。TechCrunch：风险因素新增——已用 AI 加速研发且曾未即时识别能力跃迁，并称或「即将」达到其内部递归自我改进（RSI）阈值；RSI 受 Responsible Scaling Policy 约束。IPO 募资规模媒体报道不一，以 SEC 文件为准。",
+          "why": "看上市与安全政策的人：一边是千亿级算力账单，一边是「自我加速」写进风险披露——估值叙事和安全叙事绑在同一份 S-1",
+          "source": "CNBC · TechCrunch",
+          "url": "https://www.cnbc.com/2026/11/02/anthropic-ant-s-1-quarter-financials.html",
+          "related": [
+            "TC RSI",
+            "Decoder",
+            "Bloomberg 提要"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/02/anthropic-warns-that-its-very-close-to-rsi-capability-aka-self-building-ai/",
+            "https://the-decoder.com/anthropic-grows-revenue-twelvefold-but-posts-23-billion-loss/",
+            "https://www.techmeme.com/261102/p44#a261102p44"
+          ]
+        },
+        {
+          "title": "Oracle 申报约 200 亿美元股票+债券为 AI 扩容筹资",
+          "tag": "融资",
+          "detail": "CNBC：Oracle 周一申报拟发行约 100 亿美元普通股与约 100 亿美元债券，为数据中心与买芯筹资；方案上周投资者日已预告。WSJ 提要称 ORCL 盘中跌逾 5%。这是把云与 AI 资本开支直接摊到股权和债市融资上。",
+          "why": "盯云厂现金流的人：OpenAI 相关扩容不只烧利润，也在公开市场再融资",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/11/02/oracle-files-to-sell-20-billion-in-new-stock-bonds-to-finance-ai-buildout.html",
+          "related": [
+            "WSJ 提要"
+          ],
+          "related_urls": [
+            "https://www.wsj.com/finance/oracle-looks-to-raise-20-billion-to-fund-ai-ambitions-582c814f"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🇨🇳 国内动态",
+      "accent": "#ef4444",
+      "items": [
+        {
+          "title": "DeepSeek Harness 上线 Creator Mode：用想法生成插件",
+          "tag": "产品",
+          "detail": "DeepSeek Harness 官方账号发布 Creator Mode：把想法做成可复用插件，示例覆盖设计工作区、沙盒游戏、3D LLM 可视化等。官方帖互动极高（点赞约 1.7 万级）；Bloomberg/Techmeme 有跟进但多为付费墙。相对 10-31 的 Super-agent 理念帖，这是可上手的创作入口。",
+          "why": "玩 Harness 的人：从「看理念」进到「自己做插件」——生态是否起来，就看插件能不能留下来复用",
+          "source": "DeepSeekHarness",
+          "url": "https://x.com/DeepSeekHarness/status/2117256196227019194",
+          "related": [
+            "Techmeme"
+          ],
+          "related_urls": [
+            "https://www.techmeme.com/261102/p32#a261102p32"
+          ]
+        },
+        {
+          "title": "美团 LongCat-2.5：1.6T 原生多模态，主打长程 Agent",
+          "tag": "模型发布",
+          "detail": "美团 LongCat 团队发布 LongCat-2.5：总参约 1.6 万亿、每 token 约 480 亿激活；强化原生视觉理解与 Agent 编程，视觉用多级离散 token 与文本统一。训练侧重长程轨迹与长程强化学习，并把失败轨迹做成可复现任务；推理侧谈国产加速卡上的长上下文与 W4A4。官方表给出 Terminal Bench、BrowseComp 等自报分，并与 GPT/Claude 等对照（部分带 *）。",
+          "why": "跟国内开源多模态的人：这是「能看能写代码能跑长任务」的新一档，别只盯参数量",
+          "source": "LongCat",
+          "url": "https://longcat.ai/blog/longcat-2.5/",
+          "related": [
+            "Vercel AI Gateway"
+          ],
+          "related_urls": [
+            "https://vercel.com/changelog/longcat-2-5-now-available-on-ai-gateway"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "items": [
+        {
+          "title": "Anthropic 内部 AI 用量按零售价已超过员工薪酬",
+          "detail": "Business Insider：招股书披露，按对客户售价计，4 月起内部 Claude 用量价值已超不含股权的员工薪酬，到 9 月较 1 月暴增逾 250 倍；并称 9 月新增代码逾 90% 由 Claude 编写。强调这是「按零售价估值」而非现金支出更大。HN 热议「token 算第四种薪酬」。"
+        },
+        {
+          "title": "中国商务部公告 48 号：前沿 AI 出口管制讨论升温",
+          "detail": "Cloud Security Alliance 笔记梳理：10 月 16 日商务部/科技部公告拟将约 40 项技术纳入禁止/限制出口目录，其中约 23 项涉 AI，并已实施出口前登记。原文不在今日窗口，但 CSA/HN 解读仍在发酵，适合当政策背景读。"
+        },
+        {
+          "title": "社区续聊：Claude 画建筑图、Agent「小鼠手术」声称",
+          "detail": "HN 上 Claude 生成建筑图纸类分享继续有热度；另有 Agent 辅助小鼠脑手术类帖需谨慎——多为初步声称/演示，医学与伦理边界未清，阅读时认清证据等级。"
+        },
+        {
+          "title": "IPO 前的 Anthropic：算力账单与安全叙事同框",
+          "detail": "修订 S-1 把近千亿美元级算力承诺和 RSI「即将」措辞放在同一套材料里，社区在吵：这是认真风控，还是为上市预埋免责声明。"
+        }
+      ]
+    }
+  ]
+}
