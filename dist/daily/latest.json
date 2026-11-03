@@ -1,19 +1,19 @@
 {
-  "date": "2026-11-03",
+  "date": "2026-11-04",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-11-03/",
+  "url": "/daily/2026-11-04/",
   "tldr": [
     {
-      "title": "Anthropic 修订 S-1 成主热",
-      "text": "Q3 营收近 170 亿美元（约同比 12 倍），净亏约 233 亿，算力/机房承诺约 8954 亿；风险披露称或「即将」触达递归自我改进（RSI）。"
+      "title": "Anthropic 开源 FlashProve：用零知识证明「这句回复真是某模型写的」。",
+      "text": ""
     },
     {
-      "title": "权重空间编程冲上 HN",
-      "text": "MIT 团队：GPT-6 Astra 直接读写神经网络权重；改 Qwen3.5-0.8B 约万分之一点六权重，MATH-500 从 7.9% 到 48.1%。"
+      "title": "Fal 融资约 13 亿美元、估值约 160 亿；Traversal AI SRE 拿约 1.2 亿美元、估值约 10 亿。",
+      "text": ""
     },
     {
-      "title": "电网承诺与长对话 API 同日落地",
-      "text": "OpenAI 推 Grid Protectors（佐治亚最多约 1000 兆瓦柔性负荷）；Anthropic Messages API 公测 Message Threads，闲置约 5 分钟过期、计价不变。"
+      "title": "Apple 把 Siri AI 向第三方 App 打开；CrowdStrike 给企业 Agent 加上可审计的 Kill Switch。",
+      "text": ""
     }
   ]
 }

@@ -1,6 +1,13 @@
 {
   "issues": [
     {
+      "day": "2026-11-04",
+      "title": "AI 前沿日报",
+      "url": "/daily/2026-11-04/",
+      "summary": "Anthropic 开源 FlashProve：用零知识证明「这句回复真是某模型写的」。",
+      "count": 16
+    },
+    {
       "day": "2026-11-03",
       "title": "AI 前沿日报",
       "url": "/daily/2026-11-03/",
