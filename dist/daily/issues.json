@@ -1,6 +1,13 @@
 {
   "issues": [
     {
+      "day": "2026-11-06",
+      "title": "AI 前沿日报",
+      "url": "/daily/2026-11-06/",
+      "summary": "Claude 上线 Personal Finance：经 Plaid 只读连银行，帮你用白话看清花销。",
+      "count": 18
+    },
+    {
       "day": "2026-11-04",
       "title": "AI 前沿日报",
       "url": "/daily/2026-11-04/",

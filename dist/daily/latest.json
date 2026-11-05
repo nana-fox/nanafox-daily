@@ -1,18 +1,18 @@
 {
-  "date": "2026-11-04",
+  "date": "2026-11-06",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-11-04/",
+  "url": "/daily/2026-11-06/",
   "tldr": [
     {
-      "title": "Anthropic 开源 FlashProve：用零知识证明「这句回复真是某模型写的」。",
+      "title": "Claude 上线 Personal Finance：经 Plaid 只读连银行，帮你用白话看清花销。",
       "text": ""
     },
     {
-      "title": "Fal 融资约 13 亿美元、估值约 160 亿；Traversal AI SRE 拿约 1.2 亿美元、估值约 10 亿。",
+      "title": "OpenAI 发布 GPT-6 Cyber；Google Gemini Omni 1.2 Flash 视频拉到 15 秒并降价约 30%。",
       "text": ""
     },
     {
-      "title": "Apple 把 Siri AI 向第三方 App 打开；CrowdStrike 给企业 Agent 加上可审计的 Kill Switch。",
+      "title": "METR：Anthropic 能力进度约加速到原先 1.9 倍，多数或来自内部用 AI 做研发。",
       "text": ""
     }
   ]
