@@ -1,0 +1,232 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "AI FRONTIER DAILY",
+  "date": "2026-11-07",
+  "brand": "nanafox",
+  "tldr": [
+    "Thinking Machines 发布 Inkling 2 Small：594B 总参、17B 激活，AA 指数约 31，权重计划下周 Apache 开源。",
+    "Anthropic 工程博客讲 Claude「做梦」整理记忆；OpenAI 推出湿实验日常分析基准 BioBasicsBench。",
+    "PSI 声称用非公开 Anthropic 模型在 Lean 中证出 Aaronson–Ambainis 猜想；DeepMind 用 Agent 加压旧版 RSA-1024。",
+    "据报道 OpenAI 本轮已关约 110 亿美元估值 1.25 万亿；Anthropic IPO 与企业 AI 花费增速同时承压。"
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Inkling 2 Small：美开源梯队新高分",
+          "tag": "模型",
+          "detail": "Thinking Machines 发布第二代 Inkling 2 Small：稀疏 MoE，总参约 594B、每 token 激活约 17B，支持图像与可变推理强度。自报 Artificial Analysis 智能指数约 31，相对上一代大涨；先在 Tinker 上可微调与推理，权重计划下周完成外部安全测试后以 Apache 2.0 放出。",
+          "why": "想跑强美系开源多模态 Agent：先盯 Tinker，权重一开就能本地化",
+          "source": "Thinking Machines · Artificial Analysis",
+          "url": "https://thinkingmachines.ai/news/inkling-2-small/",
+          "related": [
+            "Artificial Analysis 解读",
+            "The Decoder"
+          ],
+          "related_urls": [
+            "https://artificialanalysis.ai/articles/thinking-machines-releases-inkling-2-small-highest-scoring-open-weights-model-outside-of-chinia-upon-weights-release-it",
+            "https://the-decoder.com/thinking-machines-inkling-2-small-claims-top-spot-among-western-open-weight-models/"
+          ]
+        },
+        {
+          "title": "Arete-27B：给 Qwen 洗掉「党线」表述",
+          "tag": "开源",
+          "detail": "Nous Research 在 Qwen3.8-27B 上后训练出 Arete-27B：用约 5300 万 token 强化西方价值相关回答。自建 803 题评测里，含宣传口径的回答自报从约 22% 降到约 1%，与所测西方开源模型同档；Hermes Bench 与基座几乎持平。权重、评测与训练数据一并公开。",
+          "why": "强开源底座能用，但担心表述立场时：一次轻量微调就能改「价值观层」",
+          "source": "Nous Research · @NousResearch≈4k赞",
+          "url": "https://nousresearch.com/arete",
+          "related": [
+            "@NousResearch 公告"
+          ],
+          "related_urls": [
+            "https://x.com/NousResearch/status/2118822925445050435"
+          ]
+        },
+        {
+          "title": "OpenAI BioBasicsBench：测湿实验日常读数",
+          "tag": "评测",
+          "detail": "OpenAI 与酶设计公司 Ligo 推出 BioBasicsBench：100 道真实湿实验日常题，看 Agent 能否读凝胶/显微镜等原始数据、找错并承认证据不够。自报最高推理档下 GPT-6 Astra 均分约 66.7%，GPT-5.6 Sol 约 43.8%。",
+          "why": "AI 进实验室，先过关的不是发顶刊，是不把对照板读错",
+          "source": "OpenAI",
+          "url": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
+          "related": [
+            "@OpenAI 公告"
+          ],
+          "related_urls": [
+            "https://x.com/OpenAI/status/2118782708767965238"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#a855f7",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Anthropic：Claude 用「做梦」整理记忆",
+          "tag": "工程",
+          "detail": "Anthropic 工程博客系统讲 Agent 记忆：会话里写笔记，空闲时用「dreaming（做梦）」回放日志纠错、建 wiki、把要点顶进下一次会话。示例里 wiki 加上搜索，在一份约 42 万 token 语料问答上可把得分从约 54% 提到约 61%，并省约 2 万 token/题。",
+          "why": "做长期 Agent：别只堆日志——要有「睡一觉」整理记忆的工序",
+          "source": "Anthropic · @AnthropicAI≈3.6k赞",
+          "url": "https://www.anthropic.com/research/components-of-agent-memory",
+          "related": [
+            "科学建模嘉宾文"
+          ],
+          "related_urls": [
+            "https://www.anthropic.com/research/teaching-ai-to-build-scientific-models"
+          ]
+        },
+        {
+          "title": "OpenRouter：新一代 Auto + 编码专用 Auto Code",
+          "tag": "工具",
+          "detail": "OpenRouter 重做 Auto 路由，并上线编码专用 `openrouter/auto-code`。自报路由步 p90 延迟约 0.65 秒；在五项编码基准上 Auto Code 成绩与 Claude Opus 5.5 相当，单题成本约低 74%。仍按落到的底层模型计费，支持治理与零留存策略。",
+          "why": "不想天天换模型名：编程 Agent 可先把 model 写成 auto-code",
+          "source": "OpenRouter",
+          "url": "https://openrouter.ai/blog/announcements/auto-and-auto-code-routers/",
+          "related": [
+            "@OpenRouter"
+          ],
+          "related_urls": [
+            "https://x.com/OpenRouter/status/2118740149106573670"
+          ]
+        },
+        {
+          "title": "ChatGPT Remix：一句话「分叉」同事的站点",
+          "tag": "产品",
+          "detail": "OpenAI 向 ChatGPT Business / Enterprise 推送 Remix：同事做好的 ChatGPT Site，你可用自然语言说明想改什么，生成自己的副本并继续在对话里改。官方称正在滚动放开，并非人人立刻可见。",
+          "why": "内部小工具从「抄一份代码」变成「口头改一版就开干」",
+          "source": "@ChatGPT",
+          "url": "https://x.com/ChatGPT/status/2118827837239226387",
+          "related": [],
+          "related_urls": []
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#06b6d4",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Meta Muse Spaces：按项目开「工作间」",
+          "tag": "产品",
+          "detail": "Meta 为 Muse 推出 Spaces：在侧边栏为度假规划、送礼清单等目标开独立工作间，描述想法后由 Muse 生成追踪板/规划页，并可接第三方应用后台更新。同日还把 Muse Wonder 训出的特化能力（Active Memory / Active Focus）铺到 Muse 与 Meta AI，自报关键信息遗忘约降 2.4 倍。",
+          "why": "个人 Agent 从单聊变成可并存的多项目看板",
+          "source": "TechCrunch · The Verge · Meta Research",
+          "url": "https://techcrunch.com/2026/11/06/meta-introduces-spaces-a-new-way-to-collaborate-with-your-muse-agent/",
+          "related": [
+            "The Verge",
+            "Meta：Wonder 特化模型上线"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/tech/1028871/meta-muse-ai-spaces",
+            "https://research.meta.ai/blog/specialized-models-for-muse-and-metaai"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "accent": "#84cc16",
+      "style": "cards",
+      "items": [
+        {
+          "title": "DeepMind：AI Agent 加压旧版 RSA-1024",
+          "tag": "安全",
+          "detail": "Google DeepMind 称在人类指导下，AI Agent 找到遗留 1024 位 RSA 的两处弱点：签名伪造相关算法自报理论加速约 1600 倍，批量分解每把额外密钥成本约降 30 倍。官方强调现代普遍使用的 2048 位及以上密钥不受这些结果影响，重点是硬度假设会被 Agent 更快重估。",
+          "why": "加密「还能撑多久」不再只靠人手——旧标准要加速退役检查",
+          "source": "Google DeepMind · Interesting Engineering",
+          "url": "https://x.com/GoogleDeepMind/status/2118755418675765656",
+          "related": [
+            "Pushmeet 长文",
+            "Interesting Engineering"
+          ],
+          "related_urls": [
+            "https://x.com/pushmeet/status/2118752095859794390",
+            "https://interestingengineering.com/ai-robotics/1600x-faster-google-deepmind-agents-expose-weaknesses-in-older-encryption-methods"
+          ]
+        },
+        {
+          "title": "声称：PSI 用 AI 证出 Aaronson–Ambainis 猜想",
+          "tag": "声称",
+          "detail": "物理超智能公司 PSI 称：内部研究系统在非公开 Anthropic 模型上跑到第 3 天，得到 2008 年以来开放的 Aaronson–Ambainis 猜想证明，并由 Lean 内核接受；相关手稿与形式化已公开。斯坦福一组研究者书面称这是「巨大结果」，但仍需学界核对形式化语句是否对准原猜想。",
+          "why": "若站得住：量子指数加速在「随机输入」上被进一步框死——但先看独立复核",
+          "source": "PSI · GitHub Lean",
+          "url": "https://psi.inc/research/aaronson-ambainis/",
+          "related": [
+            "Lean 仓库",
+            "Quantum Insider"
+          ],
+          "related_urls": [
+            "https://github.com/physical-superintelligence/aaronson-ambainis",
+            "https://thequantuminsider.com/2026/11/06/ai-assisted-proof-settles-longstanding-question-about-quantum-speedups/"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🏭 行业·投融资·政策",
+      "accent": "#eab308",
+      "style": "cards",
+      "items": [
+        {
+          "title": "更新：OpenAI 据报道已关约 110 亿美元",
+          "tag": "据报道",
+          "detail": "Bloomberg 消息人士称 OpenAI 新一轮已锁定约 110 亿美元融资、估值约 1.25 万亿美元；整轮尚未完全关闭，有人预计数周内总额或到约 200 亿——仍远低于早先约 300 亿目标。相对 10 月底「已募约 110 亿、不及 300 亿」传闻，本次强调「已关闭」部分。",
+          "why": "估值与融资金额一起缩水：口袋不如叙事热闹",
+          "source": "Bloomberg（据 TechCrunch）",
+          "url": "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/",
+          "related": [
+            "Techmeme"
+          ],
+          "related_urls": [
+            "https://www.techmeme.com/261106/p22#a261106p22"
+          ]
+        },
+        {
+          "title": "据报道：Anthropic IPO 估值承压，企业 AI 花费增速放缓",
+          "tag": "据报道",
+          "detail": "多家媒体援引知情人士：买方对 Anthropic 约 1.5 万亿上市估值犹豫，有人看到约 1.1–1.3 万亿。同期 Ramp 数据显示，8–9 月企业 AI token 花费仅环比约 +1.5%（7 月曾约 +42%），用量仍增但单价与省钱技巧压住账单——对上市叙事不友好。",
+          "why": "用量涨、花钱不涨：模型公司收入曲线可能比 token 曲线更陡峭向下",
+          "source": "The Decoder · TechCrunch / Ramp · HN≈197",
+          "url": "https://the-decoder.com/anthropics-1-5-trillion-ipo-hits-resistance-as-investors-balk-at-valuation/",
+          "related": [
+            "Ramp：花费几乎横盘",
+            "Bloomberg / Techmeme"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/06/ramp-data-shows-ai-spending-stalling-just-as-anthropic-nears-its-ipo/",
+            "https://www.bloomberg.com/news/articles/2026-11-06/anthropic-ipo-valuation-expectations-pressured-after-ai-rout"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#fb7185",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "Ajeya Cotra：若 AI 研发加速会「利滚利」",
+          "detail": "基于本周 METR 对 Anthropic 的公开评估，她推演：若加速自我强化，朴素外推甚至谈到一年量级的超智能时间表——也强调公开证据被大量打码。"
+        },
+        {
+          "title": "HN≈268：小裁判问 Opus，成本约砍到 1/4",
+          "detail": "Hightouch 写身份对齐：用便宜模型当「裁判」必要时再请 Opus，自称精度接近全用 Opus，成本约 4× 更低——和 OpenRouter 路由同一思路。"
+        },
+        {
+          "title": "HN≈197：Anthropic IPO 估值预期下修",
+          "detail": "Bloomberg 付费墙稿在 HN 发酵：买方把数字从约 1.5T 往下拧，和科技股回撤、数据中心选票叠加。"
+        },
+        {
+          "title": "HN≈492：Cuban 称 Facebook 明知 AI 深度伪造诈骗广告仍在赚",
+          "detail": "Mark Cuban 指控 Meta 明知 AI 深度伪造诈骗广告却继续放量；文档口径称相关欺诈广告收入量级惊人——平台责任再成焦点。"
+        }
+      ]
+    }
+  ]
+}

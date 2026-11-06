@@ -1,6 +1,13 @@
 {
   "issues": [
     {
+      "day": "2026-11-07",
+      "title": "AI 前沿日报",
+      "url": "/daily/2026-11-07/",
+      "summary": "Thinking Machines 发布 Inkling 2 Small：594B 总参、17B 激活，AA 指数约 31，权重计划下周 Apache 开源。",
+      "count": 15
+    },
+    {
       "day": "2026-11-06",
       "title": "AI 前沿日报",
       "url": "/daily/2026-11-06/",

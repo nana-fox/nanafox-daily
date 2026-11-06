@@ -1,18 +1,18 @@
 {
-  "date": "2026-11-06",
+  "date": "2026-11-07",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-11-06/",
+  "url": "/daily/2026-11-07/",
   "tldr": [
     {
-      "title": "Claude 上线 Personal Finance：经 Plaid 只读连银行，帮你用白话看清花销。",
+      "title": "Thinking Machines 发布 Inkling 2 Small：594B 总参、17B 激活，AA 指数约 31，权重计划下周 Apache 开源。",
       "text": ""
     },
     {
-      "title": "OpenAI 发布 GPT-6 Cyber；Google Gemini Omni 1.2 Flash 视频拉到 15 秒并降价约 30%。",
+      "title": "Anthropic 工程博客讲 Claude「做梦」整理记忆；OpenAI 推出湿实验日常分析基准 BioBasicsBench。",
       "text": ""
     },
     {
-      "title": "METR：Anthropic 能力进度约加速到原先 1.9 倍，多数或来自内部用 AI 做研发。",
+      "title": "PSI 声称用非公开 Anthropic 模型在 Lean 中证出 Aaronson–Ambainis 猜想；DeepMind 用 Agent 加压旧版 RSA-1024。",
       "text": ""
     }
   ]
