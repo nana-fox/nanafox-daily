@@ -1,0 +1,201 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "AI FRONTIER DAILY",
+  "date": "2026-11-08",
+  "brand": "nanafox",
+  "tldr": [
+    "MaxxBench 把 DeepSWE 任务小改一刀：原先同分的前沿编码模型，适应力最多拉开约 23 分。",
+    "Google 量化 Agent 被过时 TODO 带偏；Claude Code「Don't Ask Again」把含密钥的本地设置卷进公开仓库。",
+    "据报道 Anthropic 仍赶感恩节前 IPO、估值约 1.25–1.75 万亿；中期选举与出口管制同时给算力叙事加压。"
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "style": "cards",
+      "items": [
+        {
+          "title": "MaxxBench：DeepSWE 一改就掉分",
+          "tag": "评测",
+          "detail": "unLAP 推出 MaxxBench：在 89 道 DeepSWE 中等时长任务上只改说明或起始代码（参考补丁中位约多 17 行）。自报 Claude Opus 5.5 约 74%→76%，而 Gemini 3.8 Flash 约 74%→53%，原先接近的分数最多拉开约 23 分——模型常猜「隐藏测试想要什么」而不是跟新需求。",
+          "why": "选编码 Agent：别只看旧榜总分，要看它改需求时还会不会硬刚",
+          "source": "MaxxBench · HN≈165",
+          "url": "https://maxxbench.unlap.ai/research/why-maxxbench/",
+          "related": [
+            "HN 讨论"
+          ],
+          "related_urls": [
+            "https://news.ycombinator.com/item?id=50406222"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#a855f7",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Google：过时 TODO 在带偏 Agent",
+          "tag": "工程",
+          "detail": "Google 工程博客用海量 Agent 轨迹说明：过时规格、已修 bug、滞后文档会被编码 Agent 当成行动指令。他们以残留的 TODO(bug/…) 作代理信号，观察到 Agent 会主动侧查甚至「修复」已关闭问题，白白烧 token 并扩大改动范围；团队已用扫描 Agent 清理失效引用。",
+          "why": "给 Agent 用的仓库：死 TODO 不再是卫生问题，是会跑偏的路标",
+          "source": "Google Developers Blog",
+          "url": "https://developers.googleblog.com/agent-distraction/",
+          "related": [],
+          "related_urls": []
+        },
+        {
+          "title": "Claude Code：别再把「不再询问」签进 Git",
+          "tag": "安全",
+          "detail": "安全公司 Apiiro 扫描发现：点「Don't Ask Again」后，含数据库口令/云密钥的完整 shell 命令会写进本地 `.claude/settings*.json`；若误提交，公开仓库里可出现大量明文密钥（报道称涉及约 1122 个公开文件）。Claude Code 团队 Boris 回应：该文件本不该入库，正评估密钥 scrubbing。",
+          "why": "用编码 Agent 前：先把 settings.local.json 丢进 .gitignore，并轮换已暴露密钥",
+          "source": "Apiiro · HN≈92 · @bcherny",
+          "url": "https://apiiro.com/blog/coding-agents-leaking-secrets-github-dont-ask-again",
+          "related": [
+            "HN 讨论",
+            "X 热点汇总"
+          ],
+          "related_urls": [
+            "https://news.ycombinator.com/item?id=50407882",
+            "https://x.com/i/trending/2119032221776629980"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "accent": "#84cc16",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Vals：开源网安能力逼近闭源",
+          "tag": "安全",
+          "detail": "Vals CyberOffense 在隔离靶场让 Agent 独自从公网入口推进。自报受限 Daybreak 档 GPT-6 Sol 约完成 80.8% 目标；开源权重 DeepSeek V4.1 Flash 约 72.8%，单次成本约 3 美元对约 22 美元。Decoder 援引英国 AISI：开闭源网安能力差距已缩到约 4–7 个月。",
+          "why": "权重一开就难收回：防守方也得用同一代模型先自查",
+          "source": "The Decoder · Vals AI",
+          "url": "https://the-decoder.com/the-gap-between-open-and-closed-ai-models-in-cyber-capabilities-keeps-shrinking/",
+          "related": [],
+          "related_urls": []
+        },
+        {
+          "title": "AI 审计员：抓得到，但误报淹人",
+          "tag": "研究",
+          "detail": "Anthropic 研究员 Andy Hall（个人观点）复现并扩展 METR 的 Agent 日志审计：调到约 80% 检出率时，最好模型误报仍约 2.5–3%；按每月 10 万会话粗算，可能近 3000 条误报对约 2000 条真命中。他担心审核员会「警报疲劳」放掉真问题。",
+          "why": "用模型盯模型：先解决误报，否则安全运营会先累垮",
+          "source": "The Decoder · Andy Hall",
+          "url": "https://the-decoder.com/ai-auditors-catch-most-agent-misbehavior-but-flood-reviewers-with-false-alarms-new-study-finds/",
+          "related": [],
+          "related_urls": []
+        }
+      ]
+    },
+    {
+      "heading": "🏭 行业·投融资·政策",
+      "accent": "#eab308",
+      "style": "cards",
+      "items": [
+        {
+          "title": "更新：Anthropic 赶感恩节前 IPO",
+          "tag": "据报道",
+          "detail": "Decoder 援引 FT：Anthropic 仍计划感恩节前上市，拟募约 800–1000 亿美元、估值约 1.25–1.75 万亿——高于当前约 9650 亿，但低于乐观派曾盼的约 2 万亿；年化收入自称约 810 亿。相对昨日「买方压价」叙事，本次强调时间表未撤、接受更低估值继续推进。",
+          "why": "上市窗口没关：数字往下拧，但时间表还在抢",
+          "source": "The Decoder（据 FT）",
+          "url": "https://the-decoder.com/anthropic-pushes-ahead-with-pre-thanksgiving-ipo-despite-tech-selloff-accepts-lower-valuation/",
+          "related": [
+            "昨日期权承压稿"
+          ],
+          "related_urls": [
+            "https://the-decoder.com/anthropics-1-5-trillion-ipo-hits-resistance-as-investors-balk-at-valuation/"
+          ]
+        },
+        {
+          "title": "美批准向「空壳」中国公司售 H200",
+          "tag": "政策",
+          "detail": "The Verge 转述纽约时报调查：商务部批准名单上的 New Matrix 等公司办公室空置、物管无记录，且股东与已被列入黑名单的私募有关联；H200 对华销售在放宽后按销售额抽成。审查与尽职调查漏洞成焦点。",
+          "why": "出口管制不只看芯片型号——买方是不是「空壳」同样决定风险",
+          "source": "The Verge（据 NYT）",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1029483/nvidia-ai-chips-china-blacklist",
+          "related": [
+            "Techmeme"
+          ],
+          "related_urls": [
+            "https://www.techmeme.com/261107/p9"
+          ]
+        },
+        {
+          "title": "中期选举后：数据中心更难推",
+          "tag": "政策",
+          "detail": "TechCrunch Equity：多地选票否决或收紧数据中心；德州候任州长 Gina Hinojosa 竞选时承诺限制扩建。播客称反数据中心情绪跨党派升温，OpenAI 等已抛出「compute campus」政策蓝图、声称减少 NDA、提高透明度——也被吐槽像换皮公关。",
+          "why": "算力扩张碰上选票：秘密签约那一套越来越难用",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/11/07/after-the-midterms-things-are-looking-rocky-for-elon-musk-and-data-centers/",
+          "related": [
+            "Crusoe 怀俄明项目转售谷歌"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/"
+          ]
+        },
+        {
+          "title": "据报道：MSS 招募高管刺探黄仁勋",
+          "tag": "据报道",
+          "detail": "多家媒体援引美方情报备忘录：新加坡公司 Megaspeed 高管 Alice Huang 据称被中国国家安全部招募，目标是收集英伟达 CEO 黄仁勋情报；FT 等还提及二人关系指控。均为转述，未见当事方完整公开回应细节。",
+          "why": "芯片地缘已经从供应链延伸到人身与情报叙事",
+          "source": "TechCrunch · The Verge（据 NYT/FT）",
+          "url": "https://techcrunch.com/2026/11/07/chinese-exec-was-recruited-to-spy-on-nvidia-ceo-according-to-us-intelligence-memo/",
+          "related": [
+            "The Verge"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/tech/1029338/nvidia-ceo-jensen-huang-china-spy"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🇨🇳 国内动态",
+      "accent": "#ef4444",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Sand.ai：2 亿美元 A+ 跻身独角兽",
+          "tag": "融资",
+          "detail": "DealStreetAsia：北京视频生成公司 Sand.ai 完成约 2 亿美元 Series A+，估值逾 10 亿美元；启石与网宿科技等领投，近 10 个月累计融资约 3 亿。产品侧 VidMuse 自称上线两月 ARR 破约 1000 万美元，并计划推出 MAGI-2 正式版。",
+          "why": "国内视频生成赛道资本仍在加注「能变现的应用层」",
+          "source": "DealStreetAsia · Techmeme",
+          "url": "https://www.dealstreetasia.com/stories/sand-ai-enters-unicorn-club-500283/",
+          "related": [
+            "Techmeme"
+          ],
+          "related_urls": [
+            "https://www.techmeme.com/261107/p1"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#fb7185",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "Karpathy：TristanTube，Claude Code 三分钟一梭哈",
+          "detail": "他把 Tristan Hume 的 YouTube 分级榜做成可刷的 TristanTube（自称约 4.7 万条极客视频+TV 模式），X 互动约 4800 赞——又一次「周末玩具=Agent 生产力」示范。"
+        },
+        {
+          "title": "HN≈562：每台 Mac 都有「家庭成员分类器」",
+          "detail": "逆向文详解 Apple Personal Knowledge Graph：系统守护进程长期构建「你认识谁、怎么联络」的关系图；家庭关系分类器成讨论焦点。"
+        },
+        {
+          "title": "John Langford：MSR「AI Frontiers」小组走到尽头",
+          "detail": "机器学习理论博客回顾 2023 起在微软研究院组织的 AI Frontiers：强调单打独斗已追不上有组织投入——小组本身也落幕，社区当组织史读。"
+        },
+        {
+          "title": "付费墙：ETH 原提出者称 OpenAI 反证「shocking」",
+          "detail": "Techmeme 链到纽约时报：Exponential Time Hypothesis 共同提出者 Russell Impagliazzo 回应 OpenAI 此前反证主张；细节在付费墙后，作反应热度记一笔。"
+        }
+      ]
+    }
+  ]
+}

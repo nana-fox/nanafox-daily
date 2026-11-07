@@ -1,18 +1,18 @@
 {
-  "date": "2026-11-07",
+  "date": "2026-11-08",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-11-07/",
+  "url": "/daily/2026-11-08/",
   "tldr": [
     {
-      "title": "Thinking Machines 发布 Inkling 2 Small：594B 总参、17B 激活，AA 指数约 31，权重计划下周 Apache 开源。",
+      "title": "MaxxBench 把 DeepSWE 任务小改一刀：原先同分的前沿编码模型，适应力最多拉开约 23 分。",
       "text": ""
     },
     {
-      "title": "Anthropic 工程博客讲 Claude「做梦」整理记忆；OpenAI 推出湿实验日常分析基准 BioBasicsBench。",
+      "title": "Google 量化 Agent 被过时 TODO 带偏；Claude Code「Don't Ask Again」把含密钥的本地设置卷进公开仓库。",
       "text": ""
     },
     {
-      "title": "PSI 声称用非公开 Anthropic 模型在 Lean 中证出 Aaronson–Ambainis 猜想；DeepMind 用 Agent 加压旧版 RSA-1024。",
+      "title": "据报道 Anthropic 仍赶感恩节前 IPO、估值约 1.25–1.75 万亿；中期选举与出口管制同时给算力叙事加压。",
       "text": ""
     }
   ]
