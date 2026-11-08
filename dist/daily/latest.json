@@ -1,18 +1,18 @@
 {
-  "date": "2026-11-08",
+  "date": "2026-11-09",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-11-08/",
+  "url": "/daily/2026-11-09/",
   "tldr": [
     {
-      "title": "MaxxBench 把 DeepSWE 任务小改一刀：原先同分的前沿编码模型，适应力最多拉开约 23 分。",
+      "title": "英伟达董事会启动独立调查：黄仁勋承认婚外情并配合审查，董事会称暂无证据显示机密泄露。",
       "text": ""
     },
     {
-      "title": "Google 量化 Agent 被过时 TODO 带偏；Claude Code「Don't Ask Again」把含密钥的本地设置卷进公开仓库。",
+      "title": "据报道 Anthropic 斥资约 34 亿美元向 OnePWR 锁定燃气发电机，称是实验室单笔最大采购。",
       "text": ""
     },
     {
-      "title": "据报道 Anthropic 仍赶感恩节前 IPO、估值约 1.25–1.75 万亿；中期选举与出口管制同时给算力叙事加压。",
+      "title": "苹果新 CEO 据称催 Siri 做成能持续办事的 Agent；美国 AI 安全中心被要求向白宫汇报。",
       "text": ""
     }
   ]
