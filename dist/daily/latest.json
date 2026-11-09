@@ -1,18 +1,18 @@
 {
-  "date": "2026-11-09",
+  "date": "2026-11-10",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-11-09/",
+  "url": "/daily/2026-11-10/",
   "tldr": [
     {
-      "title": "英伟达董事会启动独立调查：黄仁勋承认婚外情并配合审查，董事会称暂无证据显示机密泄露。",
+      "title": "Anthropic 发布更强的 Claude Fable 5.2 与 Mythos 5.2，第三方评测暂列第一；特别难的技术活可以换它。",
       "text": ""
     },
     {
-      "title": "据报道 Anthropic 斥资约 34 亿美元向 OnePWR 锁定燃气发电机，称是实验室单笔最大采购。",
+      "title": "Meta 推出更便宜的 Muse Ember，专给 Agent 干重复活；OpenAI 给实验室装上能快速刹停模型的 Control Room。",
       "text": ""
     },
     {
-      "title": "苹果新 CEO 据称催 Siri 做成能持续办事的 Agent；美国 AI 安全中心被要求向白宫汇报。",
+      "title": "Fireworks 扩大披露：部分客户的数据集和不完整权重被看过；苹果开始卖约 50 美元的 AI 加量包。",
       "text": ""
     }
   ]
