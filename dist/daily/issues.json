@@ -1,6 +1,13 @@
 {
   "issues": [
     {
+      "day": "2026-11-11",
+      "title": "AI 前沿日报",
+      "url": "/daily/2026-11-11/",
+      "summary": "谷歌把最强模型 Gemini 4 Carbon 开放给付费开发者和 Ultra 用户，专门啃特别难、要跑很久的活。",
+      "count": 15
+    },
+    {
       "day": "2026-11-10",
       "title": "AI 前沿日报",
       "url": "/daily/2026-11-10/",

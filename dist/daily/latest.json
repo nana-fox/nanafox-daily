@@ -1,18 +1,18 @@
 {
-  "date": "2026-11-10",
+  "date": "2026-11-11",
   "title": "AI 前沿日报",
-  "url": "/daily/2026-11-10/",
+  "url": "/daily/2026-11-11/",
   "tldr": [
     {
-      "title": "Anthropic 发布更强的 Claude Fable 5.2 与 Mythos 5.2，第三方评测暂列第一；特别难的技术活可以换它。",
+      "title": "谷歌把最强模型 Gemini 4 Carbon 开放给付费开发者和 Ultra 用户，专门啃特别难、要跑很久的活。",
       "text": ""
     },
     {
-      "title": "Meta 推出更便宜的 Muse Ember，专给 Agent 干重复活；OpenAI 给实验室装上能快速刹停模型的 Control Room。",
+      "title": "Anthropic 正式启动上市路演，定价每股 70 到 78 美元；Claude 同时推出白板、表格和会议助手。",
       "text": ""
     },
     {
-      "title": "Fireworks 扩大披露：部分客户的数据集和不完整权重被看过；苹果开始卖约 50 美元的 AI 加量包。",
+      "title": "OpenAI 让商家进 ChatGPT 开主页、做客服；Cursor 则让团队和各自的编程助手在同一工作区协作。",
       "text": ""
     }
   ]
