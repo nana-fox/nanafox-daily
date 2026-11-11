@@ -1,0 +1,222 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "AI FRONTIER DAILY",
+  "date": "2026-11-12",
+  "brand": "nanafox",
+  "tldr": [
+    "谷歌上线专门做判断的新模型，一次能评很多道题，输出还不收费。",
+    "据报道英伟达董事会将讨论是否拿掉创始人黄仁勋，盘后股价大跌。",
+    "DeepMind发布能预测基因变化在不同细胞里影响的新模型，研究接口今天就能用。"
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "style": "cards",
+      "items": [
+        {
+          "title": "谷歌发布决策模型Decision 1",
+          "tag": "发布",
+          "detail": "谷歌推出专门做判断的 Gemini Decisions 接口，由新模型 Decision 1 驱动。你可以把文字、图片、音频、视频或PDF一次性丢进去，让它给预设选项打分并给出把握，而不是写长篇回答。现已在 AI Studio 开放，输出不另收费。",
+          "why": "每百万输入只要0.10美元，适合给Agent做路由",
+          "source": "Google",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+          "related": [
+            "Willison",
+            "The Decoder",
+            "Logan 官宣"
+          ],
+          "related_urls": [
+            "https://simonwillison.net/2026/Nov/11/gemini-decisions-api/",
+            "https://the-decoder.com/google-joins-the-decision-model-wave-with-gemini-decision-1-scoring-1000-questions-in-a-single-pass/",
+            "https://x.com/OfficialLoganK/status/2120581433639198885"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#a855f7",
+      "style": "cards",
+      "items": [
+        {
+          "title": "AWS上线由Agent写成的本地模拟器",
+          "tag": "工程",
+          "detail": "亚马逊云科技发布免费离线工具 AWS Emulator，可在自己电脑上模拟200多种云服务，方便测试却不必连真实账号。官方称全部代码由智能体编写和测试，工程师负责搭框架和验收门槛；每次改动还要通过自动检查和安全审查。",
+          "why": "智能体写基础设施，人来把验收关",
+          "source": "All Things Distributed",
+          "url": "https://www.allthingsdistributed.com/2026/11/aws-emulator-and-the-engineers-job-when-agents-write-the-code.html",
+          "related": [
+            "Willison",
+            "Techmeme"
+          ],
+          "related_urls": [
+            "https://simonwillison.net/2026/Nov/11/aws-emulator/",
+            "https://www.techmeme.com/261111/p41#a261111p41"
+          ]
+        },
+        {
+          "title": "谷歌发布A2UI 1.0界面协议",
+          "tag": "Agent",
+          "detail": "谷歌发布生成式界面开放协议 A2UI 的首个稳定版。智能体可以不再只回一大段文字，而是描述要显示的表单或图表，由应用自己画出来。现已提供网页、安卓和iOS的开源渲染工具包。",
+          "why": "让Agent的回答变得可点、可改、可确认",
+          "source": "Google Developers",
+          "url": "https://developers.googleblog.com/a2ui-10-build-delightful-fast-reliable-agentic-experiences/",
+          "related": [],
+          "related_urls": []
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#06b6d4",
+      "style": "cards",
+      "items": [
+        {
+          "title": "谷歌实验室上线协作空间Tabletop",
+          "tag": "产品",
+          "detail": "谷歌实验室推出 Tabletop：把链接、文件和想法放进一块共享桌面，用一句话生成可一起编辑的协作空间，适合计划旅行或分工。目前在美国以排队名单开放，需年满18岁。",
+          "why": "把AI从聊天框拉进了一块共享桌面",
+          "source": "Google",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-labs/tabletop/",
+          "related": [
+            "The Verge"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/tech/1031526/google-tabletop-ai-experiment-waitlist-availability"
+          ]
+        },
+        {
+          "title": "美联航禁止AI助手代订机票",
+          "tag": "产品",
+          "detail": "美联航周三表示，禁止个人AI助手代客预订机票，理由是可能泄露账号和支付信息，也可能违反联邦规定。公司称目前还没看到很多人尝试，但已不愿再多一层“中间人”。",
+          "why": "代理订票还没普及，航空公司已先划线",
+          "source": "The Verge · CBS",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1031623/united-unauthorized-ai-agents",
+          "related": [
+            "CBS News"
+          ],
+          "related_urls": [
+            "https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "accent": "#8b5cf6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "DeepMind发布细胞级基因模型",
+          "tag": "研究",
+          "detail": "新模型 AlphaGenome 2 能预测同一处基因变化，为什么在有的细胞里致病、在别的细胞里却没事。官方称训练覆盖超过1亿个单细胞图谱，即日起向非商业研究开放接口，商业用途仍需申请预览。",
+          "why": "找病因和药靶，可以先从细胞差异看起",
+          "source": "Google DeepMind",
+          "url": "https://deepmind.google/blog/alphagenome-2-deciphering-how-cells-read-dna-to-better-understand-disease/",
+          "related": [
+            "The Verge",
+            "DeepMind"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/ai-artificial-intelligence/1031524/google-deepmind-alphagenome-2-genetic-ai-model",
+            "https://x.com/GoogleDeepMind/status/2120532824465805749"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🏭 行业·投融资·政策",
+      "accent": "#eab308",
+      "style": "cards",
+      "items": [
+        {
+          "title": "据报道英伟达董事会拟讨论罢免黄仁勋",
+          "tag": "市场",
+          "detail": "《华尔街日报》据报道称，执掌公司三十多年的黄仁勋可能被董事会拿下，董事会最快于周三开会决定去留。此前《纽约时报》报道他又被指与直接下属、医疗业务副总裁存在婚外关系。科技媒体称美股盘后跌约8%。事情尚未得到公司确认。",
+          "why": "事情还没定论，但接班问题已摆上台面",
+          "source": "The Verge · TechCrunch",
+          "url": "https://www.theverge.com/tech/1031652/jensen-huang-rumor",
+          "related": [
+            "TechCrunch",
+            "WSJ（付费墙）"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/11/nvidias-stock-drops-as-board-reportedly-preps-to-oust-ceo-jensen-huang/",
+            "https://www.wsj.com/business/nvidia-is-preparing-to-oust-nvidia-ceo-jensen-huang-30f421ad"
+          ]
+        },
+        {
+          "title": "据报道OpenAI单季收入首次破百亿美元",
+          "tag": "市场",
+          "detail": "彭博社援引匿名消息称，OpenAI最近一季收入首次超过100亿美元，大约比上一季高出近一半。多家媒体同时报道了这一数字，但仍属据报道，公司尚未官方确认。",
+          "why": "增长在回升，但仍是媒体转述，尚未官宣",
+          "source": "TechCrunch（据Bloomberg）",
+          "url": "https://techcrunch.com/2026/11/11/openais-quarterly-revenue-reportedly-crosses-10b-for-the-first-time/",
+          "related": [
+            "The Decoder"
+          ],
+          "related_urls": [
+            "https://the-decoder.com/enterprise-sales-push-openais-quarterly-revenue-to-10-billion-though-it-still-trails-anthropic/"
+          ]
+        },
+        {
+          "title": "据报道台积电拟投10亿美元入股AI公司",
+          "tag": "融资",
+          "detail": "据Ars Technica报道，台积电董事会已批准向OpenAI和Anthropic合计计划投入约10亿美元，分别认购优先股和普通股。这被看作芯片代工厂直接入股模型公司的新一步。",
+          "why": "造芯片的也要直接持有模型公司股份",
+          "source": "Ars Technica",
+          "url": "https://arstechnica.com/ai/2026/11/taiwans-chipmaking-giant-tsmc-to-invest-1b-in-anthropic-openai/",
+          "related": [],
+          "related_urls": []
+        },
+        {
+          "title": "Fractile融资7.2亿美元做芯片",
+          "tag": "融资",
+          "detail": "英国AI芯片创业公司 Fractile 完成7.2亿美元C轮，领投方包括 Thrive Capital 和 Founders Fund，英国主权AI基金也有参与。英国政府称估值超过50亿英镑。",
+          "why": "欧洲也想在专用AI芯片上占一席之地",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/11/11/with-720m-round-britains-fractile-gets-a-leg-up-in-the-race-for-ai-chips/",
+          "related": [],
+          "related_urls": []
+        }
+      ]
+    },
+    {
+      "heading": "🇨🇳 国内动态",
+      "accent": "#ef4444",
+      "style": "cards",
+      "items": [
+        {
+          "title": "国内大模型双11在天猫打到五折",
+          "tag": "市场",
+          "detail": "量子位报道，双11期间MiniMax月卡全部五折，阿里云Token套餐五折起，智谱、千问办公和Qoder也大幅降价。消费者在淘宝搜索「Token」即可进入充值会场；Token套餐首次作为独立品类出现在天猫。",
+          "why": "大模型开始按消费品的方式上货架促销",
+          "source": "量子位",
+          "url": "https://www.qbitai.com/2026/11/509085.html",
+          "related": [],
+          "related_urls": []
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#fb7185",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "AI Agent从雷达图里找出玛雅遗址",
+          "detail": "一篇个人实验称，智能体分析美国航天局激光雷达数据，用72小时找到墨西哥一处未列入官方名录的玛雅遗址，登上Hacker News热榜。作者随后更正：考古学家其实已经测绘过，这次更像是「重新发现」。"
+        },
+        {
+          "title": "决策模型正在变成一条新赛道",
+          "detail": "Simon Willison指出，Gemini Decision 1的题型和定价几乎对标已有的Jev和OpenAI决策模型，但能同时处理图像、音频和视频。讨论焦点是：以后很多Agent会先做判断，再决定要不要写长回答。"
+        },
+        {
+          "title": "黄仁勋去留成了社区最大变量",
+          "detail": "在董事会据报道开会的同时，中文圈有评论认为「没有创始人的英伟达，要重新建立和生态的信任」。目前只是媒体转述，公司尚未公布结果。"
+        }
+      ]
+    }
+  ]
+}
