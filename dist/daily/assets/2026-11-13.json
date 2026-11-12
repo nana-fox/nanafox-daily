@@ -1,0 +1,157 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "AI FRONTIER DAILY",
+  "date": "2026-11-13",
+  "brand": "nanafox",
+  "tldr": [
+    "英伟达创始人黄仁勋已辞职，财务官先顶上，董事会开始找正式继任者。",
+    "谷歌推出更便宜更快的日常模型 Hydrogen，全球搜索里也能用。",
+    "一份技术分析称，多家中国实验室的新模型留下了受管制芯片的痕迹。"
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "style": "cards",
+      "items": [
+        {
+          "title": "谷歌发布Gemini 4 Hydrogen",
+          "tag": "发布",
+          "detail": "谷歌推出面向日常写代码和办事的 Gemini 4 Hydrogen，作为更快更省的 Gemini 4 成员，已在 AI Studio、开发者接口、Gemini 应用和全球搜索上线。官方定价在整个 100 万 token 上下文里一口价，输入每百万 1.50 美元。独立评测机构 Artificial Analysis 的指数显示，它在默认高思考档上略高于更大的 Argon。",
+          "why": "日常任务也能用上新一代，不必先上最贵的模型",
+          "source": "Google",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+          "related": [
+            "Search升级",
+            "Antigravity",
+            "Logan官宣",
+            "The Decoder"
+          ],
+          "related_urls": [
+            "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/",
+            "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/",
+            "https://x.com/OfficialLoganK/status/2120940951292268640",
+            "https://the-decoder.com/googles-gemini-4-hydrogen-outscores-the-bigger-argon-just-four-weeks-after-its-launch/"
+          ]
+        },
+        {
+          "title": "更新：Inkling 2 Small放出权重",
+          "tag": "开源",
+          "detail": "Thinking Machines 在原公告中更新：此前说要等外部安全测试结束后再开源的 Inkling 2 Small，权重已于今天在 Hugging Face 以 Apache 2.0 许可证开放下载，并已接入 Unsloth 等工具。这是 11 月 7 日刊出后的实质进展：模型现在可以本地部署，而不只是在其平台上试用。",
+          "why": "想本地跑这款美系开源模型，今天就能下载",
+          "source": "Thinking Machines",
+          "url": "https://thinkingmachines.ai/news/inkling-2-small/",
+          "related": [
+            "Hugging Face",
+            "Arena"
+          ],
+          "related_urls": [
+            "https://huggingface.co/thinkingmachines/Inkling-2-Small",
+            "https://x.com/thinkymachines/status/2120982625582195011"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#3b82f6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Muse付费用户可代打美国电话",
+          "tag": "产品",
+          "detail": "Meta 的消费级助手 Muse 在 9 月试运行后，已向付费用户开放代打美国商家电话，可帮忙预约或咨询。TechCrunch 报道称，免费用户暂时还不能用电话功能；公司 AI 业务负责人 Alexandr Wang 表示，最近上线的 Muse 邮箱将很快开放给免费用户。",
+          "why": "AI助手开始替你打电话排队，不过眼下要先付费",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/11/12/muse-can-now-place-calls-to-u-s-businesses-if-you-pay/",
+          "related": [],
+          "related_urls": []
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "accent": "#0ea5e9",
+      "style": "cards",
+      "items": [
+        {
+          "title": "更新：黄仁勋辞职由CFO暂代",
+          "tag": "市场",
+          "detail": "英伟达董事会宣布，创始人黄仁勋已辞去总裁、首席执行官和董事职务，即时生效。现任财务官 Colette Kress 兼任临时 CEO，董事会将同时考虑内部和外部候选人；公司还首次设立董事长，由 Harvey Jones 担任。BBC 和 NBC 报道称，消息公布后股价盘中大跌，周四收盘跌约 4%。",
+          "why": "芯片龙头换帅，供应链和开源策略可能跟着变",
+          "source": "NVIDIA Newsroom",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+          "related": [
+            "The Verge",
+            "内部邮件",
+            "TechCrunch",
+            "BBC"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/ai-artificial-intelligence/1030422/nvidia-jensen-huang-ai-china-alice-huang",
+            "https://www.theverge.com/ai-artificial-intelligence/1032028/read-nvidias-internal-emails-jensen-huang",
+            "https://techcrunch.com/2026/11/12/jensen-huang-is-out-at-nvidia-who-is-colette-kress-his-interim-replacement/",
+            "https://www.bbc.co.uk/news/live/c6zjry11v8w1t"
+          ]
+        },
+        {
+          "title": "分析：中国模型含管制芯片指纹",
+          "tag": "政策",
+          "detail": "Unemployment Labs 的 Will DePue 发布取证报告：自今年 4 月以来，深度求索、月之暗面、MiniMax 和蚂蚁集团放出的 6 个模型权重里，出现了与英伟达新一代 Blackwell 芯片相符的数值指纹，更早的模型则更像上一代 Hopper。报告称已在实体芯片上复核了其中两个模型，并说明这并不能直接证明芯片是如何获得的。",
+          "why": "开源权重可能把禁运芯片的使用痕迹留在网上",
+          "source": "Unemployment Labs",
+          "url": "https://unemploymentlabs.com/checkpoint-forensics",
+          "related": [
+            "Techmeme"
+          ],
+          "related_urls": [
+            "https://www.techmeme.com/261112/p62#a261112p62"
+          ]
+        },
+        {
+          "title": "Cerebras季报超预期并签下微软",
+          "tag": "市场",
+          "detail": "AI 芯片公司 Cerebras 公布第三季度核心营收 2.309 亿美元，高于预期的 2.147 亿，同比约增 70%。首席执行官对 CNBC 称，公司已在 10 月与微软签约，收入预计 2027 年第一季度开始体现。财报发布后，股价盘后一度上涨约 17%。",
+          "why": "英伟达换帅当天，挑战者拿出增速和云厂商订单",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/11/12/cerebras-systems-cbrs-q3-earnings-report-2026.html",
+          "related": [
+            "Techmeme"
+          ],
+          "related_urls": [
+            "https://www.techmeme.com/261112/p57#a261112p57"
+          ]
+        },
+        {
+          "title": "据报OpenAI支持对华芯片限制",
+          "tag": "政策",
+          "detail": "据彭博社报道，OpenAI 本周向议员确认，将支持国会一项两党推动的议案，收紧中国获取先进 AI 芯片和制造设备的渠道。目前尚未看到公司官方声明原文，数字和表态均来自媒体转述。",
+          "why": "芯片管制从政府施压，变成头部实验室也公开站队",
+          "source": "Bloomberg（据 Techmeme）",
+          "url": "https://www.techmeme.com/261112/p59#a261112p59",
+          "related": [],
+          "related_urls": []
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "黄仁勋辞职之后谁来接",
+          "summary": "社区在讨论临时 CEO、国会听证和开源路线；有报道称特朗普曾点名苹果董事长库克，均为据报道。"
+        },
+        {
+          "title": "Anthropic 上市认购有多热",
+          "summary": "官方招股页面登上 HN 热榜（786 分 / 781 评）；彭博社据知情人士称认购约超额六倍，一手文件尚未核到。"
+        },
+        {
+          "title": "Vibe coding 把安全写丢了？",
+          "summary": "Hacker News 热议 Humble Bundle 被指用 AI 改站后削弱了安全防护（363 分 / 218 评），成为当天开发者圈的警惕样本。"
+        }
+      ]
+    }
+  ]
+}
