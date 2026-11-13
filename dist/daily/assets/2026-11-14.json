@@ -1,0 +1,191 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "AI FRONTIER DAILY",
+  "date": "2026-11-14",
+  "brand": "nanafox",
+  "tldr": [
+    "OpenAI 推出代付钱包，美国 Pro 用户可以让助手代下单，但每笔都要你亲自确认。",
+    "DeepSeek 把 App 里的搜索、读文件和语音做成接口，开发者可以直接接入。",
+    "英伟达员工在内部留言呼吁请回黄仁勋；LangChain 也官宣了 30 亿美元估值的新一轮融资。"
+  ],
+  "sections": [
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#10b981",
+      "style": "cards",
+      "items": [
+        {
+          "title": "OpenAI推出两款安全产品",
+          "tag": "Agent",
+          "detail": "据 The Decoder 报道，OpenAI 在 Daybreak 品牌下推出两款安全产品：Red Team 进入早期试用，用 AI 代理根据源代码和应用上下文自动探测网站漏洞，并核验已有报告、复查补丁；Defense Factory 则扫描代码库、起草修复，提交供工程师审批。",
+          "why": "查漏洞和补丁都交给代理，合并前仍要人把关",
+          "source": "The Decoder",
+          "url": "https://the-decoder.com/openai-enters-the-cybersecurity-market-with-two-daybreak-products/",
+          "related": [
+            "Daybreak官网",
+            "Red Team页"
+          ],
+          "related_urls": [
+            "https://openai.com/daybreak/",
+            "https://openai.com/daybreak/red-team/"
+          ]
+        },
+        {
+          "title": "Brave搜索支持代理自助付费",
+          "tag": "Agent",
+          "detail": "Brave 宣布其搜索接口开始支持开放支付协议 x402：开发者和 AI 代理可以用数字货币按次付费查询网页，不必先注册账号或管理传统密钥。官方说明，公司先在 Base 链上接收 USDC 稳定币，用来给模型补充网页证据或做普通检索。",
+          "why": "代理查资料可以当场付费，不用先办接口账号",
+          "source": "Brave",
+          "url": "https://brave.com/blog/search-api-agentic-payments/",
+          "related": [
+            "Hacker News"
+          ],
+          "related_urls": [
+            "https://news.ycombinator.com/item?id=50477649"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#3b82f6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "ChatGPT上线代付钱包",
+          "tag": "产品",
+          "detail": "OpenAI 推出 ChatGPT Wallet，美国 ChatGPT Pro 订阅用户可以让助手（Dots）在本人确认后完成网购。每笔订单都要用面容或指纹验证；真实卡号不会给到助手或商家，而是由 Visa、Mastercard 和美国运通生成支付令牌。目前仅限年满 18 岁、持有美国发行银行卡的用户。",
+          "why": "助手能替你下单了，但钱还是你说了才付",
+          "source": "TechCrunch",
+          "url": "https://openai.com/index/introducing-chatgpt-wallet/",
+          "related": [
+            "TechCrunch",
+            "The Verge",
+            "CNBC",
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/13/chatgpts-new-wallet-lets-ai-agents-shop-and-check-out-for-you/",
+            "https://www.theverge.com/ai-artificial-intelligence/1033425/openai-chatgpt-wallet",
+            "https://www.cnbc.com/2026/11/13/openai-chatgpt-wallet-dot-purchases.html",
+            "https://x.com/ChatGPT/status/2121283151729496235"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "accent": "#8b5cf6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "DeepMind公开天气预报数据",
+          "tag": "研究",
+          "detail": "谷歌 DeepMind 正式公开 WeatherNext 3 所用的两套基础数据：SatWeave 把多颗地球同步卫星拼成全球云图并每小时更新；PARDIG 则给出约 10 公里分辨率、每 15 分钟一帧的全球降水估计，平均大约 5 小时后可看到最新结果。历史归档和实时数据已放在 Google Cloud，采用 CC BY 4.0 许可。",
+          "why": "做天气应用的人，可以直接用同一套观测数据",
+          "source": "Google DeepMind",
+          "url": "https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/",
+          "related": [
+            "PARDIG文档",
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://developers.google.com/weathernext/guides/pardig",
+            "https://x.com/GoogleDeepMind/status/2121229774865527097"
+          ]
+        },
+        {
+          "title": "AI帮人读懂哥德尔手稿",
+          "tag": "研究",
+          "detail": "《卫报》报道，赫尔辛基大学逻辑学家 Jan von Plato 从 2017 年起整理哥德尔 1940 年代的 16 本工作笔记，共 1009 页，很多是已淘汰的德文速记，原先大约一周才读完一页。他今年 9 月借助 Claude 后，据其介绍几天内就整理出全部摘要，并称手稿里有数百条此前不为人知的定理证明。",
+          "why": "能读懂过时速记，旧档案可能被重新打开",
+          "source": "The Guardian",
+          "url": "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
+          "related": [
+            "Hacker News"
+          ],
+          "related_urls": [
+            "https://news.ycombinator.com/item?id=50486748"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "accent": "#0ea5e9",
+      "style": "cards",
+      "items": [
+        {
+          "title": "更新：员工呼吁请回黄仁勋",
+          "tag": "市场",
+          "detail": "《连线》查阅内部通信报道，英伟达一名资深工程师在黄仁勋辞职前于内部意见箱发帖，呼吁董事会先听员工意见。该帖之后收到逾 1600 条评论，多数支持请他回来；辞职后约二十名员工在 LinkedIn 发声力挺。公司与新任董事长暂未回应置评。",
+          "why": "换帅才一天，内部挽留声已经公开传出",
+          "source": "WIRED",
+          "url": "https://www.wired.com/story/nvidia-employees-petition-for-jensen-huangs-return/",
+          "related": [
+            "Hacker News"
+          ],
+          "related_urls": [
+            "https://news.ycombinator.com/item?id=50477231"
+          ]
+        },
+        {
+          "title": "LangChain估值升至30亿美元",
+          "tag": "融资",
+          "detail": "LangChain 官宣完成 3 亿美元 C 轮融资，估值 30 亿美元，由老股东 CapitalG 领投，新加坡主权基金 GIC 以及 DFJ Growth、IVP、Sapphire Ventures 参投。公司称，其代理管理平台 LangSmith 已被包括英伟达、丰田和 Salesforce 在内的机构使用。",
+          "why": "做代理管理的工具公司，已经拿到大厂客户",
+          "source": "LangChain",
+          "url": "https://www.langchain.com/blog/series-c",
+          "related": [
+            "TechCrunch",
+            "创始人帖"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/13/ai-agent-startup-langchain-hits-3b-valuation/",
+            "https://x.com/hwchase17/status/2121279222912352574"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🇨🇳 国内动态",
+      "accent": "#ef4444",
+      "style": "cards",
+      "items": [
+        {
+          "title": "DeepSeek把App能力做成接口",
+          "tag": "产品",
+          "detail": "DeepSeek 宣布，网页和 App 里的搜索、读文件、读链接、内容安全和语音能力，现已通过官方接口开放，也可单独调用文字识别、语音识别和语音合成。公司同时开源了一个聊天演示前端，支持导入官方聊天记录。",
+          "why": "不用自己重做搜索和语音，就能接入同一套能力",
+          "source": "DeepSeek",
+          "url": "https://api-docs.deepseek.com/guides/build_a_chatbot",
+          "related": [
+            "官方帖",
+            "演示代码"
+          ],
+          "related_urls": [
+            "https://x.com/deepseek_ai/status/2121247896918253875",
+            "https://github.com/deepseek-ai/chat-demo"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "礼来CEO认为「十年治愈」不太可能",
+          "summary": "Anthropic 创始人 Dario Amodei 在上市相关视频中称，癌症、阿尔茨海默病等将在十年内成为历史；礼来董事长兼 CEO Dave Ricks 回应「不太可能」，认为进展更可能稳步渐进。HN 讨论 261 分 / 364 评。",
+          "url": "https://garymarcus.substack.com/p/breaking-eli-lilly-ceo-becomes-latest"
+        },
+        {
+          "title": "AI 会不会毁掉写作的信任",
+          "summary": "据 HN 热点汇总，大西洋月刊一篇讨论 AI 与作家、读者之间信任的文章登上热榜（303 分 / 193 评）；全文未打开，只记标题与讨论热度。",
+          "url": "https://news.ycombinator.com/item?id=50481870"
+        }
+      ]
+    }
+  ]
+}
