@@ -1,0 +1,165 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "AI FRONTIER DAILY",
+  "date": "2026-11-15",
+  "brand": "nanafox",
+  "tldr": [
+    "请回黄仁勋的联名请愿周六已超过 11.5 万个签名，马斯克等人也签了；大股东写信希望董事会别急着换人。",
+    "OpenAI 证实解散了独立机器人团队，称通用模型已能直接控制机器人，相关人员并入主研究与应用部门。",
+    "Claude Code 的项目功能改版，可同时开多条工作线程自动分工，先向部分付费用户开放。"
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "style": "cards",
+      "items": [
+        {
+          "title": "编程代理榜Claude并列第一",
+          "tag": "模型发布",
+          "detail": "评测机构 Artificial Analysis 发布编程代理指数 v2.1，并把其中两项测试换成更难的新版。按该机构结果，Claude Fable 5.2 与 Claude Opus 5.5 以 58 分并列第一。",
+          "why": "题更难了，榜首变成两款 Claude 并列",
+          "source": "Artificial Analysis",
+          "url": "https://artificialanalysis.ai/agents/coding-agents",
+          "related": [
+            "官方帖",
+            "方法说明"
+          ],
+          "related_urls": [
+            "https://x.com/ArtificialAnlys/status/2121393821955334328",
+            "https://artificialanalysis.ai/methodology/coding-agents-benchmarking"
+          ]
+        },
+        {
+          "title": "Perplexity开源决策模型新版",
+          "tag": "开源",
+          "detail": "Perplexity 发布开源决策模型 Decider v1.3 和更小的 Flash v1.3，权重按 Apache 2.0 许可公开。这类模型给选项打出概率而不写长文；独立评测中 v1.3 在决策指数上得到 70 分。",
+          "why": "做分类或抽取，可直接把权重拿来用",
+          "source": "Perplexity（据 MarkTechPost、AA）",
+          "url": "https://www.perplexity.ai/hub/blog/perplexity-decider",
+          "related": [
+            "MarkTechPost",
+            "官方评测帖"
+          ],
+          "related_urls": [
+            "https://www.marktechpost.com/2026/11/13/perplexity-decider-v1-3-open-weight-decision-models-locate/",
+            "https://x.com/ArtificialAnlys/status/2121595922090230033"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#10b981",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Claude Code项目可并行分工",
+          "tag": "Agent",
+          "detail": "Anthropic 把 Claude Code 里的 Projects 改成“你定目标、它分线程干活”，即日起向部分 Claude Pro 和 Max 用户开放测试。每个线程是一次云端编程会话，可同时改不同仓库、跑测试并开合并请求，人离开后也能继续做。",
+          "why": "可同时开多条线，不必自己来回切换",
+          "source": "Anthropic",
+          "url": "https://claude.com/resources/articles/projects-redesigned",
+          "related": [
+            "Hacker News"
+          ],
+          "related_urls": [
+            "https://news.ycombinator.com/item?id=50492141"
+          ]
+        },
+        {
+          "title": "Anthropic讲解常驻代理怎么做",
+          "tag": "工程",
+          "detail": "Anthropic 发布工程指南，拆开所谓“一直在线”的代理：它大部分时间其实在休眠，接到邮件、定时器等事件才醒来跑一轮。指南给出五个积木：事件收件箱、定时器、记忆、权限和发件箱，方便产品把一次性对话做成会自己跟进的助理。",
+          "why": "做会盯邮件、到点提醒的代理，可按此搭",
+          "source": "Anthropic",
+          "url": "https://claude.com/resources/articles/building-always-on-agents"
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#3b82f6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "OpenAI解散独立机器人团队",
+          "tag": "产品",
+          "detail": "《财富》独家报道并经公司证实，OpenAI 已解散独立机器人团队：研究岗并入主研究部门，应用与硬件并入应用部门。公司称这不是放弃，而是发现包括 GPT-6 Astra 在内的通用模型已经能直接用来控制机器人。",
+          "why": "押注通用模型也能当机器人的大脑",
+          "source": "Fortune",
+          "url": "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/",
+          "related": [
+            "机器之心",
+            "Hacker News"
+          ],
+          "related_urls": [
+            "https://www.jiqizhixin.com/articles/2026-11-14-2",
+            "https://news.ycombinator.com/item?id=50487184"
+          ]
+        },
+        {
+          "title": "据报道亚马逊要建全球商品库",
+          "tag": "产品",
+          "detail": "据路透社看到的内部草案，亚马逊计划建设“世界商品图谱”，收录全网在售商品信息，供自家购物助手和外部 AI 代理查询，文件里写着 2027 年 10 月 1 日的目标日期。公司回应称，这类头脑风暴文件往往不完整，并不一定代表当前计划。",
+          "why": "虽是草案，但已在争谁给代理供数",
+          "source": "The Verge（据路透）",
+          "url": "https://www.theverge.com/tech/1033697/amazon-world-product-graph-ai-search",
+          "related": [
+            "路透社"
+          ],
+          "related_urls": [
+            "https://www.reuters.com/business/media-telecom/amazons-plan-own-worlds-product-data-fight-ai-shopping-agents-2026-11-13/"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "accent": "#0ea5e9",
+      "style": "cards",
+      "items": [
+        {
+          "title": "更新：请回黄仁勋请愿超11万签",
+          "tag": "市场",
+          "detail": "“Stand with Jensen”请愿网站周六显示签名已超过 11.5 万，马斯克、Tim Sweeney、Garry Tan 等人也已联名，组织方称正在清理假签名。同日两名大股东致信董事会，呼吁放缓换帅、保留请他回来的可能。",
+          "why": "公开挽留已扩到投资人和业内名人",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/11/14/elon-musk-other-tech-execs-sign-petition-calling-on-nvidia-to-reinstate-jensen-huang/",
+          "related": [
+            "CNBC",
+            "Business Insider",
+            "请愿网站"
+          ],
+          "related_urls": [
+            "https://www.cnbc.com/2026/11/14/nvidia-investors-jensen-huang-return-board-letter.html",
+            "https://www.businessinsider.com/petition-reinstate-jensen-huang-nvidia-elon-musk-2026-11",
+            "https://standwithjensen.com/"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "英伟达被指靠投资制造芯片短缺",
+          "summary": "据《华尔街日报》报道（经 TechPowerUp 转述，付费墙），英伟达被指通过投资初创公司采购自家芯片，来维持供应紧张的印象。HN 1021 分 / 613 评。",
+          "url": "https://news.ycombinator.com/item?id=50493251"
+        },
+        {
+          "title": "编程被AI解决了，软件怎么还一个样",
+          "summary": "据 HN 热点汇总，游戏开发者 Jonathan Blow 的演讲《If AI solved coding, why is my software still the same?》引发热议（455 分 / 663 评）。",
+          "url": "https://news.ycombinator.com/item?id=50484658"
+        },
+        {
+          "title": "没有黄仁勋，美国开源模型怎么办",
+          "summary": "Interconnects 作者 Nathan Lambert 认为，黄仁勋辞职后，他对开源模型的资金支持和政策掩护很可能收缩，美国开源生态会更难熬过起步期。",
+          "url": "https://www.interconnects.ai/p/open-source-ai-without-jensen"
+        }
+      ]
+    }
+  ]
+}
