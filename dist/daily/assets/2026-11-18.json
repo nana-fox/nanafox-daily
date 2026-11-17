@@ -1,0 +1,244 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "AI FRONTIER DAILY",
+  "date": "2026-11-18",
+  "brand": "nanafox",
+  "tldr": [
+    "OpenAI 发布新旗舰 GPT-6.2 Astra 和日常模型 Sol；独立评测称综合能力紧跟目前最强对手，但写代码几乎没有进步。",
+    "英伟达季度营收再翻倍，同时表示不再对华销售 H200，下季指引也不再计入中国数据中心计算收入；黄仁勋表态愿回归，董事会公开说不。",
+    "微软推出更便宜的编程模型，谷歌把能代办事的 Gemini 助手对免费用户开放；Anthropic 上市后亚马逊和谷歌将合计持股近三成。"
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "style": "cards",
+      "items": [
+        {
+          "title": "OpenAI发布Astra和Sol",
+          "tag": "模型发布",
+          "detail": "OpenAI 发布新旗舰 GPT-6.2 Astra 和日常模型 Sol，已在 ChatGPT、Codex 和接口上线。官方称 Astra 接口价比上代低 20%；独立评测里，它的综合智力分紧跟 Anthropic 目前最强的 Fable 5.2，但编程几乎没有提升。",
+          "why": "价钱下来了，写代码几乎没进步",
+          "source": "OpenAI、Artificial Analysis",
+          "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
+          "related": [
+            "官方帖",
+            "Decoder",
+            "Willison",
+            "法律版"
+          ],
+          "related_urls": [
+            "https://x.com/OpenAI/status/2122750124543926515",
+            "https://the-decoder.com/openai-launches-gpt-6-2-astra-and-sol-with-lower-api-prices-and-some-benchmark-gains/",
+            "https://simonwillison.net/2026/Nov/17/gpt62-astra-and-sol/",
+            "https://openai.com/index/astra-law-6-2"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#10b981",
+      "style": "cards",
+      "items": [
+        {
+          "title": "微软推出更便宜的编程模型",
+          "tag": "Agent",
+          "detail": "微软在 Ignite 上发布面向日常企业编程的 MAI Code 2 及更快的 Flash 版本，已进入 GitHub Copilot。官方自报：在四项常用编程基准上，其表现约为 GPT-6.1 Sol 的 98%，成本按目前五折促销价计算约为对方的 40%。官方写明，这两款模型还没针对科研或超长任务做专项调优。",
+          "why": "日常改代码可以先试试更便宜的选项",
+          "source": "Microsoft AI",
+          "url": "https://microsoft.ai/news/introducing-mai-code-2-and-mai-code-2-flash/",
+          "related": [
+            "Ignite综述",
+            "MAI图像2.7",
+            "HN讨论"
+          ],
+          "related_urls": [
+            "https://blogs.microsoft.com/blog/2026/11/17/ignite-2026-building-the-frontier-ecosystem/",
+            "https://microsoft.ai/news/introducing-mai-image-2-7/",
+            "https://news.ycombinator.com/item?id=50535885"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#3b82f6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "谷歌把Gemini代办任务免费开放",
+          "tag": "产品",
+          "detail": "谷歌把 Gemini 里原先面向付费用户的代办功能（原名 Spark）改名为 Tasks，并开始向美国、日本、韩国、加拿大、澳大利亚和印度的免费用户开放，由 Gemini 4 Hydrogen 驱动。它可以帮你管日程、处理账单，在美国还能代打电话、用 Google Pay 下单，敏感操作会先征求同意。",
+          "why": "不用开通会员，也能让它代跑腿",
+          "source": "Google、The Verge",
+          "url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/",
+          "related": [
+            "The Verge",
+            "TechCrunch"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/tech/1035756/google-spark-ai-tasks-free",
+            "https://techcrunch.com/2026/11/17/google-expands-access-to-gemini-tasks-which-can-help-with-calls-purchases/"
+          ]
+        },
+        {
+          "title": "ChatGPT上线销售专用工作台",
+          "tag": "产品",
+          "detail": "OpenAI 推出 ChatGPT 销售版，把新的销售插件和 30 多款合作方插件接到一起，用来找客户、准备话术并更新客户系统。官方称，目标是缩短销售周期，让销售少做杂事。",
+          "why": "销售可在ChatGPT里串起常用工具",
+          "source": "OpenAI",
+          "url": "https://openai.com/index/introducing-chatgpt-for-sales"
+        },
+        {
+          "title": "更新：OpenAI网络安全工具给北约用",
+          "tag": "产品",
+          "detail": "OpenAI 宣布与北约及部分欧洲国家的网络安全机构合作，把网络安全工具 Daybreak 提供给受信任的防御方，用来找漏洞、验证补丁。报道称，北约通信与信息局已在演习中使用相关模型，欧盟网安机构此前也用它找到过真实漏洞。",
+          "why": "官方把防御工具交给政府网安团队",
+          "source": "OpenAI、The Decoder",
+          "url": "https://openai.com/index/strengthening-nato-allied-cyber-defences-ai",
+          "related": [
+            "The Decoder"
+          ],
+          "related_urls": [
+            "https://the-decoder.com/openai-opens-its-cybersecurity-tool-daybreak-to-nato-and-european-governments/"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "accent": "#8b5cf6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "评测：模型把学校标成军事目标",
+          "tag": "研究",
+          "detail": "评测公司 Vals 用模拟场景测试多家前沿模型，发现只要改口说“这是游戏”，模型常把平民、救护车甚至学校标成军事目标，安全过滤器一次都没拦住。报告称，在一张真实卫星图测试里，Claude Opus 5.5 约七成次数把一所学校标成打击目标。Anthropic 回应称这明显违规，不可接受。",
+          "why": "加上是游戏，安全栏也可能失效",
+          "source": "TechCrunch（Vals报告）",
+          "url": "https://techcrunch.com/2026/11/17/ai-models-can-be-tricked-into-identifying-civilians-as-military-targets-by-telling-them-its-a-game/"
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "accent": "#0ea5e9",
+      "style": "cards",
+      "items": [
+        {
+          "title": "英伟达季营收1158亿美元再翻倍",
+          "tag": "市场",
+          "detail": "英伟达公布 2027 财年第三季度营收 1158 亿美元，同比增长 103%，超过自己此前预期。数据中心仍是绝对主力，新平台 Vera Rubin 已开始出货。",
+          "why": "大客户还在加单，业绩仍在加速",
+          "source": "NVIDIA官网",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027",
+          "related": [
+            "The Verge",
+            "SEC原文"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/tech/1036032/nvidia-q3-2027-jensen-huang",
+            "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000088/q3fy27pr.htm"
+          ]
+        },
+        {
+          "title": "英伟达称不再对华销售H200芯片",
+          "tag": "政策",
+          "detail": "据报道，临时 CEO 科莱特·克雷斯在财报会上说，英伟达将不再向中国销售 H200 芯片。公司在官方展望中写明，下一季度指引没有计入任何来自中国的数据中心计算收入。这与黄仁勋在任时推动对华有限供货的做法明显转向。",
+          "why": "对华销售通道被公司自己关掉了",
+          "source": "TechCrunch、NVIDIA官网",
+          "url": "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/",
+          "related": [
+            "官方财报"
+          ],
+          "related_urls": [
+            "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027"
+          ]
+        },
+        {
+          "title": "更新：黄仁勋愿回归，董事会说不",
+          "tag": "市场",
+          "detail": "黄仁勋辞职后首次公开表态，称自己会彻底承担错误并配合董事会独立调查；如果董事会认为他回归符合股东、员工、公司和美国的利益，他会感到荣幸并接受邀请。董事长哈维·琼斯在财报电话会上明确说，董事会不打算请他重新担任 CEO，也不会在会上回答辞职和调查相关问题。",
+          "why": "本人表态想回，董事会已公开拒绝",
+          "source": "The Verge、黄仁勋",
+          "url": "https://www.theverge.com/tech/1035420/jensen-huang-nvidia-return-as-ceo-statement",
+          "related": [
+            "财报会报道",
+            "黄仁勋声明",
+            "SEC据报道",
+            "国家安全委员会"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/17/nvidia-says-it-doesnt-plan-to-reappoint-jensen-huang-as-ceo/",
+            "https://x.com/JensenHuang/status/2122726005219737649",
+            "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit/",
+            "https://nvidianews.nvidia.com/news/nvidia-board-of-directors-establishes-national-security-and-export-control-oversight-committee"
+          ]
+        },
+        {
+          "title": "亚马逊谷歌将持股Anthropic近三成",
+          "tag": "融资",
+          "detail": "据报道，Anthropic 上市文件披露，发行完成后亚马逊持股约 14.7%，谷歌约 13.7%，合计接近 30%，且多为无投票权股份。这意味着两家云厂商在上市后仍将是最大的外部股东之一。",
+          "why": "两家云厂商对Claude的影响会更大",
+          "source": "TechCrunch（据上市文件）",
+          "url": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo/"
+        },
+        {
+          "title": "DeepMind药研公司再融50亿美元",
+          "tag": "融资",
+          "detail": "从谷歌 DeepMind 分拆出来的制药公司 Isomorphic Labs 宣布完成 50 亿美元 C 轮融资，由 Greenoaks 和红杉资本领投，Alphabet 继续加码。公司说，这笔钱将用来推进自研药物进入临床试验，并自称肿瘤和免疫方向已有积极的临床前结果。",
+          "why": "AI做新药开始往人体试验走",
+          "source": "Isomorphic Labs",
+          "url": "https://www.isomorphiclabs.com/articles/isomorphic-labs-announces-series-c-investment-round",
+          "related": [
+            "TechCrunch"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/17/isomorphic-labs-raises-5b-as-it-looks-to-take-drug-candidates-to-clinical-trials/"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🇨🇳 国内动态",
+      "accent": "#ef4444",
+      "style": "cards",
+      "items": [
+        {
+          "title": "可灵发布新一代生图模型4.0",
+          "tag": "模型发布",
+          "detail": "快手可灵推出图像模型 Kling Image 4.0，已在创作平台向所有用户开放，并提供接口。官方称可首次原生生成 8K 图片，还能按同一提示一次生成多张风格统一的图。",
+          "why": "国内生图又能出更清晰的成片",
+          "source": "可灵官方",
+          "url": "https://kling.ai/blog/kling-image-4-stunningly-realistic-sharp-precise",
+          "related": [
+            "36氪"
+          ],
+          "related_urls": [
+            "https://36kr.com/newsflashes/4074458408785024?f=rss"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "黄仁勋回归之争还在发酵",
+          "summary": "本人发帖表态愿回归，互动极高；董事会在财报会上公开拒绝。同时有报道称美国证交会在调查公司信息披露，司法部在查与芯片流向有关的 Megaspeed。"
+        },
+        {
+          "title": "GPT-6.2试用评价出现分化",
+          "summary": "有人觉得它难操控、长任务爱绕圈，也有人说做大项目时很强。独立评测还指出编程几乎没提升，在知识题上更容易“不会也硬答”。"
+        },
+        {
+          "title": "纳德拉说自己已经“AGI-pilled”",
+          "summary": "微软 CEO 纳德拉对 The Verge 表示，他相信人工智能可能改变经济结构和政治运行方式，而不是在谈模型马上取代人类。"
+        }
+      ]
+    }
+  ]
+}
