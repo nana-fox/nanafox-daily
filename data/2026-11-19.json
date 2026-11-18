@@ -1,0 +1,230 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "AI FRONTIER DAILY",
+  "date": "2026-11-19",
+  "brand": "nanafox",
+  "tldr": [
+    "谷歌发布新模型 Gemini 4 Neon，面向付费用户和开发者开放，主打又快又能处理写代码、办公研究这类整段任务。",
+    "Anthropic 把上市价格定在每股 83 美元，股票代码 ANT，美东时间今天起在纳斯达克交易。",
+    "腾讯称自家 AI 应用 WorkBuddy 日活已超 1000 万；花旗等银行则提醒：把账户交给 AI 助理，出了事要自己负责。"
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "style": "cards",
+      "items": [
+        {
+          "title": "谷歌发布新模型Gemini 4 Neon",
+          "tag": "模型发布",
+          "detail": "谷歌推出 Gemini 4 Neon，定位是又快又强的一线模型，适合写代码、知识工作和科学研究这类整段任务。官方称，在独立评测 Artificial Analysis 智力指数的最高思考档得到 61 分；今天起在 Gemini API、编程工具 Antigravity，以及付费的 Pro、Ultra 用户中逐步开放。",
+          "why": "想试用谷歌新模型，付费订阅或API今天就能用",
+          "source": "Google",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/",
+          "related": [
+            "Artificial Analysis",
+            "Cursor",
+            "DeepMind帖"
+          ],
+          "related_urls": [
+            "https://artificialanalysis.ai/models/gemini-4-neon",
+            "https://x.com/cursor_ai/status/2123198346802450926",
+            "https://x.com/GoogleDeepMind/status/2123167884411077030"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#10b981",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Mistral编程助手推出桌面版",
+          "tag": "Agent",
+          "detail": "法国公司 Mistral 推出 Vibe 桌面应用，把办公（Work）和写代码（Code）收进同一个 macOS 和 Windows 软件。可以连接本地文件夹跑任务，也可以在云端隔离环境里写代码，并支持同时推进多项任务；Linux 版还在路上。",
+          "why": "不想只在网页或命令行里用，现在可以下载软件",
+          "source": "Mistral",
+          "url": "https://docs.mistral.ai/resources/release-notes",
+          "related": [
+            "The Decoder",
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://the-decoder.com/mistral-plays-catch-up-with-vibe-desktop-as-rivals-already-command-full-operating-systems/",
+            "https://x.com/MistralAI/status/2123073168659141119"
+          ]
+        },
+        {
+          "title": "OpenAI可等待请求最高便宜四成",
+          "tag": "产品",
+          "detail": "OpenAI 在接口里提供后台模式：任务不必马上出结果时，选择 8 小时完成窗口，token 费用可比标准价低 40%；2 小时窗口则低 30%。官方开发者账号称，新模型 GPT-6.2 Astra 和 Sol 已支持这一选项。",
+          "why": "能隔夜跑的分析、批处理，用同一模型可以更省钱",
+          "source": "OpenAI Docs",
+          "url": "https://developers.openai.com/api/docs/guides/background",
+          "related": [
+            "开发者帖"
+          ],
+          "related_urls": [
+            "https://x.com/OpenAIDevs/status/2123188195202617408"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#3b82f6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "更新：Genie 4对超级会员开放",
+          "tag": "产品",
+          "detail": "谷歌把互动世界模型 Genie 4 首次放进 Project Genie，面向符合条件的 Google AI Ultra 订阅用户。官方称，可以在探索世界时用文字实时改场景，并首次配上会随画面变化的原生声音；还加了帮你搭世界的智能体，以及可发布、转改的社区画廊。Pro 用户目前需排队等候。",
+          "why": "以前只是研究展示，现在付费用户能在浏览器里玩",
+          "source": "Google DeepMind",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/genie-4-now-available-project-genie/",
+          "related": [
+            "DeepMind帖"
+          ],
+          "related_urls": [
+            "https://x.com/GoogleDeepMind/status/2123117733709586849"
+          ]
+        },
+        {
+          "title": "美国大城市学区考虑不用谷歌搜索",
+          "tag": "产品",
+          "detail": "据《纽约时报》报道，纽约、洛杉矶和芝加哥等学区在考虑换掉谷歌搜索：谷歌计划从明年起，学校如果关闭 Gemini 等 AI 功能，也将无法继续使用搜索。谷歌对 The Verge 表示，将改进课堂控制，并称明年起 Gemini 和搜索将默认关闭，直到学校自行打开。",
+          "why": "教室里可能没法只关AI、留下传统搜索",
+          "source": "The Verge（据纽约时报）",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037151/school-districts-ditching-google"
+        },
+        {
+          "title": "花旗等银行称AI助理出事自负",
+          "tag": "产品",
+          "detail": "花旗本周更新协议：客户如果把账户交给第三方 AI 智能体，出了错账甚至被盗，责任由客户自负。全美最大的两家银行摩根大通和美国银行上月已有类似规定，PNC 也在同一天跟进。",
+          "why": "想让AI帮你管钱，先看清银行可能不帮你追回损失",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/11/18/more-banks-says-customers-using-ai-agents-are-on-their-own-even-if-they-get-hacked/"
+        },
+        {
+          "title": "英伟达迷你AI主机今日开售",
+          "tag": "产品",
+          "detail": "英伟达宣布，华硕、戴尔和微星的 RTX Spark 迷你台式主机今天上市，宏碁、技嘉、惠普和微软版本稍后推出。官方称最高配有 128GB 统一内存，可在本地运行最高约 1200 亿参数的大模型，适合把智能体整天挂在一台专用小电脑上跑。",
+          "why": "想把智能体整天挂着跑，可以用一台专用小主机",
+          "source": "NVIDIA",
+          "url": "https://blogs.nvidia.com/blog/rtx-spark-desktop-local-ai-available-now/"
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "accent": "#8b5cf6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "OpenAI称帮AMD芯片最高提14%",
+          "tag": "研究",
+          "detail": "OpenAI 发文称，与 AMD 合作后，其模型在 AMD 旗舰 GPU 芯片设计上带来最高约 14% 的功耗、性能和面积改进，用时不到 5 个月；部分改动已进入 AMD 送去流片的设计。文中数据为官方自报，部分结果有 AMD 参与验证。",
+          "why": "写代码的模型开始改芯片图纸，新硬件可能迭代更快",
+          "source": "OpenAI",
+          "url": "https://openai.com/index/advancing-chip-design-with-our-models/",
+          "related": [
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://x.com/OpenAI/status/2123100386638877054"
+          ]
+        },
+        {
+          "title": "OpenAI称近半中等研究任务可自动完成",
+          "tag": "研究",
+          "detail": "OpenAI 公布内部统计：大约需要人做 2 到 4 小时的研究任务，智能体独立完成率在 10 月达到 46%，约为今年 3 月的两倍。公司强调进展并不均匀，人仍是研究环节的核心。上述数字均为自报。",
+          "why": "这是实验室自报的“AI在加速研究AI”进度",
+          "source": "OpenAI",
+          "url": "https://openai.com/index/research-acceleration-jagged-frontier"
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "accent": "#0ea5e9",
+      "style": "cards",
+      "items": [
+        {
+          "title": "更新：Anthropic上市定价83美元",
+          "tag": "市场",
+          "detail": "Anthropic 官方宣布，IPO 发行价定为每股 83 美元，共发行 9.8 亿股 A 类普通股。股票代码 ANT，预计 11 月 19 日（美东，北京时间今晚）在纳斯达克开始交易。据报道，这一价格高于此前 70–78 美元的询价区间。",
+          "why": "Claude的东家今天起在纳斯达克挂牌交易",
+          "source": "Anthropic",
+          "url": "https://www.anthropic.com/news/anthropic-prices-initial-public-offering",
+          "related": [
+            "TechCrunch",
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/",
+            "https://x.com/AnthropicAI/status/2123196808675405860"
+          ]
+        },
+        {
+          "title": "帕洛阿尔托45亿美元收购模型公司",
+          "tag": "融资",
+          "detail": "网络安全公司 Palo Alto Networks（帕洛阿尔托）宣布以全股票方式收购 Applied Compute，交易作价 45 亿美元，预计在 2027 财年第三季度完成。Applied Compute 做开源和开放权重模型的再训练与推理平台，收购后将帮助企业在公有云或主权云里更安全地微调、部署这类模型。",
+          "why": "做网络安全的公司，在重金布局企业自建开源模型",
+          "source": "Palo Alto Networks",
+          "url": "https://www.paloaltonetworks.com/company/press/2026/palo-alto-networks-to-acquire-applied-compute--bringing-secure-open-weight-ai-to-the-enterprise"
+        },
+        {
+          "title": "据报道美国考虑要求公示中国模型",
+          "tag": "政策",
+          "detail": "路透社援引知情人士报道，特朗普政府正考虑要求美国公司在自己的网站上披露是否使用中国 AI 模型，财政部和白宫科技政策办公室讨论过这一设想，尚未确定会不会写成正式规则。报道以 Airbnb 使用阿里通义千问做客服为例。",
+          "why": "就算还在讨论，也可能影响美国公司选不选中国模型",
+          "source": "路透社（据报道）",
+          "url": "https://www.investing.com/news/stock-market-news/exclusivetrump-administration-weighs-forcing-us-firms-to-disclose-chinese-ai-use-5035455"
+        },
+        {
+          "title": "更新：英伟达据报道将提前加薪发股权",
+          "tag": "市场",
+          "detail": "据《连线》查阅的内部讲话，临时 CEO 科莱特·克雷斯（Colette Kress）在黄仁勋离职后首次全员会上表示，员工可在 12 月迎来加薪和更多股权，比原计划提前数月；英伟达拒绝对此置评。会上董事会主席再次强调，不会请回黄仁勋。",
+          "why": "公司想先稳住人才，说明高层动荡的余波还在",
+          "source": "WIRED（据报道）",
+          "url": "https://www.wired.com/story/inside-nvidias-first-all-hands-without-jensen-huang-as-ceo/"
+        }
+      ]
+    },
+    {
+      "heading": "🇨🇳 国内动态",
+      "accent": "#ef4444",
+      "style": "cards",
+      "items": [
+        {
+          "title": "腾讯称WorkBuddy日活已超1000万",
+          "tag": "市场",
+          "detail": "腾讯发布第三季度业绩：官方称 WorkBuddy 以大模型 token（模型计费单位）消耗计已是中国使用最多的 AI 应用，日活跃用户超过 1000 万。同期资本开支同比大幅增加，当季利润有所下滑。",
+          "why": "一边把AI应用做大，一边继续大幅加码算力投入",
+          "source": "腾讯",
+          "url": "https://www.prnewswire.com/apac/news-releases/tencent-announces-2026-third-quarter-results-302943839.html"
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "马斯克把请走黄仁勋比作踢走乔丹",
+          "summary": "马斯克在访谈里说，赶走黄仁勋就像连胜时把迈克尔·乔丹踢出球队，并称自己愿意雇他；微软纳德拉则公开表示对临时 CEO 克雷斯有信心。据 TechCrunch"
+        },
+        {
+          "title": "独立网站抱怨AI搜索抢走流量",
+          "summary": "黑客新闻热议独立网站被谷歌 AI 回答分流：一篇讲柏林生活指南网站流量大幅下滑的旧文今日再次登顶，评论区在讨论创作者还怎么活。据 HN"
+        },
+        {
+          "title": "纳德拉称智能体会改写网页赚钱方式",
+          "summary": "微软首席执行官纳德拉谈到，AI 智能体可能冲击靠广告赚钱的互联网模式，公司或许得重新思考怎样争取客户。据 TechCrunch"
+        }
+      ]
+    }
+  ]
+}
