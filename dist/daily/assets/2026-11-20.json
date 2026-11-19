@@ -1,0 +1,225 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "AI FRONTIER DAILY",
+  "date": "2026-11-20",
+  "brand": "nanafox",
+  "tldr": [
+    "Anthropic 股票今天在纳斯达克开卖，收盘市值约 1.8 万亿美元，是有史以来规模最大的上市。",
+    "谷歌的 Gemini 已经能在 Mac 上替你点软件、填表格、整理文件。",
+    "OpenAI 更新了实时语音模型，并让聊天可以边说边转成文字，不再限时 10 分钟。"
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "style": "cards",
+      "items": [
+        {
+          "title": "OpenAI推出更稳的实时语音模型",
+          "tag": "模型发布",
+          "detail": "OpenAI 宣布，新的实时语音模型 GPT-Live-1.1 已对开发者开放。官方称它能边说边听，口音更稳，还新增更便宜的待机计费：通话暂停时每分钟 0.02 美元。",
+          "why": "做语音助手的人，待机可以少花钱，对话也更自然",
+          "source": "OpenAI",
+          "url": "https://developers.openai.com/api/docs/models/gpt-live-1.1",
+          "related": [
+            "官方帖",
+            "Vercel"
+          ],
+          "related_urls": [
+            "https://x.com/OpenAIDevs/status/2123506733524136446",
+            "https://vercel.com/changelog/gpt-live-1-1-now-available-on-ai-gateway"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#10b981",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Gemini能在Mac上替你操作电脑",
+          "tag": "Agent",
+          "detail": "谷歌宣布，Mac 版 Gemini 已支持“电脑操控”：它可在后台窗口里替你点软件、填表格、整理文件和上网，你仍可继续用自己的屏幕。目前仅面向美国英语用户，需订阅 Plus、Pro 或 Ultra，操作可随时暂停或确认。",
+          "why": "以后在电脑上交代一件事，就可以让它自己点完",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you/",
+          "related": [
+            "The Verge",
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/tech/1037902/google-gemini-macos-ai-computer-use",
+            "https://x.com/GeminiApp/status/2123513203745538423"
+          ]
+        },
+        {
+          "title": "更新：Genie 4对开发者开放接口",
+          "tag": "Agent",
+          "detail": "谷歌宣布，世界模型（能生成可互动场景的模型）Genie 4 已接入 Gemini 接口和 AI Studio，供开发者直接调用。官方称这是面向开发者的首个世界模型，可在场景中途改天气、加入角色，并生成同步的声音。",
+          "why": "不只是看演示，开发者可以拿它来做可互动的小世界",
+          "source": "@OfficialLoganK",
+          "url": "https://x.com/OfficialLoganK/status/2123467449257623770",
+          "related": [
+            "AI Studio",
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://ai.studio/genie",
+            "https://x.com/GoogleAIStudio/status/2123464069969543317"
+          ]
+        },
+        {
+          "title": "Gemini接口可按需加载工具说明",
+          "tag": "Agent",
+          "detail": "谷歌在 Gemini 接口上推出“工具检索”预览功能。以前智能体要一次读完所有工具的完整说明，又慢又贵；现在可以先只看名字和简介，真正要用某个工具时再加载详细参数。官方称这能减少输入长度，并提高选对工具的准确率。",
+          "why": "智能体要接的工具越来越多，这样可以少花钱、少选错",
+          "source": "Google",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/"
+        },
+        {
+          "title": "OpenAI用智能体自动修卡顿",
+          "tag": "工程",
+          "detail": "OpenAI 介绍了内部的“性能工厂”：用 Codex 智能体自动排查 ChatGPT 变慢的原因、提出修复方案，再由工程师审核，上线后再复查是否恢复。公司自报，三个多月里这套流程跟进了超过 1700 次排查。",
+          "why": "这是实验室自己用编程智能体，给聊天服务保速度",
+          "source": "OpenAI",
+          "url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast",
+          "related": [
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://x.com/OpenAIDevs/status/2123471880292299171"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#3b82f6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "ChatGPT能边说边转成文字",
+          "tag": "产品",
+          "detail": "ChatGPT 上线实时听写：你一边说，屏幕一边出现文字，说完还能直接改，不必等录完再转写。OpenAI 还取消了原先 10 分钟的录音上限，并称识别更稳定。该功能已在全球所有套餐的网页、桌面和手机应用上线。",
+          "why": "想对着聊天框说一大段话，不用再卡在十分钟限制上",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/ai-artificial-intelligence/1037634/openai-chatgpt-live-dictation"
+        },
+        {
+          "title": "ChatGPT健康功能上了电脑和安卓",
+          "tag": "产品",
+          "detail": "OpenAI 称，ChatGPT 的健康功能正在向桌面应用和安卓扩展。符合条件的美国用户，可在授权后把苹果健康、安卓健康数据或病历连上，用来对照检查结果或查看睡眠运动变化。它不能替代看病。",
+          "why": "以后在电脑上也能把健康记录放在一起问，不用反复上传",
+          "source": "OpenAI",
+          "url": "https://help.openai.com/en/articles/20001036-health-in-chatgpt",
+          "related": [
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://x.com/ChatGPT/status/2123545961381216325"
+          ]
+        },
+        {
+          "title": "ChatGPT上线会计专用工作台",
+          "tag": "产品",
+          "detail": "OpenAI 推出面向商业用户的会计插件，可连接 QuickBooks、Xero 等常用记账软件，协助处理发票、对账和月结。Xero 也宣布，会计师可在 ChatGPT 里直接查看客户账目并做月结初审。",
+          "why": "做账的人可以把草稿工作交给它，自己把关最终分录",
+          "source": "OpenAI",
+          "url": "https://openai.com/business/solutions/accounting/",
+          "related": [
+            "Xero"
+          ],
+          "related_urls": [
+            "https://blog.xero.com/news-events/openai-integration-chatgpt-for-accounting/"
+          ]
+        },
+        {
+          "title": "谷歌搜索首页加上AI对话栏",
+          "tag": "产品",
+          "detail": "谷歌正在改搜索首页：页面左侧会出现可展开的侧栏，用来查看和继续你用 AI 模式做过的搜索对话。产品负责人罗比·斯坦（Robby Stein）在网上演示了这一改动。这意味着一打开谷歌，就能接着上次的 AI 问答往下聊。",
+          "why": "搜索首页更像聊天记录，传统搜索框不再是唯一入口",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/tech/1038059/google-search-homepage-ai-chats"
+        },
+        {
+          "title": "据报道Meta新硬件要卖300美元",
+          "tag": "产品",
+          "detail": "据《信息报》报道，Meta 计划把即将推出的 Muse Charm 定价 300 美元。这是一款可放进口袋或挂在脖子上的小型 AI 硬件，用来跟 Muse 助理对话。Meta 没有否认，只说稍后公布更多信息。",
+          "why": "如果你在等一款能随身聊的AI小设备，先看看这个价位",
+          "source": "TechCrunch（据报道）",
+          "url": "https://techcrunch.com/2026/11/19/metas-new-muse-charm-device-may-cost-300/",
+          "related": [
+            "The Verge"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/tech/1038087/meta-muse-charm-ai-price"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "accent": "#8b5cf6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "DeepMind发文讨论超级智能路径",
+          "tag": "研究",
+          "detail": "DeepMind 研究院发表文章，讨论通用人工智能之后，系统可能如何走向“超级智能”。研究科学家蒂姆·格内魏因（Tim Genewein）写道，路径包括继续放大模型和数据、出现新算法、多智能体协作，以及系统递归改进自身。",
+          "why": "实验室开始把“比人类更强之后会怎样”写成路线图",
+          "source": "DeepMind Institute",
+          "url": "https://institute.deepmind.com/essays/what-comes-after-agi/"
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "accent": "#0ea5e9",
+      "style": "cards",
+      "items": [
+        {
+          "title": "更新：Anthropic完成史上最大上市",
+          "tag": "市场",
+          "detail": "Anthropic 股票 11 月 19 日（美东）以代码 ANT 在纳斯达克开卖，收盘明显高于 83 美元的发行价，完全稀释市值约 1.8 万亿美元。公司此轮募资规模超过太空探索技术公司，成为有史以来最大的上市。",
+          "why": "做Claude的公司进入公开市场，后面会更受股价影响",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/11/19/anthropic-ipo-ant-live-updates.html",
+          "related": [
+            "TechCrunch",
+            "The Verge",
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/19/anthropic-hits-nasdaq-exchanges-at-110-27-above-ipo-price/",
+            "https://www.theverge.com/ai-artificial-intelligence/1035384/anthropic-ipo-trading-nasdaq",
+            "https://x.com/AnthropicAI/status/2123431689934291083"
+          ]
+        },
+        {
+          "title": "谷歌将在2029年把AI服务器送上天",
+          "tag": "市场",
+          "detail": "谷歌与贝索斯的蓝色起源宣布，将在 2029 年第一季度用“新格伦”火箭，把搭载谷歌 TPU（专用 AI 芯片）的卫星送入轨道。这是“捕日者”项目的首次专用重型发射，官方称这批卫星的计算能力大约相当于一个数据中心机柜。",
+          "why": "地面电厂不够用时，有人开始认真试验把算力放到太空",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/tech/1037535/google-blue-origin-project-suncatcher-2029"
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "Anthropic上市，安全承诺面临考验",
+          "summary": "CEO 阿莫迪重申安全做好也能做成大公司；早期投资人莫斯科维茨据报道称实验室“应该放慢”。据 The Verge、CNBC"
+        },
+        {
+          "title": "超级智能辩论被指有严重缺陷",
+          "summary": "IEEE Spectrum 发文认为，围绕超级智能的争论存在严重缺陷，HN 上评论超过 150 条。据 HN 讨论"
+        }
+      ]
+    }
+  ]
+}
