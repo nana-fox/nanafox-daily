@@ -1,0 +1,249 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "AI FRONTIER DAILY",
+  "date": "2026-11-24",
+  "brand": "nanafox",
+  "tldr": [
+    "英伟达董事会一致决定，立刻恢复黄仁勋的总裁、CEO 和董事职务。官方称听取了美国政府高层意见；公司股价当天收涨 31%。",
+    "亚马逊确认买下 Decart 的模型优化技术并引进创始团队，交易对价据报道约 75 亿美元。客服公司 Sierra 也官宣新一轮融资，估值来到 300 亿美元。",
+    "智谱发布循环层架构的 GLM-5.4；Anthropic 推出能审代码、按规则放行的 Claude Ship；OpenAI 和思科开源了可在不停机时给系统加防护的 Shirudo。"
+  ],
+  "sections": [
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#10b981",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Claude能审PR并按规则放行",
+          "tag": "Agent",
+          "detail": "Anthropic 推出 Claude Ship（公开测试），面向 Team 和 Enterprise。它能审查代码合并请求（PR）、按意见改代码，并依据团队自己定的规则决定哪些可以批准。代码审查功能已正式可用，新增的“管家”和“批准”两个代理还在测试。",
+          "why": "写代码的速度上去了，过审和合并也开始交给代理",
+          "source": "Anthropic",
+          "url": "https://claude.com/resources/articles/introducing-claude-ship",
+          "related": [
+            "The Verge",
+            "TechCrunch",
+            "@bcherny"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/ai-artificial-intelligence/1040134/anthropic-claude-ship-ai-pull-requests",
+            "https://techcrunch.com/2026/11/23/anthropic-launches-claude-ship-letting-ai-agents-review-fix-and-approve-code-changes/",
+            "https://x.com/bcherny/status/2124961485801836573"
+          ]
+        },
+        {
+          "title": "OpenAI与思科开源不停机防护",
+          "tag": "开源",
+          "detail": "OpenAI 与思科发布开源 Linux 运行时 Shirudo（日语“盾”的意思）。安全人员可先测试一道临时防护，确认能挡住漏洞利用、又不误伤正常请求后，再在系统继续运行的情况下部署。官方称，在一次受控测试里，由 Codex 生成的防护挡住了对 Elasticsearch 的攻击，且无需重启。",
+          "why": "发现漏洞当天，往往还补不完每一台机器",
+          "source": "OpenAI",
+          "url": "https://openai.com/index/introducing-shirudo/",
+          "related": [
+            "思科新闻稿",
+            "@gdb"
+          ],
+          "related_urls": [
+            "https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m11/cisco-and-openai-launch-shirudo-a-new-project-to-safeguard-agentic-ai.html",
+            "https://x.com/gdb/status/2124985602722676794"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#3b82f6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "聊天页用上GPT-6.2 Sol",
+          "tag": "产品",
+          "detail": "ChatGPT 正在聊天页推送面向日常对话优化的 GPT-6.2 Sol。官方称它更擅长处理复杂要求、按详细指令办事，以及上网查找信息。同一天宣布，12 月 23 日起将在聊天页下线 GPT-5.6 Sol，并在 Work 和 Codex 下线 GPT-5.6 的 Sol 与 Terra。",
+          "why": "聊天页换了默认模型，旧版还有一个月可用",
+          "source": "@ChatGPT",
+          "url": "https://x.com/ChatGPT/status/2124942186425069836",
+          "related": [
+            "The Decoder",
+            "@thsottiaux"
+          ],
+          "related_urls": [
+            "https://the-decoder.com/openai-updates-chatgpt-to-handle-complex-everyday-questions-web-searches-and-images-more-reliably/",
+            "https://x.com/thsottiaux/status/2124998553856844186"
+          ]
+        },
+        {
+          "title": "搜索AI模式可接通钱包账单",
+          "tag": "产品",
+          "detail": "谷歌开始在搜索的 AI 模式里，开放可选的“个人智能”接入。今天先可选择连接谷歌钱包，用于结合消费记录给出更贴身的回答；云端硬盘和 Gemini 应用将在未来几周跟进。这些将与已有的邮箱、日历、相册一起使用，需用户主动开启。",
+          "why": "搜索开始读你的账单，记得先确认自己开没开",
+          "source": "Google",
+          "url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps/",
+          "related": [
+            "TechCrunch"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/23/google-searchs-ai-mode-can-now-tap-into-drive-and-wallet-for-more-personalized-responses/"
+          ]
+        },
+        {
+          "title": "Claude把连接器和技能收成插件",
+          "tag": "产品",
+          "detail": "Anthropic 把连接器（用来接入外部工具）和技能（用来教模型做事）合并成统一的“插件”。官方称 Free、Pro、Max、Ultra 用户现在就能用，Team 和 Enterprise 即将跟上，并可在目录里浏览 1 万多款插件。",
+          "why": "给Claude接工具、教新本事，现在走一个入口",
+          "source": "@claudeai",
+          "url": "https://x.com/claudeai/status/2124970294523945328",
+          "related": [
+            "插件目录"
+          ],
+          "related_urls": [
+            "https://claude.ai/plugins"
+          ]
+        },
+        {
+          "title": "Claude企业零留存也可查滥用",
+          "tag": "产品",
+          "detail": "Anthropic 为企业推出“零数据留存”与“企业前沿防护”组合的公开测试，面向符合条件的客户。官方称它能在多次请求中识别滥用，同时保持与零数据留存兼容。该方案与 100 多家客户共同开发。",
+          "why": "企业既不想留数据，又希望有人盯住滥用",
+          "source": "Anthropic",
+          "url": "https://claude.com/resources/articles/zero-data-retention-with-enterprise-frontier-safeguards"
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "accent": "#8b5cf6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "智能体团队改进量子算法并给出证明",
+          "tag": "研究",
+          "detail": "DeepMind 发文介绍用多组 Gemini 4 智能体改进已知量子算法，并用 Lean（一种机器可检验的形式化证明工具）验证每项结果。官方称，与核聚变模拟相关的计算成本降低了约 12 倍（自报 11.8 倍）。团队还把配套的 Lean 程序库和已验证方案开源。",
+          "why": "还跑不了的量子电路，先用数学证明它更省",
+          "source": "Google DeepMind",
+          "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
+          "related": [
+            "arXiv",
+            "GitHub"
+          ],
+          "related_urls": [
+            "https://arxiv.org/abs/2611.09822",
+            "https://github.com/google-deepmind/formal-quantum-computation"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "accent": "#0ea5e9",
+      "style": "cards",
+      "items": [
+        {
+          "title": "更新：英伟达恢复黄仁勋全部职务",
+          "tag": "市场",
+          "detail": "英伟达董事会宣布，立即恢复黄仁勋的总裁、首席执行官和董事职务，投票一致通过。距他 11 月 12 日辞职仅约两周。公告称，董事会听取了美国政府高层意见，并据此认为复职不构成国家安全风险。针对外媒报道的相关调查仍将进行。公司股价当天收涨 31%。",
+          "why": "局面一天翻过来，股价也跟着大幅反弹",
+          "source": "英伟达",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-board-reinstates-jensen-huang-as-president-ceo-and-board-director",
+          "related": [
+            "CNBC",
+            "TechCrunch",
+            "机器之心",
+            "参议院听证"
+          ],
+          "related_urls": [
+            "https://www.cnbc.com/2026/11/23/nvidia-jensen-huang-ceo.html",
+            "https://techcrunch.com/2026/11/23/nvidia-reverses-course-and-brings-jensen-huang-back-as-ceo/",
+            "https://www.jiqizhixin.com/articles/2026-11-23-14",
+            "https://techcrunch.com/2026/11/23/jensen-huang-scheduled-to-testify-next-week-in-senate-following-reinstatement-as-nvidia-ceo/"
+          ]
+        },
+        {
+          "title": "更新：亚马逊买下Decart技术与团队",
+          "tag": "市场",
+          "detail": "亚马逊宣布，已签署协议购买 Decart 的模型优化技术，并引进三位联合创始人及其研究团队，交易还需监管批准等常规交割条件。亚马逊未公布价格；多家媒体援引知情人士称对价约 75 亿美元（据报道）。这是对上期“接近收购”传闻的确认。",
+          "why": "大厂要的不只是人，连优化软件一并买走",
+          "source": "Amazon",
+          "url": "https://www.aboutamazon.com/news/company-news/amazon-decart-ai-optimization",
+          "related": [
+            "CNBC",
+            "TechCrunch"
+          ],
+          "related_urls": [
+            "https://www.cnbc.com/2026/11/23/amazon-decarts-ai-acquisition.html",
+            "https://techcrunch.com/2026/11/23/amazon-snaps-up-decarts-ai-optimization-tech-for-7-5b-as-it-prepares-to-sell-trainium-chips/"
+          ]
+        },
+        {
+          "title": "Sierra新一轮估值300亿美元",
+          "tag": "融资",
+          "detail": "企业客服人工智能公司 Sierra 由布特·泰勒等人创办，官方宣布新一轮融资 17.5 亿美元，估值为 300 亿美元，由 Greenoaks 和 Lightspeed 领投，此前主要投资方也继续跟投。",
+          "why": "做客服代理的公司，仍能融到巨额资金",
+          "source": "Sierra",
+          "url": "https://sierra.ai/blog/series-f-30b",
+          "related": [
+            "TechCrunch"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/23/sierra-doubles-valuation-to-30b-within-six-months-as-demand-for-ai-in-cx-takes-off/"
+          ]
+        },
+        {
+          "title": "两州起诉Grok深度伪造内容",
+          "tag": "政策",
+          "detail": "美国弗吉尼亚州和俄勒冈州检察长分别起诉 SpaceX、X 和 xAI，指控其人工智能工具 Grok 可生成未经同意的露骨深度伪造内容，并称公司一边宣传安全、一边未能落实足够保护。两州依据消费者保护法律寻求禁令和处罚等救济。",
+          "why": "深度伪造已经从平台争议变成州政府官司",
+          "source": "弗吉尼亚州检察长",
+          "url": "https://www.oag.state.va.us/media-center/news-releases/jay-jones/3162-attorneys-general-jones-and-rayfield-file-suit-against-spacex-parent-company-of-x-xai-and-grok-over-creation-and-promotion-of-child-exploitation-and-non-consensual-images-on-platform",
+          "related": [
+            "The Verge",
+            "CNBC"
+          ],
+          "related_urls": [
+            "https://www.theverge.com/ai-artificial-intelligence/1040255/x-grok-ai-deepfakes-oregon-virginia-lawsuit",
+            "https://www.cnbc.com/2026/11/23/oregon-virginia-spacex-grok-deepfake-lawsuits.html"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🇨🇳 国内动态",
+      "accent": "#ef4444",
+      "style": "cards",
+      "items": [
+        {
+          "title": "智谱发布循环层架构GLM-5.4",
+          "tag": "模型发布",
+          "detail": "智谱（Z.ai）发布旗舰模型 GLM-5.4，把已有模型的 28 层再循环跑两遍，官方自称效果可接近参数量远更大的模型（自报可达 2 万亿到 3 万亿参数水平）。已在编程套餐、ZCode 和聊天产品上线，接口即将开放；权重要等安全加固后才会开源。",
+          "why": "先在自家产品里用，权重要等安全加固后再公开",
+          "source": "Z.ai",
+          "url": "https://z.ai/blog/glm-5.4",
+          "related": [
+            "机器之心",
+            "The Decoder",
+            "@Zai_org"
+          ],
+          "related_urls": [
+            "https://www.jiqizhixin.com/articles/2026-11-23-12",
+            "https://the-decoder.com/z-ai-follows-openai-into-loop-transformer-territory-with-its-new-750b-flagship-model/",
+            "https://x.com/Zai_org/status/2124811995912286352"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "黄仁勋回归背后的政治拉锯",
+          "summary": "英伟达股价一天收涨三成，阿尔特曼只回了一句“Jensen!”。特朗普对 CNBC 称曾与董事会沟通；黄仁勋已定于 12 月 3 日到参议院作证。"
+        },
+        {
+          "title": "杨立昆炮轰Anthropic夸大风险",
+          "summary": "杨立昆发帖称，达里奥·阿莫代是在炒作危险，好让开源模型变得不合法、自己继续掌控。该帖在黑客新闻上获得约 959 分、557 条评论。"
+        }
+      ]
+    }
+  ]
+}
