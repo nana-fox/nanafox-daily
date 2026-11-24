@@ -63,6 +63,7 @@ class WebsiteBuildTest(unittest.TestCase):
         self.assertNotIn('<details class="poster-preview" open', html)
         self.assertIn('href="https://nanafox.com/daily/"', html)
         self.assertIn('href="https://nanafox.com/"', html)
+        self.assertIn('href="https://router.nanafox.com/docs?utm_source=nanafox_daily&amp;utm_medium=site"', html)
         self.assertIn('可读摘要', html)
         self.assertIn('&lt;script&gt;unsafe&lt;/script&gt;', html)
         day_html = (self.dist / "daily/2026-10-09/index.html").read_text()

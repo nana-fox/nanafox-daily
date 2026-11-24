@@ -28,6 +28,7 @@ DATE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.json$")
 
 SITE_TITLE = "AI 前沿日报"
 SITE_TAGLINE = "前沿动态 · 高质量文章 · 一图总览"
+ROUTER_DOCS_URL = "https://router.nanafox.com/docs?utm_source=nanafox_daily&utm_medium=site"
 
 
 def esc(s: object) -> str:
@@ -322,6 +323,10 @@ def day_body(
         </a>
       </details>
     </section>
+    <aside class="router-note" aria-label="NanaFox Router">
+      <span>在用 Codex / Claude Code？NanaFox Router 支持一键导入 CC Switch</span>
+      <a href="{esc(ROUTER_DOCS_URL)}" target="_blank" rel="noopener noreferrer">接入文档 →</a>
+    </aside>
     {nav}
 """
 

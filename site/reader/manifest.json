@@ -392,12 +392,12 @@
     "src": "node_modules/@fontsource-variable/noto-sans-sc/files/noto-sans-sc-vietnamese-wght-normal.woff2"
   },
   "src/main.jsx": {
-    "file": "assets/main-DVBCKwsZ.js",
+    "file": "assets/main-BrrxLN3W.js",
     "name": "main",
     "src": "src/main.jsx",
     "isEntry": true,
     "css": [
-      "assets/main-BBfms-wx.css"
+      "assets/main-BXAXcpfV.css"
     ],
     "assets": [
       "assets/noto-sans-sc-5-wght-normal-DI846rD9.woff2",
