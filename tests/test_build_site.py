@@ -197,6 +197,20 @@ class WebsiteBuildTest(unittest.TestCase):
         for guide in guides:
             self.assertIn(f"https://nanafox.com/daily/guides/codex/{guide['slug']}/", locs)
 
+    def test_guide_slug_rejects_path_traversal_and_unsafe_segments(self):
+        self.add_day("2026-11-25", "今日摘要")
+        for bad_slug in ("../../escaped", "../escape", "nested/path", "Upper_Case", ""):
+            bad_dir = self.root / f"bad_guides_{abs(hash(bad_slug))}"
+            bad_dir.mkdir(exist_ok=True)
+            (bad_dir / "01-bad.md").write_text(
+                f'---\ntitle: "Bad"\nslug: "{bad_slug}"\n---\n\nBody\n',
+                encoding="utf-8",
+            )
+            with self.assertRaises(ValueError, msg=f"Should reject slug {bad_slug!r}"):
+                site.build(self.data, self.dist, base="/daily", guides_dir=bad_dir)
+            self.assertFalse((self.dist / "escaped/index.html").exists())
+            self.assertFalse((self.dist / "daily/escape/index.html").exists())
+
 
 if __name__ == "__main__":
     unittest.main()

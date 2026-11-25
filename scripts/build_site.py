@@ -26,6 +26,7 @@ DIST = REPO / "dist"
 DEFAULT_DIGEST = REPO / "data"
 DEFAULT_GUIDES = REPO / "guides" / "codex"
 DATE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.json$")
+GUIDE_SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 SITE_ORIGIN = "https://nanafox.com"
 
 SITE_TITLE = "AI 前沿日报"
@@ -603,16 +604,29 @@ def render_markdown(md: str, *, strip_first_h1: bool = True) -> str:
     return "\n".join(blocks)
 
 
+def validate_guide_slug(slug: str, source_path: Path | None = None) -> str:
+    slug = (slug or "").strip()
+    if not GUIDE_SLUG_RE.fullmatch(slug):
+        where = f" in {source_path}" if source_path else ""
+        raise ValueError(
+            f"Invalid guide slug {slug!r}{where}: must match {GUIDE_SLUG_RE.pattern}"
+        )
+    return slug
+
+
 def load_guides(guides_dir: Path | None) -> list[dict]:
     if not guides_dir or not guides_dir.is_dir():
         return []
     guides: list[dict] = []
+    seen_slugs: set[str] = set()
     for path in sorted(guides_dir.glob("*.md")):
         raw = path.read_text(encoding="utf-8")
         meta, body_md = parse_frontmatter(raw)
-        slug = str(meta.get("slug") or path.stem).strip()
-        if not slug:
-            continue
+        raw_slug = meta["slug"] if "slug" in meta else path.stem
+        slug = validate_guide_slug(str(raw_slug), path)
+        if slug in seen_slugs:
+            raise ValueError(f"Duplicate guide slug {slug!r} in {path}")
+        seen_slugs.add(slug)
         guides.append(
             {
                 "slug": slug,
@@ -875,6 +889,7 @@ def build(
 
     guides = load_guides(guides_dir)
     if guides:
+        guides_out_root = (site_root / "guides" / "codex").resolve()
         guides_index_path = join_base(base, "guides", "codex") + "/"
         guides_index_html = layout(
             title=f"Codex 常见报错排错指南 · {SITE_TITLE}",
@@ -885,9 +900,13 @@ def build(
             description="Codex CLI 与 Codex Desktop 高频报错排错指南合集，覆盖 400 / 401 / 403 / 404 / 408 / 429 / 502 / 503 根因定位与通用修复步骤。",
             keywords=["Codex 报错", "Codex CLI 排错", "Codex Desktop 排错", "Codex config.toml", "Codex auth.json"],
         )
-        write(site_root / "guides" / "codex" / "index.html", guides_index_html)
+        write(guides_out_root / "index.html", guides_index_html)
         for guide in guides:
-            guide_path = join_base(base, "guides", "codex", guide["slug"]) + "/"
+            slug = validate_guide_slug(guide["slug"], guide.get("source_path"))
+            guide_out_path = (guides_out_root / slug / "index.html").resolve()
+            if not guide_out_path.is_relative_to(guides_out_root):
+                raise ValueError(f"Guide output path escapes guides root: {guide_out_path}")
+            guide_path = join_base(base, "guides", "codex", slug) + "/"
             guide_html = layout(
                 title=f'{guide["title"]} · NanaFox',
                 active="guides",
@@ -898,7 +917,7 @@ def build(
                 keywords=guide["keywords"],
                 og_type="article",
             )
-            write(site_root / "guides" / "codex" / guide["slug"] / "index.html", guide_html)
+            write(guide_out_path, guide_html)
 
     sitemap_urls: list[tuple[str, str | None]] = [
         (f"{SITE_ORIGIN}{join_base(base)}", digests[0]["_day"] if digests else None),

@@ -39,11 +39,16 @@ aff_code: "UG937JQ67MRS"
 Codex 客户端同时可能读取 `~/.codex/auth.json` 和当前终端的环境变量。请先检查两处：
 
 ```bash
-# 1. 检查环境变量是否覆盖了配置
-echo "$OPENAI_API_KEY"
+# 1. 检查环境变量是否设置了 OPENAI_API_KEY（仅输出长度与前4后4位脱敏预览，不打印完整密钥）
+if [ -n "$OPENAI_API_KEY" ]; then
+  printf 'OPENAI_API_KEY 已设置（长度 %d，预览 %s...%s）\n' "${#OPENAI_API_KEY}" "${OPENAI_API_KEY:0:4}" "${OPENAI_API_KEY: -4}"
+else
+  echo "OPENAI_API_KEY 未设置"
+fi
 
-# 2. 查看 auth.json 当前填写的 Key（Windows 路径：%userprofile%\.codex\auth.json）
-cat ~/.codex/auth.json
+# 2. 安全核对 ~/.codex/auth.json 中的 Key（仅显示字段名与前4后4位，不打印完整凭据）
+# Windows 路径：%userprofile%\.codex\auth.json
+python3 -c 'import json, pathlib; d = json.loads(pathlib.Path("~/.codex/auth.json").expanduser().read_text()); k = d.get("OPENAI_API_KEY", ""); print("keys:", list(d.keys()), "OPENAI_API_KEY:", (k[:4] + "..." + k[-4:] + f" (len={len(k)})") if len(k) >= 8 else ("<已设置>" if k else "<未设置>"))'
 ```
 
 如果终端环境变量里残留了旧 Key，请先在 shell 配置文件（`.zshrc` / `.bashrc` 或系统环境变量）中清除或同步更新。

@@ -50,11 +50,16 @@
 <h2>精确修复步骤（全服务商通用）</h2>
 <h3>步骤 1：确认生效的是哪一个 API Key</h3>
 <p>Codex 客户端同时可能读取 <code>~/.codex/auth.json</code> 和当前终端的环境变量。请先检查两处：</p>
-<pre><code class="lang-bash"># 1. 检查环境变量是否覆盖了配置
-echo &quot;$OPENAI_API_KEY&quot;
+<pre><code class="lang-bash"># 1. 检查环境变量是否设置了 OPENAI_API_KEY（仅输出长度与前4后4位脱敏预览，不打印完整密钥）
+if [ -n &quot;$OPENAI_API_KEY&quot; ]; then
+  printf &#x27;OPENAI_API_KEY 已设置（长度 %d，预览 %s...%s）\n&#x27; &quot;${#OPENAI_API_KEY}&quot; &quot;${OPENAI_API_KEY:0:4}&quot; &quot;${OPENAI_API_KEY: -4}&quot;
+else
+  echo &quot;OPENAI_API_KEY 未设置&quot;
+fi
 
-# 2. 查看 auth.json 当前填写的 Key（Windows 路径：%userprofile%\.codex\auth.json）
-cat ~/.codex/auth.json</code></pre>
+# 2. 安全核对 ~/.codex/auth.json 中的 Key（仅显示字段名与前4后4位，不打印完整凭据）
+# Windows 路径：%userprofile%\.codex\auth.json
+python3 -c &#x27;import json, pathlib; d = json.loads(pathlib.Path(&quot;~/.codex/auth.json&quot;).expanduser().read_text()); k = d.get(&quot;OPENAI_API_KEY&quot;, &quot;&quot;); print(&quot;keys:&quot;, list(d.keys()), &quot;OPENAI_API_KEY:&quot;, (k[:4] + &quot;...&quot; + k[-4:] + f&quot; (len={len(k)})&quot;) if len(k) &gt;= 8 else (&quot;&lt;已设置&gt;&quot; if k else &quot;&lt;未设置&gt;&quot;))&#x27;</code></pre>
 <p>如果终端环境变量里残留了旧 Key，请先在 shell 配置文件（<code>.zshrc</code> / <code>.bashrc</code> 或系统环境变量）中清除或同步更新。</p>
 <h3>步骤 2：核对 Key 所属分组与账户计费状态</h3>
 <ol><li>登录你的 API 服务商控制台，核对当前账户余额与已生效的套餐/月卡状态；</li><li>若按量余额确实耗尽，请补充余额或切换到已开通的有效套餐；</li><li>若已开通套餐仍报 <code>insufficient balance</code>，请在控制台「API 密钥」页面核对刚才查到的 Key 是否绑定到了<strong>对应套餐分组</strong>——不同计费模式或模型分组通常需要<strong>按用途分别建 Key</strong>。</li></ol>
