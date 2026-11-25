@@ -4,6 +4,7 @@ import tempfile
 import unittest
 import re
 import os
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 SPEC = importlib.util.spec_from_file_location("build_site", Path(__file__).resolve().parents[1] / "scripts/build_site.py")
@@ -63,6 +64,7 @@ class WebsiteBuildTest(unittest.TestCase):
         self.assertNotIn('<details class="poster-preview" open', html)
         self.assertIn('href="https://nanafox.com/daily/"', html)
         self.assertIn('href="https://nanafox.com/"', html)
+        self.assertIn('href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex"', html)
         self.assertIn('可读摘要', html)
         self.assertIn('&lt;script&gt;unsafe&lt;/script&gt;', html)
         day_html = (self.dist / "daily/2026-10-09/index.html").read_text()
@@ -128,6 +130,86 @@ class WebsiteBuildTest(unittest.TestCase):
             os.utime(path, (1600000000, 1600000000))
         site.build(self.data, self.dist, base="/daily")
         self.assertEqual(pack.read_bytes(), original)
+
+    def test_markdown_renderer_escapes_html_and_renders_code_lists_and_links(self):
+        md = (
+            "# Title\n\n"
+            "## 报错现象\n\n"
+            "正文包含 **加粗**、`<code>` 和 [文档](https://router.nanafox.com/docs) 以及 [坏链](javascript:alert(1))。\n\n"
+            "```toml\n"
+            'wire_api = "responses"\n'
+            "```\n\n"
+            "1. 第一步\n"
+            "   - 子项 A\n"
+            "   - 子项 B\n"
+            "2. 第二步\n"
+        )
+        rendered = site.render_markdown(md)
+        self.assertNotIn("<h1>", rendered)
+        self.assertIn("<h2>报错现象</h2>", rendered)
+        self.assertIn("<strong>加粗</strong>", rendered)
+        self.assertIn("<code>&lt;code&gt;</code>", rendered)
+        self.assertIn('href="https://router.nanafox.com/docs"', rendered)
+        self.assertNotIn("javascript:", rendered)
+        self.assertIn('<pre><code class="lang-toml">wire_api = &quot;responses&quot;</code></pre>', rendered)
+        self.assertIn("<ol><li>第一步<ul><li>子项 A</li><li>子项 B</li></ul></li><li>第二步</li></ol>", rendered)
+
+    def test_codex_guides_and_sitemap_build_and_compliance(self):
+        self.add_day("2026-11-25", "今日摘要")
+        site.build(self.data, self.dist, base="/daily")
+        root = self.dist / "daily"
+        index_html = (root / "guides/codex/index.html").read_text(encoding="utf-8")
+        self.assertIn("Codex 常见报错排错指南", index_html)
+        self.assertIn('href="https://nanafox.com/daily/guides/codex/"', index_html)
+        self.assertIn('https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex', index_html)
+
+        guides = site.load_guides(site.DEFAULT_GUIDES)
+        self.assertEqual(len(guides), 8)
+        forbidden = [
+            "aff=seo_codex_faq",
+            "终身",
+            "ddnio.com",
+            "国内直连",
+            "稳定直连",
+            "国内开发机直接配置接入",
+            "统一 Key",
+            "统一Key",
+            "not supported by any configured account",
+            "All available accounts",
+        ]
+        for guide in guides:
+            page_path = root / "guides/codex" / guide["slug"] / "index.html"
+            self.assertTrue(page_path.is_file(), guide["slug"])
+            page_html = page_path.read_text(encoding="utf-8")
+            self.assertIn(f'href="https://nanafox.com/daily/guides/codex/{guide["slug"]}/"', page_html)
+            self.assertIn('https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex', page_html)
+            self.assertNotIn('<script id="daily-data"', page_html)
+            for term in forbidden:
+                self.assertNotIn(term, page_html, f"{guide['slug']} contains forbidden term: {term}")
+
+        sitemap_path = root / "sitemap.xml"
+        self.assertTrue(sitemap_path.is_file())
+        tree = ET.fromstring(sitemap_path.read_text(encoding="utf-8"))
+        locs = {el.text for el in tree.iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")}
+        self.assertIn("https://nanafox.com/daily/", locs)
+        self.assertIn("https://nanafox.com/daily/archive/", locs)
+        self.assertIn("https://nanafox.com/daily/guides/codex/", locs)
+        for guide in guides:
+            self.assertIn(f"https://nanafox.com/daily/guides/codex/{guide['slug']}/", locs)
+
+    def test_guide_slug_rejects_path_traversal_and_unsafe_segments(self):
+        self.add_day("2026-11-25", "今日摘要")
+        for bad_slug in ("../../escaped", "../escape", "nested/path", "Upper_Case", ""):
+            bad_dir = self.root / f"bad_guides_{abs(hash(bad_slug))}"
+            bad_dir.mkdir(exist_ok=True)
+            (bad_dir / "01-bad.md").write_text(
+                f'---\ntitle: "Bad"\nslug: "{bad_slug}"\n---\n\nBody\n',
+                encoding="utf-8",
+            )
+            with self.assertRaises(ValueError, msg=f"Should reject slug {bad_slug!r}"):
+                site.build(self.data, self.dist, base="/daily", guides_dir=bad_dir)
+            self.assertFalse((self.dist / "escaped/index.html").exists())
+            self.assertFalse((self.dist / "daily/escape/index.html").exists())
 
 
 if __name__ == "__main__":

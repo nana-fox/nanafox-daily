@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex 常见报错排错指南 · AI 前沿日报</title>
+  <meta name="description" content="Codex CLI 与 Codex Desktop 高频报错排错指南合集，覆盖 400 / 401 / 403 / 404 / 408 / 429 / 502 / 503 根因定位与通用修复步骤。" />
+  <meta name="keywords" content="Codex 报错, Codex CLI 排错, Codex Desktop 排错, Codex config.toml, Codex auth.json" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="Codex 常见报错排错指南 · AI 前沿日报 · NanaFox" />
+  <meta property="og:description" content="Codex CLI 与 Codex Desktop 高频报错排错指南合集，覆盖 400 / 401 / 403 / 404 / 408 / 429 / 502 / 503 根因定位与通用修复步骤。" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://nanafox.com/daily/guides/codex/" />
+  <meta property="og:url" content="https://nanafox.com/daily/guides/codex/" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
+      </a>
+      <nav class="nav" aria-label="日报导航"><a class="" href="https://nanafox.com/">返回官网</a><a class="" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a><a class="active" href="/daily/guides/codex/">Codex 排错</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/daily/">AI 日报</a>
+      <span>/</span>
+      <span>Codex 排错指南</span>
+    </nav>
+    <div class="page-head">
+      <p class="eyebrow">Codex Troubleshooting Guides</p>
+      <h1>Codex 常见报错排错指南</h1>
+      <p class="date-line">覆盖 Codex CLI 与 Codex Desktop 高频 400 / 401 / 403 / 404 / 408 / 429 / 502 / 503 报错 · 全服务商通用排查步骤</p>
+    </div>
+    <ul class="guide-list"><li class="guide-card"><a href="/daily/guides/codex/codex-model-not-supported-or-retired-400-404/"><div class="guide-card-head"><div class="guide-badges"><span class="guide-badge">400</span><span class="guide-badge">404</span></div><span class="guide-date">2026-11-25</span></div><h2>Codex 报错 model_not_found / not supported when using Codex（400 / 404）怎么修</h2><p>解决 Codex CLI 与 Codex Desktop 报错 model_not_found、gpt-5.4 / gpt-5.5 已下线或模型不在当前分组支持列表的问题，30 秒定位根因并修复 config.toml。</p><span class="guide-more">查看排查步骤 →</span></a></li><li class="guide-card"><a href="/daily/guides/codex/codex-insufficient-balance-403-billing-error/"><div class="guide-card-head"><div class="guide-badges"><span class="guide-badge">403</span></div><span class="guide-date">2026-11-25</span></div><h2>Codex 报错 403 insufficient balance / Insufficient account balance 怎么排查</h2><p>Codex CLI 与 Codex Desktop 出现 403 billing_error insufficient balance 或 Insufficient account balance 时，如何区分余额耗尽与分组 Key 填错并快速恢复。</p><span class="guide-more">查看排查步骤 →</span></a></li><li class="guide-card"><a href="/daily/guides/codex/codex-daily-weekly-limit-exceeded-429-403/"><div class="guide-card-head"><div class="guide-badges"><span class="guide-badge">429</span><span class="guide-badge">403</span></div><span class="guide-date">2026-11-25</span></div><h2>Codex 报错 429 / 403 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED 怎么解决</h2><p>区分 Codex 报错 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED（套餐周期限额）与瞬时限流（rate_limit_error），并提供不中断开发的切换与恢复步骤。</p><span class="guide-more">查看排查步骤 →</span></a></li><li class="guide-card"><a href="/daily/guides/codex/codex-no-active-subscription-for-group-403/"><div class="guide-card-head"><div class="guide-badges"><span class="guide-badge">403</span><span class="guide-badge">401</span></div><span class="guide-date">2026-11-25</span></div><h2>Codex 报错 403 No active subscription found for this group 及鉴权失败排查</h2><p>解决 Codex CLI / Desktop 报错 403 api_error: No active subscription found for this group，以及 auth.json 分组 Key 不匹配或残留官方 OAuth 登录态导致的鉴权异常。</p><span class="guide-more">查看排查步骤 →</span></a></li><li class="guide-card"><a href="/daily/guides/codex/codex-concurrency-limit-exceeded-502/"><div class="guide-card-head"><div class="guide-badges"><span class="guide-badge">502</span></div><span class="guide-date">2026-11-25</span></div><h2>Codex 报错 502 Concurrency limit exceeded for user / account 怎么解决</h2><p>排查 Codex CLI / Desktop 及自动化脚本中出现的 502 upstream_error: Concurrency limit exceeded for user / account，快速定位并发源并恢复稳定调用。</p><span class="guide-more">查看排查步骤 →</span></a></li><li class="guide-card"><a href="/daily/guides/codex/codex-responses-previous-response-id-call-id-400/"><div class="guide-card-head"><div class="guide-badges"><span class="guide-badge">400</span><span class="guide-badge">404</span></div><span class="guide-date">2026-11-25</span></div><h2>Codex 报错 400 function_call_output requires call_id / previous_response_id 与 wire_api 不兼容怎么修</h2><p>修复 Codex 报错 400 function_call_output requires call_id on HTTP requests; continuation via previous_response_id is only supported on Responses WebSocket v2，核对 wire_api、base_url 与客户端版本。</p><span class="guide-more">查看排查步骤 →</span></a></li><li class="guide-card"><a href="/daily/guides/codex/codex-input-exceeds-context-window-400/"><div class="guide-card-head"><div class="guide-badges"><span class="guide-badge">400</span></div><span class="guide-date">2026-11-25</span></div><h2>Codex 报错 400 Your input exceeds the context window of this model 怎么修</h2><p>解决 Codex 报错 400 invalid_request_error: Your input exceeds the context window of this model，掌握 /compact 压缩、会话拆分及自定义 provider 避免长会话压缩卡死的避坑技巧。</p><span class="guide-more">查看排查步骤 →</span></a></li><li class="guide-card"><a href="/daily/guides/codex/codex-stream-interrupted-overloaded-rate-limit-timeout-502-503-429-408/"><div class="guide-card-head"><div class="guide-badges"><span class="guide-badge">502</span><span class="guide-badge">503</span><span class="guide-badge">429</span><span class="guide-badge">408</span></div><span class="guide-date">2026-11-25</span></div><h2>Codex 报错 502 流式中断 / 503 overloaded / 429 rate_limit_error / 408 请求超时怎么修</h2><p>快速区分 Codex 常见的 502 Upstream response stream was interrupted、503 overloaded、429 rate_limit_error 与 408 Timed out reading request body，按根因分别处理。</p><span class="guide-more">查看排查步骤 →</span></a></li></ul>
+    <aside class="router-note" aria-label="NanaFox Router">
+      <span>需要支持 Codex 原生 Responses 接口的路由服务？NanaFox Router 支持按用途建 Key，并可一键导入 CC Switch</span>
+      <div class="router-note-links">
+        <a class="router-note-secondary" href="https://router.nanafox.com/docs" target="_blank" rel="noopener noreferrer">接入文档</a>
+        <a href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex" target="_blank" rel="noopener noreferrer">立即接入 →</a>
+      </div>
+    </aside>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
+      <div class="footer-links">
+        <a href="/daily/guides/codex/">Codex 排错指南</a>
+        <a href="/daily/archive/">全部归档</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex 报错 502 Concurrency limit exceeded for user / account 怎么解决 · NanaFox</title>
+  <meta name="description" content="排查 Codex CLI / Desktop 及自动化脚本中出现的 502 upstream_error: Concurrency limit exceeded for user / account，快速定位并发源并恢复稳定调用。" />
+  <meta name="keywords" content="Concurrency limit exceeded Codex, Codex 502 upstream_error, Concurrency limit exceeded for user, Concurrency limit exceeded for account, Codex 并发超限" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="Codex 报错 502 Concurrency limit exceeded for user / account 怎么解决 · NanaFox · NanaFox" />
+  <meta property="og:description" content="排查 Codex CLI / Desktop 及自动化脚本中出现的 502 upstream_error: Concurrency limit exceeded for user / account，快速定位并发源并恢复稳定调用。" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://nanafox.com/daily/guides/codex/codex-concurrency-limit-exceeded-502/" />
+  <meta property="og:url" content="https://nanafox.com/daily/guides/codex/codex-concurrency-limit-exceeded-502/" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
+      </a>
+      <nav class="nav" aria-label="日报导航"><a class="" href="https://nanafox.com/">返回官网</a><a class="" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a><a class="active" href="/daily/guides/codex/">Codex 排错</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/daily/">AI 日报</a>
+      <span>/</span>
+      <a href="/daily/guides/codex/">Codex 排错指南</a>
+    </nav>
+    <article class="guide-page">
+      <header class="page-head">
+        <div class="guide-meta">
+          <div class="guide-badges"><span class="guide-badge">502</span></div>
+          <span class="date-line">更新于 2026-11-25</span>
+        </div>
+        <h1>Codex 报错 502 Concurrency limit exceeded for user / account 怎么解决</h1>
+        <p class="guide-summary">排查 Codex CLI / Desktop 及自动化脚本中出现的 502 upstream_error: Concurrency limit exceeded for user / account，快速定位并发源并恢复稳定调用。</p>
+      </header>
+      <div class="guide-article">
+<p>当你在本地同时开多个 Codex 窗口、启用了多子代理并行执行，或者在 CI / 脚本里并发跑 <code>codex exec</code> 时，很容易触发 <code>502</code> 并发超限报错。</p>
+<h2>报错现象</h2>
+<p>终端或日志中出现以下任一原文：</p>
+<ul><li><code>502 upstream_error</code>: <code>Concurrency limit exceeded for user, please retry later</code></li><li><code>502 upstream_error</code>: <code>Concurrency limit exceeded for account, please retry later</code></li></ul>
+<h2>30 秒定位根因</h2>
+<p>这个报错与网络断开或 Key 错误无关，本质是<strong>同一时刻正在进行的在途请求（in-flight requests）数量超过了上限</strong>：</p>
+<ul><li><strong><code>for user</code></strong>：你当前账号或当前 API Key 同时发出的并发请求数触及了用户级并发上限。常见诱因：同时开了多个 Codex CLI/Desktop 会话、工具链开了并行 subagent、或者某个后台终端还在跑死循环/批量脚本。</li><li><strong><code>for account</code></strong>：当前请求路由到的上游通道瞬时并发已满。通常等待几秒后重试，路由会自动分配到空闲通道。</li></ul>
+<h2>精确修复步骤（全服务商通用）</h2>
+<h3>步骤 1：排查本地隐藏的并行 Codex 进程</h3>
+<p>很多时候你以为只开了一个窗口，但后台仍有残留的 Codex 进程或子代理在跑。先检查本机进程：</p>
+<pre><code class="lang-bash"># macOS / Linux 查看正在运行的 codex 进程
+ps aux | grep -i codex</code></pre>
+<p>如果发现旧窗口退出后残留的进程，或不需要的并行任务，先手动结束或暂停它们。</p>
+<h3>步骤 2：降低并发数并等待几秒重试</h3>
+<ol><li><strong>交互式开发</strong>：暂时只保留 1–2 个活跃的 Codex 窗口，等待 5–10 秒后重新发送请求；</li><li><strong>多子代理 / 工作流</strong>：将并行 worker 数量调低（例如从 5 降到 2），并在任务之间增加短暂退避间隔；</li><li><strong>脚本 / <code>codex exec</code> 批处理</strong>：不要无限制 <code>Promise.all</code> 或后台 <code>&amp;</code> 全量并发，使用信号量/队列控制最大并发数，并对 <code>502</code> 增加指数退避重试（例如 3s → 6s → 12s）。</li></ol>
+<h3>步骤 3：区分日常与批量任务的 Key（推荐）</h3>
+<p>如果你的服务商支持按用途创建多个 API Key，建议把<strong>日常交互式 Codex</strong> 与<strong>自动化批处理脚本</strong>分开建 Key，方便排查究竟是哪一端在占满并发额度。</p>
+<hr />
+<h2>延伸参考：Codex 接入配置与排错手册</h2>
+<p>如果你想参考标准的 Codex <code>config.toml</code> 配置，或需要按用途分别建 Key、清晰隔离交互与脚本调用的路由网关，可以查看 NanaFox Router 文档：</p>
+<ul><li>Codex 接入文档：<a href="https://router.nanafox.com/docs" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/docs</a></li><li>注册体验 NanaFox Router（Codex 专向入口）：<a href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex</a></li></ul>
+      </div>
+    </article>
+    <section class="guide-related" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">其他 Codex 排错指南</h2><ul><li><a href="/daily/guides/codex/codex-model-not-supported-or-retired-400-404/">Codex 报错 model_not_found / not supported when using Codex（400 / 404）怎么修</a></li><li><a href="/daily/guides/codex/codex-insufficient-balance-403-billing-error/">Codex 报错 403 insufficient balance / Insufficient account balance 怎么排查</a></li><li><a href="/daily/guides/codex/codex-daily-weekly-limit-exceeded-429-403/">Codex 报错 429 / 403 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED 怎么解决</a></li><li><a href="/daily/guides/codex/codex-no-active-subscription-for-group-403/">Codex 报错 403 No active subscription found for this group 及鉴权失败排查</a></li><li><a href="/daily/guides/codex/codex-responses-previous-response-id-call-id-400/">Codex 报错 400 function_call_output requires call_id / previous_response_id 与 wire_api 不兼容怎么修</a></li><li><a href="/daily/guides/codex/codex-input-exceeds-context-window-400/">Codex 报错 400 Your input exceeds the context window of this model 怎么修</a></li><li><a href="/daily/guides/codex/codex-stream-interrupted-overloaded-rate-limit-timeout-502-503-429-408/">Codex 报错 502 流式中断 / 503 overloaded / 429 rate_limit_error / 408 请求超时怎么修</a></li></ul></section>
+    <nav class="day-nav" aria-label="指南导航">
+      <a href="/daily/guides/codex/">← 返回 Codex 排错指南合集</a>
+      <span class="spacer"></span>
+      <a href="/daily/">查看最新 AI 日报 →</a>
+    </nav>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
+      <div class="footer-links">
+        <a href="/daily/guides/codex/">Codex 排错指南</a>
+        <a href="/daily/archive/">全部归档</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

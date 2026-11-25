@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex 报错 400 Your input exceeds the context window of this model 怎么修 · NanaFox</title>
+  <meta name="description" content="解决 Codex 报错 400 invalid_request_error: Your input exceeds the context window of this model，掌握 /compact 压缩、会话拆分及自定义 provider 避免长会话压缩卡死的避坑技巧。" />
+  <meta name="keywords" content="Your input exceeds the context window of this model, Codex 400 context window, Codex 上下文超限, Codex compact 命令, Codex remote compaction v2" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="Codex 报错 400 Your input exceeds the context window of this model 怎么修 · NanaFox · NanaFox" />
+  <meta property="og:description" content="解决 Codex 报错 400 invalid_request_error: Your input exceeds the context window of this model，掌握 /compact 压缩、会话拆分及自定义 provider 避免长会话压缩卡死的避坑技巧。" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://nanafox.com/daily/guides/codex/codex-input-exceeds-context-window-400/" />
+  <meta property="og:url" content="https://nanafox.com/daily/guides/codex/codex-input-exceeds-context-window-400/" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
+      </a>
+      <nav class="nav" aria-label="日报导航"><a class="" href="https://nanafox.com/">返回官网</a><a class="" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a><a class="active" href="/daily/guides/codex/">Codex 排错</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/daily/">AI 日报</a>
+      <span>/</span>
+      <a href="/daily/guides/codex/">Codex 排错指南</a>
+    </nav>
+    <article class="guide-page">
+      <header class="page-head">
+        <div class="guide-meta">
+          <div class="guide-badges"><span class="guide-badge">400</span></div>
+          <span class="date-line">更新于 2026-11-25</span>
+        </div>
+        <h1>Codex 报错 400 Your input exceeds the context window of this model 怎么修</h1>
+        <p class="guide-summary">解决 Codex 报错 400 invalid_request_error: Your input exceeds the context window of this model，掌握 /compact 压缩、会话拆分及自定义 provider 避免长会话压缩卡死的避坑技巧。</p>
+      </header>
+      <div class="guide-article">
+<p>在一个 Codex 会话里连续改了十几个文件、或者直接粘贴了整段构建日志之后，经常会突然撞上模型上下文窗口上限，返回 <code>400</code> 报错。</p>
+<h2>报错现象</h2>
+<p>终端或客户端返回：</p>
+<ul><li><code>400 invalid_request_error</code>: <code>Your input exceeds the context window of this model. Please adjust your input and try again.</code></li></ul>
+<h2>30 秒定位根因</h2>
+<p>核心原因很直接：<strong>本次请求携带的完整内容（系统提示词 + 历史多轮对话 + 工具返回的文件内容/日志 + 你刚输入的消息）总 token 数超过了当前模型允许的最大上下文窗口。</strong></p>
+<p>常见触发场景：</p>
+<ol><li>同一个会话连续聊了很久，中间包含大量代码 diff、测试输出或长日志文件；</li><li>一次性往输入框里粘贴了数千行报错堆栈、JSON 响应或构建日志；</li><li>自定义 provider 在 <code>config.toml</code> 里把 <code>name</code> 写成了 <code>&quot;OpenAI&quot;</code>，导致 Codex 在接近上下文阈值时尝试走官方专属的 remote compaction v2，而第三方端点不支持该控制协议，结果自动压缩失败、上下文越积越大最终超窗卡死。</li></ol>
+<h2>精确修复步骤（全服务商通用）</h2>
+<h3>步骤 1：在当前会话执行 <code>/compact</code> 压缩历史</h3>
+<p>如果还能在当前会话输入命令，先直接运行：</p>
+<pre><code class="lang-text">/compact</code></pre>
+<p>Codex 会将之前的对话历史摘要为紧凑的上下文，释放大量 token 空间。</p>
+<h3>步骤 2：如果已经压不动，直接新开会话并精准投喂上下文</h3>
+<p>当单条最新输入或已有历史已经超过窗口极限、连 <code>/compact</code> 都无法发出时：</p>
+<ol><li>新开一个 Codex 会话；</li><li>用 2–3 句话总结当前进度与目标，只附带<strong>当前需要修改的那几个具体文件路径</strong>；</li><li>对于超长日志，先用 <code>tail -n 100</code> 或 <code>grep</code> 截取关键报错片段再贴给 Codex，不要把几 MB 的完整日志直接塞进对话。</li></ol>
+<h3>步骤 3：自定义 provider 避坑（防止自动压缩失效）</h3>
+<p>如果你使用的是第三方自定义端点，检查 <code>~/.codex/config.toml</code> 中的 <code>[model_providers.&lt;id&gt;]</code>，<strong>不要把 <code>name</code> 写成 <code>&quot;OpenAI&quot;</code></strong>，改成任意自定义名称（例如 <code>name = &quot;custom-relay&quot;</code>）：</p>
+<pre><code class="lang-toml">model_provider = &quot;custom&quot;
+
+[model_providers.custom]
+name = &quot;custom-relay&quot;
+base_url = &quot;https://你的服务商端点&quot;
+wire_api = &quot;responses&quot;
+requires_openai_auth = true</code></pre>
+<p>这样长会话触发自动压缩时会正常走本地 compaction，不会因为触发官方 remote compaction v2 而卡死。</p>
+<hr />
+<h2>延伸参考：Codex 配置模板与排错指南</h2>
+<p>如需对照完整的 Codex <code>config.toml</code> 标准写法，或查看与 CC Switch 配合使用的配置步骤，可以参考 NanaFox Router 文档：</p>
+<ul><li>Codex 标准接入文档：<a href="https://router.nanafox.com/docs" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/docs</a></li><li>注册体验 NanaFox Router（Codex 专向入口）：<a href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex</a></li></ul>
+      </div>
+    </article>
+    <section class="guide-related" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">其他 Codex 排错指南</h2><ul><li><a href="/daily/guides/codex/codex-model-not-supported-or-retired-400-404/">Codex 报错 model_not_found / not supported when using Codex（400 / 404）怎么修</a></li><li><a href="/daily/guides/codex/codex-insufficient-balance-403-billing-error/">Codex 报错 403 insufficient balance / Insufficient account balance 怎么排查</a></li><li><a href="/daily/guides/codex/codex-daily-weekly-limit-exceeded-429-403/">Codex 报错 429 / 403 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED 怎么解决</a></li><li><a href="/daily/guides/codex/codex-no-active-subscription-for-group-403/">Codex 报错 403 No active subscription found for this group 及鉴权失败排查</a></li><li><a href="/daily/guides/codex/codex-concurrency-limit-exceeded-502/">Codex 报错 502 Concurrency limit exceeded for user / account 怎么解决</a></li><li><a href="/daily/guides/codex/codex-responses-previous-response-id-call-id-400/">Codex 报错 400 function_call_output requires call_id / previous_response_id 与 wire_api 不兼容怎么修</a></li><li><a href="/daily/guides/codex/codex-stream-interrupted-overloaded-rate-limit-timeout-502-503-429-408/">Codex 报错 502 流式中断 / 503 overloaded / 429 rate_limit_error / 408 请求超时怎么修</a></li></ul></section>
+    <nav class="day-nav" aria-label="指南导航">
+      <a href="/daily/guides/codex/">← 返回 Codex 排错指南合集</a>
+      <span class="spacer"></span>
+      <a href="/daily/">查看最新 AI 日报 →</a>
+    </nav>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
+      <div class="footer-links">
+        <a href="/daily/guides/codex/">Codex 排错指南</a>
+        <a href="/daily/archive/">全部归档</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
