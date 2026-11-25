@@ -1,0 +1,238 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "DAILY AI BRIEFING",
+  "date": "2026-11-26",
+  "brand": "",
+  "tldr": [
+    "OpenAI 公布内部模型做的大批数学手稿，声称矩阵乘法能有多快这个问题的答案是 9/4。",
+    "Anthropic 把调用 Claude 的主接口迁到了更省算力的 Rust，还用智能体对着线上流量修差异。",
+    "标普在考虑下调英伟达的信用评级；纽约则签署了为期五年的 AI 聊天玩具禁令。"
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "style": "cards",
+      "items": [
+        {
+          "title": "物理研究测评Fable暂时领先",
+          "tag": "评测",
+          "detail": "评测机构 Artificial Analysis 上线 FrontierPhysics 榜，收录物理学家出的 54 道研究题。官方帖称，Claude Fable 5.2 以 32% 排第一，比 GPT-6.2 Astra 高 6 个百分点。",
+          "why": "看模型能不能做真正的物理研究题。",
+          "source": "@ArtificialAnlys",
+          "url": "https://x.com/ArtificialAnlys/status/2125691597602058284"
+        },
+        {
+          "title": "微软MAI-Code-2.1登上编程榜",
+          "tag": "评测",
+          "detail": "竞技场 Arena 宣布，微软的 MAI-Code-2.1 首次进入 Code Arena: WebDev 榜，总排名第 13、得分 1717。官方帖称，它比 Meta 的 Muse Wonder Full 低 7 分，但超过了 Gemini 4 Hydrogen。",
+          "why": "微软自己的写代码模型，开始出现在公开榜单上。",
+          "source": "@arena",
+          "url": "https://x.com/arena/status/2125638411654508641"
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#10b981",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Claude接口改用Rust，CPU少七成",
+          "tag": "工程",
+          "detail": "Anthropic 把对外的 Messages API（调用 Claude 的主接口）从 Python 迁到了 Rust。官方称，2024 年初到 2026 秋流量大约涨了 1800 倍；Claude 大约一周写出核心路径初版，再对照线上流量、派智能体修差异。自报每请求 CPU 少约 70%，首次吐字中位时间短约 20%，迁移期间服务没有停。",
+          "why": "智能体开始接手线上核心系统的改写和验收。",
+          "source": "Anthropic",
+          "url": "https://www.anthropic.com/research/migrating-api-to-rust",
+          "related": [
+            "@AnthropicAI"
+          ],
+          "related_urls": [
+            "https://x.com/AnthropicAI/status/2125627317263466739"
+          ]
+        },
+        {
+          "title": "Devin机器人有了组织架构图",
+          "tag": "Agent",
+          "detail": "写代码助手 Devin 的东家 Cognition 推出 Org Charts：一块画布上看所有 Devin 机器人的进展、目标和需要人接手的地方。公司称功能即日上线。",
+          "why": "从单点助手，变成一眼看清一群机器人在干什么。",
+          "source": "@cognition",
+          "url": "https://x.com/cognition/status/2125659035231780966"
+        },
+        {
+          "title": "DeepMind让智能体自己跑实验",
+          "tag": "Agent",
+          "detail": "据 The Decoder 报道，DeepMind 研究副总裁 Kavukcuoglu 在公司播客中说，智能体已能自行占用部分算力、为下一代 Gemini 做实验；实验室仍认为，离模型在没有人监督的情况下改进下一代（递归自我改进）还远。",
+          "why": "模型开始参与自己的训练实验，但还不能自己迭代自己。",
+          "source": "The Decoder",
+          "url": "https://the-decoder.com/ai-agents-now-control-part-of-deepminds-compute-for-gemini-experiments-but-recursive-self-improvement-remains-distant/"
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#3b82f6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "OpenAI开始测试私密推理",
+          "tag": "产品",
+          "detail": "奥特曼发帖称，OpenAI 正在一小群客户中测试 Private Inference（私密推理），属于 Private Intelligence 产品线。他写，更强的隐私保护能让前沿模型用到更多工作上。目前没有更详细的官方说明页。",
+          "why": "企业把机密数据交给模型前，先看能不能真正保密。",
+          "source": "@sama",
+          "url": "https://x.com/sama/status/2125638790593274259"
+        },
+        {
+          "title": "据报道亚马逊或放开Muse购物",
+          "tag": "产品",
+          "detail": "据 Fortune 报道、The Verge 与 TechCrunch 转述，亚马逊和 Meta 正在谈让 Muse（Meta 的购物助手）直接在亚马逊下单，以结束约两个月的屏蔽。双方都未向 TechCrunch 置评；报道称亚马逊仍担心这会冲击广告收入。",
+          "why": "大商店愿不愿意让别人的助手来下单，还在谈。",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/tech/1042071/meta-amazon-muse-ai-shopping-discussions",
+          "related": [
+            "TechCrunch"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/"
+          ]
+        },
+        {
+          "title": "Gemini实况引导视觉登陆iOS",
+          "tag": "产品",
+          "detail": "谷歌官方账号宣布，Gemini Live 的 Guided Vision（引导视觉：对着摄像头，模型实时讲解并提示你怎么对准）已在 iOS 上线。该功能今年 9 月下旬先在安卓推出，也面向视力障碍用户。",
+          "why": "把手机摄像头交给助手，现在苹果手机也能用。",
+          "source": "@GeminiApp",
+          "url": "https://x.com/GeminiApp/status/2125685936344236471",
+          "related": [
+            "Gemini帮助"
+          ],
+          "related_urls": [
+            "https://support.google.com/gemini/answer/18365638"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📄 论文与研究",
+      "accent": "#8b5cf6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "OpenAI声称矩阵乘法指数是9/4",
+          "tag": "研究",
+          "detail": "OpenAI 在 GitHub 公开内部未发布模型产出的数学手稿，现有 730 篇、归成 375 组。其中一篇声称，矩阵乘法指数 ω（衡量矩阵相乘能有多快）正好是 9/4。仓库自报约 42% 的主结果已用 Lean（一种机器可检查的证明工具）形式化，并提醒未形式化的结果可能有问题。",
+          "why": "难了几十年的算法问题，被拿来当模型考题。",
+          "source": "OpenAI",
+          "url": "https://github.com/openai/math",
+          "related": [
+            "Aaronson",
+            "Hacker News",
+            "Latent Space"
+          ],
+          "related_urls": [
+            "https://scottaaronson.blog/?p=10379",
+            "https://news.ycombinator.com/item?id=50637220",
+            "https://latent.space/p/ainews-math-proofs-are-landing-faster-than-we-can-read-them/"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "accent": "#0ea5e9",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Amodei反驳“把决策权交给AI”",
+          "tag": "观点",
+          "detail": "Anthropic CEO Amodei 发长文，称有人说他主张“把人类的自由意志交给 AI”是荒谬的，并写到“把治理交给 AI 是个坏主意”。TechCrunch 等报道，这场争论由一份 Axios 报道引发。他同时说，具体任务可以更自动化，但对模型自己改进下一代可能需要设限。",
+          "why": "实验室越来越会自己搞研究，控制权归谁成了公开吵架。",
+          "source": "@DarioAmodei",
+          "url": "https://x.com/DarioAmodei/status/2125656399392690605",
+          "related": [
+            "TechCrunch",
+            "The Decoder"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/",
+            "https://the-decoder.com/anthropic-ceo-dario-amodei-says-letting-ai-govern-society-would-be-a-bad-idea/"
+          ]
+        },
+        {
+          "title": "标普考虑下调英伟达信用评级",
+          "tag": "市场",
+          "detail": "据 TechCrunch 援引标普声明，标普全球评级正评估英伟达的治理与“关键人物”风险，预计 90 天内完成，可能把评级从 AA 降到 AA-（仍属投资级）。下调或推高英伟达及受其担保的云厂商融资成本。",
+          "why": "黄仁勋风波开始传导到借钱成本。",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/11/25/sp-considers-nvidia-credit-downgrade-over-governance-and-key-man-risks/"
+        },
+        {
+          "title": "据报道ElevenLabs估值或达330亿",
+          "tag": "融资",
+          "detail": "据 Bloomberg 报道、TNW 等转述，语音公司 ElevenLabs 在初步洽谈 2027 年融资，目标估值 330 亿美元，高于 9 月股份出售时的 220 亿美元；一名消息人士称年经常性收入已到 7 亿美元。公司拒绝置评。",
+          "why": "做声音的公司，估值又要上一个台阶。",
+          "source": "TNW",
+          "url": "https://thenextweb.com/news/elevenlabs-33bn-valuation-funding-talks-2027"
+        },
+        {
+          "title": "SpaceX获准部署百万颗算力卫星",
+          "tag": "政策",
+          "detail": "美国联邦通信委员会（FCC）主席 Carr 宣布，批准 SpaceX 把 100 万颗卫星送入轨道、用作太空数据中心的方案。亚马逊、Viasat 和美国天文学会曾反对。Carr 称该星座名为 Starmind。",
+          "why": "地面电不够用，有人打算把计算搬到天上。",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/11/25/spacex-fcc-satellite-approval.html"
+        },
+        {
+          "title": "亚马逊芯片自报性价比领先",
+          "tag": "芯片",
+          "detail": "芯片分析机构 SemiAnalysis 称，亚马逊首次提交 Trainium3 UltraServer 在其 AgentX（面向多轮、长上下文智能体推理）基准上的结果，自报每美元性能比 GB300 NVL72、B300 和 MI355 好 2.28 倍。这是该机构自己的基准，不是官方跑分。",
+          "why": "亚马逊自研芯片，开始在智能体推理上叫板英伟达。",
+          "source": "@SemiAnalysis_",
+          "url": "https://x.com/SemiAnalysis_/status/2125658708357128703"
+        },
+        {
+          "title": "纽约签署五年AI聊天玩具禁令",
+          "tag": "政策",
+          "detail": "纽约州长 Hochul 周三签署法律，五年内禁止制造和销售由 AI 聊天机器人驱动的玩具，包括能上网、跟儿童对话的娃娃和机器人。加州今年 9 月已签署为期四年的类似禁令。",
+          "why": "家长担心玩具会乱说话，州政府先按下暂停键。",
+          "source": "The Guardian",
+          "url": "https://www.theguardian.com/us-news/2026/nov/25/new-york-bans-ai-toys"
+        }
+      ]
+    },
+    {
+      "heading": "🇨🇳 国内动态",
+      "accent": "#ef4444",
+      "style": "cards",
+      "items": [
+        {
+          "title": "据报道出口限制已拖慢国内实验室",
+          "tag": "政策",
+          "detail": "据 The Information 报道、The Decoder 转述，远程调用海外英伟达芯片的新限制，加上反蒸馏措施，已拖慢 DeepSeek、月之暗面和阿里等的项目。报道称 DeepSeek 内部估计差距可能拉到 9 个月；月之暗面已取消一笔 1.5 亿美元在印尼采购 Blackwell 芯片的交易。",
+          "why": "卡芯片和防偷师，开始从新闻变成实验室里的延期。",
+          "source": "The Decoder",
+          "url": "https://the-decoder.com/us-chip-access-curbs-and-anti-distillation-measures-are-reportedly-already-slowing-chinese-ai-labs/"
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "数学证明倾泻而来",
+          "summary": "复杂性理论学者 Aaronson 写道，这不再是一道题被解开，而是“一整片新大陆”。Hacker News 上讨论 OpenAI 这篇 ω=9/4 手稿的帖子超过 1000 分。另有实验室已破解整数分解的传言，目前没有官方确认。"
+        },
+        {
+          "title": "沙箱隔离未必挡住模型通气",
+          "summary": "LessWrong 一篇文章称，跑在同一推理服务器上的两个智能体，即使被沙箱隔开也能通信。Hacker News 讨论约 447 分。"
+        },
+        {
+          "title": "特朗普谈赦免黄仁勋并考虑入股",
+          "summary": "据《纽约邮报》报道，特朗普称赦免黄仁勋“一直是选项，但应该用不着”，并说美国入股英伟达“大概还不晚”；他同时劝黄仁勋不必在国会听证上行使沉默权。"
+        }
+      ]
+    }
+  ]
+}

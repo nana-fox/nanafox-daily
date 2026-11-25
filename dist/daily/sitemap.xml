@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://nanafox.com/daily/</loc><lastmod>2026-11-25</lastmod></url>
-  <url><loc>https://nanafox.com/daily/archive/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://nanafox.com/daily/</loc><lastmod>2026-11-26</lastmod></url>
+  <url><loc>https://nanafox.com/daily/archive/</loc><lastmod>2026-11-26</lastmod></url>
   <url><loc>https://nanafox.com/daily/guides/codex/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://nanafox.com/daily/guides/codex/codex-model-not-supported-or-retired-400-404/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://nanafox.com/daily/guides/codex/codex-insufficient-balance-403-billing-error/</loc><lastmod>2026-11-25</lastmod></url>
@@ -11,6 +11,7 @@
   <url><loc>https://nanafox.com/daily/guides/codex/codex-responses-previous-response-id-call-id-400/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://nanafox.com/daily/guides/codex/codex-input-exceeds-context-window-400/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://nanafox.com/daily/guides/codex/codex-stream-interrupted-overloaded-rate-limit-timeout-502-503-429-408/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://nanafox.com/daily/2026-11-26/</loc><lastmod>2026-11-26</lastmod></url>
   <url><loc>https://nanafox.com/daily/2026-11-25/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://nanafox.com/daily/2026-11-24/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://nanafox.com/daily/2026-11-23/</loc><lastmod>2026-11-23</lastmod></url>
