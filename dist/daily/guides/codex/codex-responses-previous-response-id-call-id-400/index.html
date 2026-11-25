@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex 报错 400 function_call_output requires call_id / previous_response_id 与 wire_api 不兼容怎么修 · NanaFox</title>
+  <meta name="description" content="修复 Codex 报错 400 function_call_output requires call_id on HTTP requests; continuation via previous_response_id is only supported on Responses WebSocket v2，核对 wire_api、base_url 与客户端版本。" />
+  <meta name="keywords" content="function_call_output requires call_id, previous_response_id Responses WebSocket v2, Codex wire_api responses, Codex 400 invalid_request_error, Codex base_url v1 404" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="Codex 报错 400 function_call_output requires call_id / previous_response_id 与 wire_api 不兼容怎么修 · NanaFox · NanaFox" />
+  <meta property="og:description" content="修复 Codex 报错 400 function_call_output requires call_id on HTTP requests; continuation via previous_response_id is only supported on Responses WebSocket v2，核对 wire_api、base_url 与客户端版本。" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://nanafox.com/daily/guides/codex/codex-responses-previous-response-id-call-id-400/" />
+  <meta property="og:url" content="https://nanafox.com/daily/guides/codex/codex-responses-previous-response-id-call-id-400/" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
+      </a>
+      <nav class="nav" aria-label="日报导航"><a class="" href="https://nanafox.com/">返回官网</a><a class="" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a><a class="active" href="/daily/guides/codex/">Codex 排错</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/daily/">AI 日报</a>
+      <span>/</span>
+      <a href="/daily/guides/codex/">Codex 排错指南</a>
+    </nav>
+    <article class="guide-page">
+      <header class="page-head">
+        <div class="guide-meta">
+          <div class="guide-badges"><span class="guide-badge">400</span><span class="guide-badge">404</span></div>
+          <span class="date-line">更新于 2026-11-25</span>
+        </div>
+        <h1>Codex 报错 400 function_call_output requires call_id / previous_response_id 与 wire_api 不兼容怎么修</h1>
+        <p class="guide-summary">修复 Codex 报错 400 function_call_output requires call_id on HTTP requests; continuation via previous_response_id is only supported on Responses WebSocket v2，核对 wire_api、base_url 与客户端版本。</p>
+      </header>
+      <div class="guide-article">
+<p>在 Codex CLI 或 Codex Desktop 中执行多轮工具调用时，如果突然在 HTTP 请求上弹出关于 <code>call_id</code>、<code>previous_response_id</code> 和 <code>Responses WebSocket v2</code> 的 <code>400</code> 报错，说明客户端和接口之间的 <strong>Responses 协议续传方式出现了不兼容</strong>。</p>
+<h2>报错现象</h2>
+<p>终端或客户端日志出现以下完整原文：</p>
+<ul><li><code>400 invalid_request_error</code>: <code>function_call_output requires call_id on HTTP requests; continuation via previous_response_id is only supported on Responses WebSocket v2</code></li></ul>
+<p>（同类配置问题下，如果 <code>base_url</code> 路径多写或少写了 <code>/v1</code>，或者填错了 <code>wire_api</code>，也可能伴随 <code>404</code> 接口不存在报错。）</p>
+<h2>30 秒定位根因</h2>
+<p>出现该报错通常由以下三个原因之一引起：</p>
+<ol><li><strong>Codex 客户端版本偏旧</strong>：早期版本在 HTTP 降级模式下仍发送了依赖 WebSocket v2 续传（<code>previous_response_id</code>）的工具调用上下文，缺少 HTTP 模式要求的 <code>call_id</code> 配对字段。</li><li><strong>中间代理改写或降级了 Responses 请求</strong>：本地流量经过了旧版中转代理（例如把 <code>/responses</code> 强行转写为旧版 <code>/chat/completions</code> 的代理工具），破坏了原生 Responses 协议结构。</li><li><strong>当前会话历史已被坏状态污染</strong>：即便你刚改好了配置，旧会话里已经残留了不完整的续传上下文，继续在原会话里重试仍会反复报同一个 <code>400</code>。</li></ol>
+<h2>精确修复步骤（全服务商通用）</h2>
+<h3>步骤 1：将 Codex CLI / Desktop 升级到最新版本</h3>
+<p>先升级客户端，消除已知的协议降级 Bug：</p>
+<pre><code class="lang-bash"># 若通过 npm 安装 Codex CLI
+npm install -g @openai/codex@latest
+
+# 检查当前版本
+codex --version</code></pre>
+<p>Codex Desktop 用户请直接通过客户端内置更新或官网安装包升级到最新版。</p>
+<h3>步骤 2：核对 <code>~/.codex/config.toml</code> 的 <code>wire_api</code> 与 <code>base_url</code></h3>
+<p>打开 <code>~/.codex/config.toml</code>（Windows 为 <code>%userprofile%\.codex\config.toml</code>），确保连接支持原生 Responses API 的端点：</p>
+<pre><code class="lang-toml">model_provider = &quot;custom&quot;
+model = &quot;gpt-6.1-sol&quot;
+
+[model_providers.custom]
+name = &quot;custom&quot;
+base_url = &quot;https://你的服务商端点&quot;
+wire_api = &quot;responses&quot;
+requires_openai_auth = true</code></pre>
+<p>重点核对两项：</p>
+<ul><li><code>wire_api</code> 必须为 <code>&quot;responses&quot;</code>，不要经过会转写为 <code>chat/completions</code> 的旧代理；</li><li><code>base_url</code> <strong>是否需要带 <code>/v1</code> 请严格以你所用服务商的官方文档为准</strong>（有的服务商要求带 <code>/v1</code>，有的如 NanaFox Router 要求不带 <code>/v1</code>，填错会导致 <code>404</code>）。</li></ul>
+<h3>步骤 3：新开一个干净的会话重试</h3>
+<p>修改配置并重启 Codex 后，<strong>不要在已经报错的旧会话里继续追问</strong>，直接新开一个会话重新发送任务，确认工具调用与续传恢复正常。</p>
+<hr />
+<h2>延伸参考：原生 Responses 接口接入文档</h2>
+<p>如果你需要连接原生支持 OpenAI Responses API 的路由端点，避免中间层协议转写导致的 <code>call_id</code> / <code>previous_response_id</code> 兼容问题，可以参考 NanaFox Router 的标准配置（<code>base_url = &quot;https://router.nanafox.com&quot;</code> 不带 <code>/v1</code>，<code>wire_api = &quot;responses&quot;</code>）：</p>
+<ul><li>Codex 标准接入文档：<a href="https://router.nanafox.com/docs" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/docs</a></li><li>注册体验 NanaFox Router（Codex 专向入口）：<a href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex</a></li></ul>
+      </div>
+    </article>
+    <section class="guide-related" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">其他 Codex 排错指南</h2><ul><li><a href="/daily/guides/codex/codex-model-not-supported-or-retired-400-404/">Codex 报错 model_not_found / not supported when using Codex（400 / 404）怎么修</a></li><li><a href="/daily/guides/codex/codex-insufficient-balance-403-billing-error/">Codex 报错 403 insufficient balance / Insufficient account balance 怎么排查</a></li><li><a href="/daily/guides/codex/codex-daily-weekly-limit-exceeded-429-403/">Codex 报错 429 / 403 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED 怎么解决</a></li><li><a href="/daily/guides/codex/codex-no-active-subscription-for-group-403/">Codex 报错 403 No active subscription found for this group 及鉴权失败排查</a></li><li><a href="/daily/guides/codex/codex-concurrency-limit-exceeded-502/">Codex 报错 502 Concurrency limit exceeded for user / account 怎么解决</a></li><li><a href="/daily/guides/codex/codex-input-exceeds-context-window-400/">Codex 报错 400 Your input exceeds the context window of this model 怎么修</a></li><li><a href="/daily/guides/codex/codex-stream-interrupted-overloaded-rate-limit-timeout-502-503-429-408/">Codex 报错 502 流式中断 / 503 overloaded / 429 rate_limit_error / 408 请求超时怎么修</a></li></ul></section>
+    <nav class="day-nav" aria-label="指南导航">
+      <a href="/daily/guides/codex/">← 返回 Codex 排错指南合集</a>
+      <span class="spacer"></span>
+      <a href="/daily/">查看最新 AI 日报 →</a>
+    </nav>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
+      <div class="footer-links">
+        <a href="/daily/guides/codex/">Codex 排错指南</a>
+        <a href="/daily/archive/">全部归档</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

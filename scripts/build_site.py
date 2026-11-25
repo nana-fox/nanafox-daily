@@ -24,10 +24,14 @@ REPO = Path(__file__).resolve().parents[1]  # repo root
 SITE = REPO / "site"
 DIST = REPO / "dist"
 DEFAULT_DIGEST = REPO / "data"
+DEFAULT_GUIDES = REPO / "guides" / "codex"
 DATE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.json$")
+SITE_ORIGIN = "https://nanafox.com"
 
 SITE_TITLE = "AI 前沿日报"
 SITE_TAGLINE = "前沿动态 · 高质量文章 · 一图总览"
+ROUTER_REGISTER_URL = "https://router.nanafox.com/register?aff=UG937JQ67MRS&use=codex"
+ROUTER_DOCS_URL = "https://router.nanafox.com/docs"
 
 
 def esc(s: object) -> str:
@@ -160,24 +164,44 @@ def sections_html(data: dict) -> str:
     return "\n".join(chunks)
 
 
-def layout(*, title: str, active: str, body: str, base: str, canonical_path: str | None = None, reader: dict | None = None, reader_assets: dict | None = None) -> str:
+def layout(
+    *,
+    title: str,
+    active: str,
+    body: str,
+    base: str,
+    canonical_path: str | None = None,
+    description: str | None = None,
+    keywords: list[str] | None = None,
+    og_type: str = "website",
+    reader: dict | None = None,
+    reader_assets: dict | None = None,
+) -> str:
     latest_href = f"{base}/" if base else "/"
     archive_href = join_base(base, "archive") + "/"
+    guides_href = join_base(base, "guides", "codex") + "/"
     css_href = join_base(base, "css", "style.css")
+    meta_desc = description or SITE_TAGLINE
+    keywords_html = (
+        f'  <meta name="keywords" content="{esc(", ".join(keywords))}" />\n'
+        if keywords
+        else ""
+    )
 
     nav = [
         ("home", "https://nanafox.com/", "返回官网"),
         ("latest", latest_href, "最新"),
         ("archive", archive_href, "归档"),
+        ("guides", guides_href, "Codex 排错"),
     ]
     nav_html = "".join(
         f'<a class="{"active" if key == active else ""}" href="{href}">{label}</a>'
         for key, href, label in nav
     )
-    canonical_url = f"https://nanafox.com{canonical_path}" if canonical_path else ""
+    canonical_url = f"{SITE_ORIGIN}{canonical_path}" if canonical_path else ""
     canonical_html = (
-        f'<link rel="canonical" href="{esc(canonical_url)}" />'
-        f'<meta property="og:url" content="{esc(canonical_url)}" />'
+        f'  <link rel="canonical" href="{esc(canonical_url)}" />\n'
+        f'  <meta property="og:url" content="{esc(canonical_url)}" />\n'
         if canonical_url else ""
     )
     page = f"""<!DOCTYPE html>
@@ -186,14 +210,13 @@ def layout(*, title: str, active: str, body: str, base: str, canonical_path: str
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{esc(title)}</title>
-  <meta name="description" content="{esc(SITE_TAGLINE)}" />
-  <meta name="theme-color" content="#fffdf9" />
+  <meta name="description" content="{esc(meta_desc)}" />
+{keywords_html}  <meta name="theme-color" content="#fffdf9" />
   <meta property="og:title" content="{esc(title)} · NanaFox" />
-  <meta property="og:description" content="{esc(SITE_TAGLINE)}" />
-  <meta property="og:type" content="website" />
+  <meta property="og:description" content="{esc(meta_desc)}" />
+  <meta property="og:type" content="{esc(og_type)}" />
   <meta name="twitter:card" content="summary" />
-{canonical_html}
-  <link rel="stylesheet" href="{esc(css_href)}" />
+{canonical_html}  <link rel="stylesheet" href="{esc(css_href)}" />
 </head>
 <body>
   <header class="topbar">
@@ -209,7 +232,10 @@ def layout(*, title: str, active: str, body: str, base: str, canonical_path: str
   <footer class="footer">
     <div class="wrap">
       <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
-      <a href="{esc(archive_href)}">全部归档</a>
+      <div class="footer-links">
+        <a href="{esc(guides_href)}">Codex 排错指南</a>
+        <a href="{esc(archive_href)}">全部归档</a>
+      </div>
     </div>
   </footer>
 </body>
@@ -322,6 +348,13 @@ def day_body(
         </a>
       </details>
     </section>
+    <aside class="router-note" aria-label="NanaFox Router">
+      <span>在用 Codex / Claude Code？NanaFox Router 支持一键导入 CC Switch</span>
+      <div class="router-note-links">
+        <a class="router-note-secondary" href="{esc(join_base(base, 'guides', 'codex') + '/')}">Codex 排错指南</a>
+        <a href="{esc(ROUTER_REGISTER_URL)}" target="_blank" rel="noopener noreferrer">立即接入 →</a>
+      </div>
+    </aside>
     {nav}
 """
 
@@ -360,6 +393,342 @@ def archive_body(digests: list[dict], *, base: str) -> str:
 """
 
 
+def _unquote_yaml(raw: str) -> str:
+    raw = raw.strip()
+    if len(raw) >= 2 and raw[0] == raw[-1] and raw[0] in ('"', "'"):
+        return raw[1:-1]
+    return raw
+
+
+def parse_frontmatter(text: str) -> tuple[dict, str]:
+    """Parse lightweight YAML frontmatter (scalars and flat string lists)."""
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return {}, text
+    end_idx = None
+    for idx in range(1, len(lines)):
+        if lines[idx].strip() == "---":
+            end_idx = idx
+            break
+    if end_idx is None:
+        return {}, text
+
+    meta: dict[str, object] = {}
+    current_list_key: str | None = None
+    for line in lines[1:end_idx]:
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("- ") and current_list_key is not None:
+            meta[current_list_key].append(_unquote_yaml(stripped[2:]))
+            continue
+        current_list_key = None
+        if ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        key = key.strip()
+        value = value.strip()
+        if not value:
+            meta[key] = []
+            current_list_key = key
+        elif value.startswith("[") and value.endswith("]"):
+            inner = value[1:-1].strip()
+            if not inner:
+                meta[key] = []
+            else:
+                meta[key] = [_unquote_yaml(part) for part in inner.split(",") if part.strip()]
+        else:
+            meta[key] = _unquote_yaml(value)
+
+    body = "\n".join(lines[end_idx + 1 :]).lstrip("\n")
+    return meta, body
+
+
+def _safe_guide_href(url: str) -> str:
+    url = url.strip()
+    if url.startswith("/") and not url.startswith("//"):
+        return url
+    return safe_url(url)
+
+
+INLINE_CODE_RE = re.compile(r"`([^`\n]+)`")
+LINK_RE = re.compile(r"\[([^\]]+)\]\(([^)\s]+)\)")
+BOLD_RE = re.compile(r"\*\*([^*]+)\*\*")
+
+
+def render_inline_md(text: str) -> str:
+    """Render inline Markdown (`code`, **bold**, [text](url)) with HTML escaping."""
+    placeholders: list[str] = []
+
+    def stash(html_fragment: str) -> str:
+        token = f"\x00MD{len(placeholders)}\x00"
+        placeholders.append(html_fragment)
+        return token
+
+    def replace_code(match: re.Match[str]) -> str:
+        return stash(f"<code>{esc(match.group(1))}</code>")
+
+    def replace_link(match: re.Match[str]) -> str:
+        label = esc(match.group(1))
+        href = _safe_guide_href(match.group(2))
+        if not href:
+            return stash(label)
+        if href.startswith(("http://", "https://")):
+            return stash(
+                f'<a href="{esc(href)}" target="_blank" rel="noopener noreferrer">{label}</a>'
+            )
+        return stash(f'<a href="{esc(href)}">{label}</a>')
+
+    # Protect inline code first so links/bold inside code spans stay literal.
+    out = INLINE_CODE_RE.sub(replace_code, text)
+    out = LINK_RE.sub(replace_link, out)
+    out = esc(out)
+    out = BOLD_RE.sub(r"<strong>\1</strong>", out)
+    for idx, fragment in enumerate(placeholders):
+        out = out.replace(f"\x00MD{idx}\x00", fragment)
+    return out
+
+
+HEADING_RE = re.compile(r"^(#{1,4})\s+(.+)$")
+UL_RE = re.compile(r"^(\s*)-\s+(.+)$")
+OL_RE = re.compile(r"^(\s*)\d+\.\s+(.+)$")
+
+
+def render_markdown(md: str, *, strip_first_h1: bool = True) -> str:
+    """Render lightweight Markdown to safe semantic HTML using stdlib only."""
+    lines = md.splitlines()
+    blocks: list[str] = []
+    i = 0
+    skipped_h1 = False
+
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.strip()
+
+        if not stripped:
+            i += 1
+            continue
+
+        # Fenced code block
+        if stripped.startswith("```"):
+            lang = stripped[3:].strip()
+            code_lines: list[str] = []
+            i += 1
+            while i < len(lines) and not lines[i].strip().startswith("```"):
+                code_lines.append(lines[i])
+                i += 1
+            if i < len(lines):
+                i += 1
+            lang_attr = f' class="lang-{esc(lang)}"' if lang else ""
+            blocks.append(f"<pre><code{lang_attr}>{esc(chr(10).join(code_lines))}</code></pre>")
+            continue
+
+        # Horizontal rule
+        if stripped in ("---", "***", "___"):
+            blocks.append("<hr />")
+            i += 1
+            continue
+
+        # Headings
+        hm = HEADING_RE.match(stripped)
+        if hm:
+            level = len(hm.group(1))
+            content = hm.group(2).strip()
+            i += 1
+            if level == 1 and strip_first_h1 and not skipped_h1:
+                skipped_h1 = True
+                continue
+            blocks.append(f"<h{level}>{render_inline_md(content)}</h{level}>")
+            continue
+
+        # Unordered / Ordered lists (with 1-level nested list support)
+        um = UL_RE.match(line)
+        om = OL_RE.match(line)
+        if um or om:
+            list_tag = "ul" if um else "ol"
+            base_indent = len((um or om).group(1))
+            items: list[str] = []
+            while i < len(lines):
+                cur = lines[i]
+                if not cur.strip():
+                    break
+                cur_ul = UL_RE.match(cur)
+                cur_ol = OL_RE.match(cur)
+                m_same = cur_ul if list_tag == "ul" else cur_ol
+                if m_same and len(m_same.group(1)) == base_indent:
+                    item_html = render_inline_md(m_same.group(2).strip())
+                    i += 1
+                    # Collect nested sub-list items if indented deeper
+                    sub_items: list[str] = []
+                    sub_tag: str | None = None
+                    while i < len(lines):
+                        sub_line = lines[i]
+                        sub_ul = UL_RE.match(sub_line)
+                        sub_ol = OL_RE.match(sub_line)
+                        sub_m = sub_ul or sub_ol
+                        if sub_m and len(sub_m.group(1)) > base_indent:
+                            if sub_tag is None:
+                                sub_tag = "ul" if sub_ul else "ol"
+                            sub_items.append(f"<li>{render_inline_md(sub_m.group(2).strip())}</li>")
+                            i += 1
+                        else:
+                            break
+                    if sub_items and sub_tag:
+                        item_html += f"<{sub_tag}>{''.join(sub_items)}</{sub_tag}>"
+                    items.append(f"<li>{item_html}</li>")
+                else:
+                    break
+            blocks.append(f"<{list_tag}>{''.join(items)}</{list_tag}>")
+            continue
+
+        # Paragraph
+        para_lines: list[str] = [stripped]
+        i += 1
+        while i < len(lines):
+            nxt = lines[i]
+            nxt_s = nxt.strip()
+            if (
+                not nxt_s
+                or nxt_s.startswith("```")
+                or nxt_s in ("---", "***", "___")
+                or HEADING_RE.match(nxt_s)
+                or UL_RE.match(nxt)
+                or OL_RE.match(nxt)
+            ):
+                break
+            para_lines.append(nxt_s)
+            i += 1
+        blocks.append(f"<p>{render_inline_md(' '.join(para_lines))}</p>")
+
+    return "\n".join(blocks)
+
+
+def load_guides(guides_dir: Path | None) -> list[dict]:
+    if not guides_dir or not guides_dir.is_dir():
+        return []
+    guides: list[dict] = []
+    for path in sorted(guides_dir.glob("*.md")):
+        raw = path.read_text(encoding="utf-8")
+        meta, body_md = parse_frontmatter(raw)
+        slug = str(meta.get("slug") or path.stem).strip()
+        if not slug:
+            continue
+        guides.append(
+            {
+                "slug": slug,
+                "title": str(meta.get("title") or slug),
+                "description": str(meta.get("description") or ""),
+                "keywords": [str(k) for k in (meta.get("keywords") or [])],
+                "error_codes": [str(c) for c in (meta.get("error_codes") or [])],
+                "date": str(meta.get("date") or ""),
+                "category": str(meta.get("category") or "codex-troubleshooting"),
+                "body_md": body_md,
+                "source_path": path,
+            }
+        )
+    return guides
+
+
+def guides_index_body(guides: list[dict], *, base: str) -> str:
+    cards: list[str] = []
+    for guide in guides:
+        href = join_base(base, "guides", "codex", guide["slug"]) + "/"
+        badges = "".join(
+            f'<span class="guide-badge">{esc(code)}</span>'
+            for code in guide["error_codes"]
+        )
+        cards.append(
+            f'<li class="guide-card"><a href="{esc(href)}">'
+            f'<div class="guide-card-head"><div class="guide-badges">{badges}</div>'
+            f'<span class="guide-date">{esc(guide["date"])}</span></div>'
+            f'<h2>{esc(guide["title"])}</h2>'
+            f'<p>{esc(guide["description"])}</p>'
+            f'<span class="guide-more">查看排查步骤 →</span>'
+            f"</a></li>"
+        )
+    return f"""
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="{esc(f'{base}/' if base else '/')}">AI 日报</a>
+      <span>/</span>
+      <span>Codex 排错指南</span>
+    </nav>
+    <div class="page-head">
+      <p class="eyebrow">Codex Troubleshooting Guides</p>
+      <h1>Codex 常见报错排错指南</h1>
+      <p class="date-line">覆盖 Codex CLI 与 Codex Desktop 高频 400 / 401 / 403 / 404 / 408 / 429 / 502 / 503 报错 · 全服务商通用排查步骤</p>
+    </div>
+    <ul class="guide-list">{"".join(cards)}</ul>
+    <aside class="router-note" aria-label="NanaFox Router">
+      <span>需要支持 Codex 原生 Responses 接口的路由服务？NanaFox Router 支持按用途建 Key，并可一键导入 CC Switch</span>
+      <div class="router-note-links">
+        <a class="router-note-secondary" href="{esc(ROUTER_DOCS_URL)}" target="_blank" rel="noopener noreferrer">接入文档</a>
+        <a href="{esc(ROUTER_REGISTER_URL)}" target="_blank" rel="noopener noreferrer">立即接入 →</a>
+      </div>
+    </aside>
+"""
+
+
+def guide_detail_body(guide: dict, all_guides: list[dict], *, base: str) -> str:
+    index_href = join_base(base, "guides", "codex") + "/"
+    badges = "".join(
+        f'<span class="guide-badge">{esc(code)}</span>'
+        for code in guide["error_codes"]
+    )
+    article_html = render_markdown(guide["body_md"], strip_first_h1=True)
+    others = [g for g in all_guides if g["slug"] != guide["slug"]]
+    related_lis = "".join(
+        f'<li><a href="{esc(join_base(base, "guides", "codex", g["slug"]) + "/")}">{esc(g["title"])}</a></li>'
+        for g in others
+    )
+    related_html = (
+        f'<section class="guide-related" aria-labelledby="related-guides-heading">'
+        f'<h2 id="related-guides-heading">其他 Codex 排错指南</h2>'
+        f"<ul>{related_lis}</ul>"
+        f"</section>"
+        if related_lis
+        else ""
+    )
+    return f"""
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="{esc(f'{base}/' if base else '/')}">AI 日报</a>
+      <span>/</span>
+      <a href="{esc(index_href)}">Codex 排错指南</a>
+    </nav>
+    <article class="guide-page">
+      <header class="page-head">
+        <div class="guide-meta">
+          <div class="guide-badges">{badges}</div>
+          <span class="date-line">更新于 {esc(guide["date"])}</span>
+        </div>
+        <h1>{esc(guide["title"])}</h1>
+        <p class="guide-summary">{esc(guide["description"])}</p>
+      </header>
+      <div class="guide-article">
+{article_html}
+      </div>
+    </article>
+    {related_html}
+    <nav class="day-nav" aria-label="指南导航">
+      <a href="{esc(index_href)}">← 返回 Codex 排错指南合集</a>
+      <span class="spacer"></span>
+      <a href="{esc(f'{base}/' if base else '/')}">查看最新 AI 日报 →</a>
+    </nav>
+"""
+
+
+def build_sitemap_xml(urls: list[tuple[str, str | None]]) -> str:
+    entries: list[str] = []
+    for loc, lastmod in urls:
+        lastmod_tag = f"<lastmod>{esc(lastmod)}</lastmod>" if lastmod else ""
+        entries.append(f"  <url><loc>{esc(loc)}</loc>{lastmod_tag}</url>")
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(entries)
+        + "\n</urlset>\n"
+    )
+
+
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
@@ -371,6 +740,7 @@ def build(
     *,
     base: str = "",
     copy_json: bool = True,
+    guides_dir: Path | None = DEFAULT_GUIDES,
 ) -> list[str]:
     base = normalize_base(base)
     digests = load_digests(digest_dir)
@@ -503,6 +873,53 @@ def build(
     )
     write(site_root / "archive" / "index.html", arch)
 
+    guides = load_guides(guides_dir)
+    if guides:
+        guides_index_path = join_base(base, "guides", "codex") + "/"
+        guides_index_html = layout(
+            title=f"Codex 常见报错排错指南 · {SITE_TITLE}",
+            active="guides",
+            body=guides_index_body(guides, base=base),
+            base=base,
+            canonical_path=guides_index_path,
+            description="Codex CLI 与 Codex Desktop 高频报错排错指南合集，覆盖 400 / 401 / 403 / 404 / 408 / 429 / 502 / 503 根因定位与通用修复步骤。",
+            keywords=["Codex 报错", "Codex CLI 排错", "Codex Desktop 排错", "Codex config.toml", "Codex auth.json"],
+        )
+        write(site_root / "guides" / "codex" / "index.html", guides_index_html)
+        for guide in guides:
+            guide_path = join_base(base, "guides", "codex", guide["slug"]) + "/"
+            guide_html = layout(
+                title=f'{guide["title"]} · NanaFox',
+                active="guides",
+                body=guide_detail_body(guide, guides, base=base),
+                base=base,
+                canonical_path=guide_path,
+                description=guide["description"],
+                keywords=guide["keywords"],
+                og_type="article",
+            )
+            write(site_root / "guides" / "codex" / guide["slug"] / "index.html", guide_html)
+
+    sitemap_urls: list[tuple[str, str | None]] = [
+        (f"{SITE_ORIGIN}{join_base(base)}", digests[0]["_day"] if digests else None),
+        (f"{SITE_ORIGIN}{join_base(base, 'archive') + '/'}", digests[0]["_day"] if digests else None),
+    ]
+    if guides:
+        latest_guide_date = max((g["date"] for g in guides if g["date"]), default=None)
+        sitemap_urls.append(
+            (f"{SITE_ORIGIN}{join_base(base, 'guides', 'codex') + '/'}", latest_guide_date)
+        )
+        for guide in guides:
+            sitemap_urls.append(
+                (
+                    f"{SITE_ORIGIN}{join_base(base, 'guides', 'codex', guide['slug']) + '/'}",
+                    guide["date"] or None,
+                )
+            )
+    for data in digests:
+        sitemap_urls.append((f"{SITE_ORIGIN}{join_base(base, data['_day']) + '/'}", data["_day"]))
+    write(site_root / "sitemap.xml", build_sitemap_xml(sitemap_urls))
+
     home_link = f"{base}/" if base else "/"
     archive_link = join_base(base, "archive") + "/"
     write(
@@ -583,6 +1000,12 @@ def main() -> None:
         default=os.environ.get("BASE_PATH", "/daily"),
         help="URL base path, e.g. /daily (env BASE_PATH; default /daily)",
     )
+    ap.add_argument(
+        "--guides-dir",
+        type=Path,
+        default=DEFAULT_GUIDES,
+        help="Directory containing Codex troubleshooting Markdown guides (default: guides/codex/)",
+    )
     ap.add_argument("--no-json", action="store_true", help="Do not copy JSON into assets/")
     args = ap.parse_args()
 
@@ -591,8 +1014,10 @@ def main() -> None:
         args.dist,
         base=args.base_path,
         copy_json=not args.no_json,
+        guides_dir=args.guides_dir,
     )
-    print(f"Built {len(built)} digests → {args.dist} (BASE_PATH={normalize_base(args.base_path)!r})")
+    guides_count = len(load_guides(args.guides_dir))
+    print(f"Built {len(built)} digests + {guides_count} Codex guides → {args.dist} (BASE_PATH={normalize_base(args.base_path)!r})")
     for day in built:
         print(f"  - {day}/")
     print("Next: commit data/ and dist/ to main for the connected Pages deployment.")

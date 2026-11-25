@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex 报错 502 流式中断 / 503 overloaded / 429 rate_limit_error / 408 请求超时怎么修 · NanaFox</title>
+  <meta name="description" content="快速区分 Codex 常见的 502 Upstream response stream was interrupted、503 overloaded、429 rate_limit_error 与 408 Timed out reading request body，按根因分别处理。" />
+  <meta name="keywords" content="Upstream response stream was interrupted Codex, Upstream HTTP/2 stream failed Codex, Codex 503 overloaded, Codex 429 rate_limit_error, Timed out reading request body 408 Codex" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="Codex 报错 502 流式中断 / 503 overloaded / 429 rate_limit_error / 408 请求超时怎么修 · NanaFox · NanaFox" />
+  <meta property="og:description" content="快速区分 Codex 常见的 502 Upstream response stream was interrupted、503 overloaded、429 rate_limit_error 与 408 Timed out reading request body，按根因分别处理。" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://nanafox.com/daily/guides/codex/codex-stream-interrupted-overloaded-rate-limit-timeout-502-503-429-408/" />
+  <meta property="og:url" content="https://nanafox.com/daily/guides/codex/codex-stream-interrupted-overloaded-rate-limit-timeout-502-503-429-408/" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
+      </a>
+      <nav class="nav" aria-label="日报导航"><a class="" href="https://nanafox.com/">返回官网</a><a class="" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a><a class="active" href="/daily/guides/codex/">Codex 排错</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/daily/">AI 日报</a>
+      <span>/</span>
+      <a href="/daily/guides/codex/">Codex 排错指南</a>
+    </nav>
+    <article class="guide-page">
+      <header class="page-head">
+        <div class="guide-meta">
+          <div class="guide-badges"><span class="guide-badge">502</span><span class="guide-badge">503</span><span class="guide-badge">429</span><span class="guide-badge">408</span></div>
+          <span class="date-line">更新于 2026-11-25</span>
+        </div>
+        <h1>Codex 报错 502 流式中断 / 503 overloaded / 429 rate_limit_error / 408 请求超时怎么修</h1>
+        <p class="guide-summary">快速区分 Codex 常见的 502 Upstream response stream was interrupted、503 overloaded、429 rate_limit_error 与 408 Timed out reading request body，按根因分别处理。</p>
+      </header>
+      <div class="guide-article">
+<p>在 Codex 长输出生成代码、或者高峰期连续调用时，终端偶尔会突然断开并报 <code>502</code>、<code>503</code>、<code>429</code> 或 <code>408</code>。这几个状态码看起来都像“连不上”，但其实分为<strong>上游瞬时波动</strong>和<strong>本地上传超时</strong>两类，处理方式完全不同。</p>
+<h2>报错现象</h2>
+<p>终端或日志中出现以下任一原文：</p>
+<ul><li><code>502</code>: <code>Upstream response stream was interrupted</code> / <code>Upstream HTTP/2 stream failed</code> / <code>Upstream service temporarily unavailable</code></li><li><code>503 service_unavailable_error</code>: <code>Our servers are currently overloaded. Please try again later.</code></li><li><code>429 rate_limit_error</code>: <code>Rate limit reached / temporarily rate-limited. Please retry later.</code></li><li><code>408 invalid_request_error</code>: <code>Timed out reading request body</code></li></ul>
+<h2>30 秒定位根因</h2>
+<p>用状态码一秒分流：</p>
+<ol><li><strong><code>502</code> 流中断 / <code>503</code> 过载 / <code>429 rate_limit_error</code></strong>：属于<strong>上游模型接口短暂抖动、HTTP/2 长连接断开或高峰期瞬时限流</strong>。你的本地 <code>config.toml</code> 和 Key 通常是正常的，不需要急着改配置。</li><li><strong><code>408 Timed out reading request body</code></strong>：属于<strong>服务端在规定时间内没收完你的请求体</strong>，多半是本地网络/代理链路不稳定，或者单次会话携带了过大的请求体（例如粘贴了几 MB 的日志或图片），导致上传过慢超时。</li></ol>
+<h2>精确修复步骤（全服务商通用）</h2>
+<h3>情况 A：遇到 <code>502</code> / <code>503</code> / <code>429 rate_limit_error</code></h3>
+<ol><li><strong>不要立刻反复狂点重试</strong>，等待 <strong>5–30 秒</strong>后再重新发送一次请求，绝大多数瞬时抖动都会自动恢复；</li><li>如果正在跑自动化脚本，给 <code>502</code> / <code>503</code> / <code>429</code> 加上带随机抖动的指数退避重试（例如 5s → 15s → 30s）；</li><li>如果某一条长输出反复在同一处触发 <code>HTTP/2 stream failed</code>，可以先把大任务拆成两个小步骤，缩短单次流式连接时长；</li><li>若连续多次重试仍持续报错，前往你的服务商控制台查看服务状态公告或联系技术支持。</li></ol>
+<h3>情况 B：遇到 <code>408 Timed out reading request body</code></h3>
+<ol><li><strong>检查本地网络与代理稳定性</strong>：如果你挂了本地代理，确认节点丢包率与上传带宽正常，避免经过多跳不稳定代理；</li><li><strong>精简单次请求体积</strong>：<ul><li>在 Codex 中运行 <code>/compact</code> 缩减历史上下文体积；</li><li>不要一次性往对话框里粘贴几 MB 的日志文件或大量高分辨率截图；</li></ul></li><li>如果怀疑是本地代理链路不稳定，尝试切换更稳定的节点或关闭无关代理测试上传速度。</li></ol>
+<hr />
+<h2>延伸参考：Codex 接入与排错文档</h2>
+<p>如果你希望排查是否是本地代理链路导致的流式中断，或需要原生 Responses 接口的标准参考配置，可以查看 NanaFox Router 的接入文档（支持按用途建 Key，并可一键导入 CC Switch）：</p>
+<ul><li>Codex 标准接入文档：<a href="https://router.nanafox.com/docs" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/docs</a></li><li>注册体验 NanaFox Router（Codex 专向入口）：<a href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex</a></li></ul>
+      </div>
+    </article>
+    <section class="guide-related" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">其他 Codex 排错指南</h2><ul><li><a href="/daily/guides/codex/codex-model-not-supported-or-retired-400-404/">Codex 报错 model_not_found / not supported when using Codex（400 / 404）怎么修</a></li><li><a href="/daily/guides/codex/codex-insufficient-balance-403-billing-error/">Codex 报错 403 insufficient balance / Insufficient account balance 怎么排查</a></li><li><a href="/daily/guides/codex/codex-daily-weekly-limit-exceeded-429-403/">Codex 报错 429 / 403 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED 怎么解决</a></li><li><a href="/daily/guides/codex/codex-no-active-subscription-for-group-403/">Codex 报错 403 No active subscription found for this group 及鉴权失败排查</a></li><li><a href="/daily/guides/codex/codex-concurrency-limit-exceeded-502/">Codex 报错 502 Concurrency limit exceeded for user / account 怎么解决</a></li><li><a href="/daily/guides/codex/codex-responses-previous-response-id-call-id-400/">Codex 报错 400 function_call_output requires call_id / previous_response_id 与 wire_api 不兼容怎么修</a></li><li><a href="/daily/guides/codex/codex-input-exceeds-context-window-400/">Codex 报错 400 Your input exceeds the context window of this model 怎么修</a></li></ul></section>
+    <nav class="day-nav" aria-label="指南导航">
+      <a href="/daily/guides/codex/">← 返回 Codex 排错指南合集</a>
+      <span class="spacer"></span>
+      <a href="/daily/">查看最新 AI 日报 →</a>
+    </nav>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
+      <div class="footer-links">
+        <a href="/daily/guides/codex/">Codex 排错指南</a>
+        <a href="/daily/archive/">全部归档</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

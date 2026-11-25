@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex 报错 model_not_found / not supported when using Codex（400 / 404）怎么修 · NanaFox</title>
+  <meta name="description" content="解决 Codex CLI 与 Codex Desktop 报错 model_not_found、gpt-5.4 / gpt-5.5 已下线或模型不在当前分组支持列表的问题，30 秒定位根因并修复 config.toml。" />
+  <meta name="keywords" content="Codex model_not_found, model is not supported when using Codex, Codex 404 model_not_found, Codex 400 invalid_request_error, gpt-5.5 retired Codex, Codex config.toml model" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="Codex 报错 model_not_found / not supported when using Codex（400 / 404）怎么修 · NanaFox · NanaFox" />
+  <meta property="og:description" content="解决 Codex CLI 与 Codex Desktop 报错 model_not_found、gpt-5.4 / gpt-5.5 已下线或模型不在当前分组支持列表的问题，30 秒定位根因并修复 config.toml。" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://nanafox.com/daily/guides/codex/codex-model-not-supported-or-retired-400-404/" />
+  <meta property="og:url" content="https://nanafox.com/daily/guides/codex/codex-model-not-supported-or-retired-400-404/" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
+      </a>
+      <nav class="nav" aria-label="日报导航"><a class="" href="https://nanafox.com/">返回官网</a><a class="" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a><a class="active" href="/daily/guides/codex/">Codex 排错</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/daily/">AI 日报</a>
+      <span>/</span>
+      <a href="/daily/guides/codex/">Codex 排错指南</a>
+    </nav>
+    <article class="guide-page">
+      <header class="page-head">
+        <div class="guide-meta">
+          <div class="guide-badges"><span class="guide-badge">400</span><span class="guide-badge">404</span></div>
+          <span class="date-line">更新于 2026-11-25</span>
+        </div>
+        <h1>Codex 报错 model_not_found / not supported when using Codex（400 / 404）怎么修</h1>
+        <p class="guide-summary">解决 Codex CLI 与 Codex Desktop 报错 model_not_found、gpt-5.4 / gpt-5.5 已下线或模型不在当前分组支持列表的问题，30 秒定位根因并修复 config.toml。</p>
+      </header>
+      <div class="guide-article">
+<p>在终端运行 Codex CLI 或使用 Codex Desktop 时，如果刚升级客户端、更换接口服务商，或沿用了旧的 <code>config.toml</code> 配置，很容易遇到模型不支持或已下线的 <code>400</code> / <code>404</code> 报错。</p>
+<h2>报错现象</h2>
+<p>终端或客户端日志中通常会出现以下几类原文之一：</p>
+<ul><li><code>400 invalid_request_error</code>: <code>The &#x27;gpt-5.4&#x27; model is not supported when using Codex with a ChatGPT account.</code>（<code>gpt-5.4-mini</code>、<code>gpt-5.3-codex-spark</code>、<code>gpt-4o-realtime-preview</code>、<code>gpt-4o-audio-preview</code> 等旧模型名或非代码模型也会触发同类报错）</li><li><code>404 model_not_found</code>: <code>Model &quot;gpt-5.5&quot; targets GPT-5.5, which retired from Codex with ChatGPT sign-in on October 14, 2026. Select an available replacement such as GPT-6.1 Sol or GPT-6.2 Sol</code></li><li><code>404 model_not_found</code>: <code>The model &quot;xxx&quot; does not exist or you do not have access to it</code></li></ul>
+<h2>30 秒定位根因</h2>
+<p>按以下 3 个方向快速排查，90% 以上都能立刻定位：</p>
+<ol><li><strong>填了已下线或当前通道不支持的模型名</strong>：<code>~/.codex/config.toml</code> 里仍写着已经下线的旧模型名，或填了实时语音/音频等不适用于 Codex 的模型。</li><li><strong>API Key 分组与目标模型不匹配</strong>：很多聚合/路由服务商会按模型厂商拆分分组（例如 OpenAI GPT 分组与 Anthropic Claude 分组分离），拿 GPT 分组的 Key 去调用 Claude 或其他平台模型时，就会返回 <code>404 model_not_found</code> 或无权限提示。</li><li><strong>Codex Desktop 26.1117+ 前端覆盖了默认模型</strong>：新版 Codex Desktop 新建会话时会校验内置模型目录，若自定义模型不在内置目录中且未配置 <code>model_catalog_json</code>，前端可能会强行回退到内置默认模型，导致发往第三方端点时触发 <code>model_not_found</code>。</li></ol>
+<h2>精确修复步骤（全服务商通用）</h2>
+<h3>步骤 1：更新 <code>~/.codex/config.toml</code> 中的 <code>model</code></h3>
+<p>打开 <code>~/.codex/config.toml</code>（Windows 路径为 <code>%userprofile%\.codex\config.toml</code>），将 <code>model</code> 替换为当前通道实际支持的模型名称（例如 <code>gpt-6.1-sol</code> 或 <code>gpt-6.2-sol</code>）：</p>
+<pre><code class="lang-toml">model_provider = &quot;custom&quot;
+model = &quot;gpt-6.1-sol&quot;
+
+[model_providers.custom]
+name = &quot;custom&quot;
+base_url = &quot;https://你的服务商端点&quot;
+wire_api = &quot;responses&quot;
+requires_openai_auth = true</code></pre>
+<p>保存后<strong>彻底退出并重启</strong> Codex CLI / Desktop。</p>
+<h3>步骤 2：核对 API Key 所属分组（按用途分别建 Key）</h3>
+<p>如果报错提示 <code>404 model_not_found</code> 或当前 Key 无权访问该模型：</p>
+<ol><li>登录你的 API 服务商控制台，检查 <code>~/.codex/auth.json</code> 里填写的 Key 属于哪个模型分组；</li><li>确认该分组是否包含你要调用的模型；若需要分别使用 GPT/Codex 与 Claude 等不同生态模型，请<strong>按用途分别创建对应分组的 Key</strong>，不要混用；</li><li>更新 <code>~/.codex/auth.json</code> 后重启客户端。</li></ol>
+<h3>步骤 3：排查 Codex Desktop 新建会话模型回退（如适用）</h3>
+<p>如果你在 Codex CLI 中运行正常，仅在 Codex Desktop（26.1117+）新建会话时触发 <code>model_not_found</code>：</p>
+<ol><li>临时用终端 <code>codex -m &lt;模型名&gt;</code> 验证端点本身是否正常；</li><li>如需在 Desktop 中使用非内置目录的自定义模型，可在 <code>~/.codex/</code> 下配置最小 <code>model_catalog_json</code> 并在 <code>config.toml</code> 顶层引入，或直接使用上游支持的最新标准模型名。</li></ol>
+<hr />
+<h2>延伸参考：省去手改配置的接入方式</h2>
+<p>如果你希望直接对照标准 <code>config.toml</code> 与 <code>auth.json</code> 配置模板，或使用支持 Codex 原生 Responses 接口的路由服务，可以查看 NanaFox Router 的接入文档（支持按用途建 Key，并可一键导入 CC Switch）：</p>
+<ul><li>接入文档与配置模板：<a href="https://router.nanafox.com/docs" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/docs</a></li><li>注册体验 NanaFox Router（Codex 专向入口）：<a href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex</a></li></ul>
+      </div>
+    </article>
+    <section class="guide-related" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">其他 Codex 排错指南</h2><ul><li><a href="/daily/guides/codex/codex-insufficient-balance-403-billing-error/">Codex 报错 403 insufficient balance / Insufficient account balance 怎么排查</a></li><li><a href="/daily/guides/codex/codex-daily-weekly-limit-exceeded-429-403/">Codex 报错 429 / 403 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED 怎么解决</a></li><li><a href="/daily/guides/codex/codex-no-active-subscription-for-group-403/">Codex 报错 403 No active subscription found for this group 及鉴权失败排查</a></li><li><a href="/daily/guides/codex/codex-concurrency-limit-exceeded-502/">Codex 报错 502 Concurrency limit exceeded for user / account 怎么解决</a></li><li><a href="/daily/guides/codex/codex-responses-previous-response-id-call-id-400/">Codex 报错 400 function_call_output requires call_id / previous_response_id 与 wire_api 不兼容怎么修</a></li><li><a href="/daily/guides/codex/codex-input-exceeds-context-window-400/">Codex 报错 400 Your input exceeds the context window of this model 怎么修</a></li><li><a href="/daily/guides/codex/codex-stream-interrupted-overloaded-rate-limit-timeout-502-503-429-408/">Codex 报错 502 流式中断 / 503 overloaded / 429 rate_limit_error / 408 请求超时怎么修</a></li></ul></section>
+    <nav class="day-nav" aria-label="指南导航">
+      <a href="/daily/guides/codex/">← 返回 Codex 排错指南合集</a>
+      <span class="spacer"></span>
+      <a href="/daily/">查看最新 AI 日报 →</a>
+    </nav>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
+      <div class="footer-links">
+        <a href="/daily/guides/codex/">Codex 排错指南</a>
+        <a href="/daily/archive/">全部归档</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

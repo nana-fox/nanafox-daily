@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex 报错 429 / 403 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED 怎么解决 · NanaFox</title>
+  <meta name="description" content="区分 Codex 报错 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED（套餐周期限额）与瞬时限流（rate_limit_error），并提供不中断开发的切换与恢复步骤。" />
+  <meta name="keywords" content="Codex DAILY_LIMIT_EXCEEDED, Codex WEEKLY_LIMIT_EXCEEDED, daily usage limit exceeded Codex, weekly usage limit exceeded Codex, Codex 429 403 限额" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="Codex 报错 429 / 403 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED 怎么解决 · NanaFox · NanaFox" />
+  <meta property="og:description" content="区分 Codex 报错 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED（套餐周期限额）与瞬时限流（rate_limit_error），并提供不中断开发的切换与恢复步骤。" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://nanafox.com/daily/guides/codex/codex-daily-weekly-limit-exceeded-429-403/" />
+  <meta property="og:url" content="https://nanafox.com/daily/guides/codex/codex-daily-weekly-limit-exceeded-429-403/" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
+      </a>
+      <nav class="nav" aria-label="日报导航"><a class="" href="https://nanafox.com/">返回官网</a><a class="" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a><a class="active" href="/daily/guides/codex/">Codex 排错</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/daily/">AI 日报</a>
+      <span>/</span>
+      <a href="/daily/guides/codex/">Codex 排错指南</a>
+    </nav>
+    <article class="guide-page">
+      <header class="page-head">
+        <div class="guide-meta">
+          <div class="guide-badges"><span class="guide-badge">429</span><span class="guide-badge">403</span></div>
+          <span class="date-line">更新于 2026-11-25</span>
+        </div>
+        <h1>Codex 报错 429 / 403 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED 怎么解决</h1>
+        <p class="guide-summary">区分 Codex 报错 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED（套餐周期限额）与瞬时限流（rate_limit_error），并提供不中断开发的切换与恢复步骤。</p>
+      </header>
+      <div class="guide-article">
+<p>高频使用 Codex 做全仓重构、多轮工具调用或自动化脚本时，经常会遇到 <code>429</code> 或 <code>403</code> 的限额提示。这类报错与临时服务器拥堵不同，反复重试通常不会立刻恢复。</p>
+<h2>报错现象</h2>
+<p>终端中出现以下任一原文：</p>
+<ul><li><code>429 api_error</code>: <code>DAILY_LIMIT_EXCEEDED</code>（<code>daily usage limit exceeded</code>）或 <code>WEEKLY_LIMIT_EXCEEDED</code>（<code>weekly usage limit exceeded</code>）</li><li><code>403 billing_error</code>: <code>daily usage limit exceeded</code> 或 <code>weekly usage limit exceeded</code></li></ul>
+<h2>30 秒定位根因</h2>
+<p>请先把它和瞬时限流区分开：</p>
+<ul><li><strong>本错误（<code>DAILY_LIMIT_EXCEEDED</code> / <code>WEEKLY_LIMIT_EXCEEDED</code>）</strong>：你当前所用的订阅套餐或 Key 配置的<strong>每日 / 每周额度配额</strong>已经用满。在周期重置前，继续用同一个套餐分组的 Key 重试仍会被拒绝。</li><li><strong>对比瞬时限流（<code>rate_limit_error</code>）</strong>：如果报错类型是 <code>rate_limit_error</code>（提示请求速率受限），那属于上游并发/速率抖动，等 5–30 秒即可恢复；而日/周限额属于配额上限。</li></ul>
+<p>此外，如果单个长会话上下文非常庞大，每发一句都会把几十万 token 的历史重新送给模型，也会比平时快得多地吃光日/周额度。</p>
+<h2>精确修复步骤（全服务商通用）</h2>
+<h3>步骤 1：确认是否可等待自动重置或切换按量 Key</h3>
+<ol><li>登录你的服务商控制台，查看当前套餐的日限额 / 周限额重置时间；</li><li>若手头任务需要立刻继续，可以：<ul><li>切换为<strong>按量计费分组的 API Key</strong>（按用途分别建 Key，临时顶上）；或</li><li>升级到更高档位的订阅套餐。</li></ul></li><li>如切换了 Key，记得同步更新 <code>~/.codex/auth.json</code>（Windows 为 <code>%userprofile%\.codex\auth.json</code>）并重启 Codex：</li></ol>
+<pre><code class="lang-json">{
+  &quot;OPENAI_API_KEY&quot;: &quot;sk-切换后的API_Key&quot;
+}</code></pre>
+<h3>步骤 2：避免单个长会话过快消耗配额</h3>
+<p>恢复后，建议同步优化日常用法，降低单日 token 消耗：</p>
+<ol><li>在 Codex 中完成一个子任务后，执行 <code>/compact</code> 压缩历史上下文，或直接新开会话；</li><li>避免把整仓日志、构建产物或无关大文件直接贴进对话；</li><li>检查是否给单个 Key 设了过低的自定义日限额（部分平台支持在密钥设置里手动限制每日消费上限）。</li></ol>
+<hr />
+<h2>延伸参考：按量与月卡灵活切换</h2>
+<p>如果你的开发强度在平时与冲刺期波动较大，可以在支持<strong>按量或月卡</strong>的路由平台上<strong>按用途分别建 Key</strong>，平时走月卡、冲刺期平滑切到按量，避免卡在周期限额上：</p>
+<ul><li>Codex 接入文档与配置指南：<a href="https://router.nanafox.com/docs" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/docs</a></li><li>注册体验 NanaFox Router（Codex 专向入口）：<a href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex</a></li></ul>
+      </div>
+    </article>
+    <section class="guide-related" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">其他 Codex 排错指南</h2><ul><li><a href="/daily/guides/codex/codex-model-not-supported-or-retired-400-404/">Codex 报错 model_not_found / not supported when using Codex（400 / 404）怎么修</a></li><li><a href="/daily/guides/codex/codex-insufficient-balance-403-billing-error/">Codex 报错 403 insufficient balance / Insufficient account balance 怎么排查</a></li><li><a href="/daily/guides/codex/codex-no-active-subscription-for-group-403/">Codex 报错 403 No active subscription found for this group 及鉴权失败排查</a></li><li><a href="/daily/guides/codex/codex-concurrency-limit-exceeded-502/">Codex 报错 502 Concurrency limit exceeded for user / account 怎么解决</a></li><li><a href="/daily/guides/codex/codex-responses-previous-response-id-call-id-400/">Codex 报错 400 function_call_output requires call_id / previous_response_id 与 wire_api 不兼容怎么修</a></li><li><a href="/daily/guides/codex/codex-input-exceeds-context-window-400/">Codex 报错 400 Your input exceeds the context window of this model 怎么修</a></li><li><a href="/daily/guides/codex/codex-stream-interrupted-overloaded-rate-limit-timeout-502-503-429-408/">Codex 报错 502 流式中断 / 503 overloaded / 429 rate_limit_error / 408 请求超时怎么修</a></li></ul></section>
+    <nav class="day-nav" aria-label="指南导航">
+      <a href="/daily/guides/codex/">← 返回 Codex 排错指南合集</a>
+      <span class="spacer"></span>
+      <a href="/daily/">查看最新 AI 日报 →</a>
+    </nav>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
+      <div class="footer-links">
+        <a href="/daily/guides/codex/">Codex 排错指南</a>
+        <a href="/daily/archive/">全部归档</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

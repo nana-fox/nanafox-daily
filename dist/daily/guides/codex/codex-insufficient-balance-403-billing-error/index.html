@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex 报错 403 insufficient balance / Insufficient account balance 怎么排查 · NanaFox</title>
+  <meta name="description" content="Codex CLI 与 Codex Desktop 出现 403 billing_error insufficient balance 或 Insufficient account balance 时，如何区分余额耗尽与分组 Key 填错并快速恢复。" />
+  <meta name="keywords" content="Codex insufficient balance, Codex 403 billing_error, Insufficient account balance Codex, Codex auth.json Key 配置" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="Codex 报错 403 insufficient balance / Insufficient account balance 怎么排查 · NanaFox · NanaFox" />
+  <meta property="og:description" content="Codex CLI 与 Codex Desktop 出现 403 billing_error insufficient balance 或 Insufficient account balance 时，如何区分余额耗尽与分组 Key 填错并快速恢复。" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://nanafox.com/daily/guides/codex/codex-insufficient-balance-403-billing-error/" />
+  <meta property="og:url" content="https://nanafox.com/daily/guides/codex/codex-insufficient-balance-403-billing-error/" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
+      </a>
+      <nav class="nav" aria-label="日报导航"><a class="" href="https://nanafox.com/">返回官网</a><a class="" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a><a class="active" href="/daily/guides/codex/">Codex 排错</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/daily/">AI 日报</a>
+      <span>/</span>
+      <a href="/daily/guides/codex/">Codex 排错指南</a>
+    </nav>
+    <article class="guide-page">
+      <header class="page-head">
+        <div class="guide-meta">
+          <div class="guide-badges"><span class="guide-badge">403</span></div>
+          <span class="date-line">更新于 2026-11-25</span>
+        </div>
+        <h1>Codex 报错 403 insufficient balance / Insufficient account balance 怎么排查</h1>
+        <p class="guide-summary">Codex CLI 与 Codex Desktop 出现 403 billing_error insufficient balance 或 Insufficient account balance 时，如何区分余额耗尽与分组 Key 填错并快速恢复。</p>
+      </header>
+      <div class="guide-article">
+<p>使用 Codex CLI 或 Codex Desktop 接入第三方 API 接口时，遇到 <code>403</code> 余额不足提示并不一定都是“账户里没钱了”，也经常发生在<strong>开通了订阅/月卡却仍在使用旧的按量分组 Key</strong> 的场景里。</p>
+<h2>报错现象</h2>
+<p>终端或日志中出现以下任一原文：</p>
+<ul><li><code>403 billing_error</code>: <code>insufficient balance</code></li><li><code>403 api_error</code>: <code>Insufficient account balance</code></li></ul>
+<h2>30 秒定位根因</h2>
+<p>只需要确认两件事即可定位：</p>
+<ol><li><strong>当前账户的按量余额或体验额度已耗尽</strong>：发起请求时所绑定的计费钱包余额不足以覆盖本次调用。</li><li><strong>本地 <code>auth.json</code> 仍在使用旧分组的 Key</strong>：例如你在控制台已经开通了月卡/订阅套餐，但 <code>~/.codex/auth.json</code>（或环境变量 <code>OPENAI_API_KEY</code>）里还填着之前按量分组的 Key，系统就会继续扣按量钱包余额，从而报 <code>insufficient balance</code>。</li></ol>
+<h2>精确修复步骤（全服务商通用）</h2>
+<h3>步骤 1：确认生效的是哪一个 API Key</h3>
+<p>Codex 客户端同时可能读取 <code>~/.codex/auth.json</code> 和当前终端的环境变量。请先检查两处：</p>
+<pre><code class="lang-bash"># 1. 检查环境变量是否覆盖了配置
+echo &quot;$OPENAI_API_KEY&quot;
+
+# 2. 查看 auth.json 当前填写的 Key（Windows 路径：%userprofile%\.codex\auth.json）
+cat ~/.codex/auth.json</code></pre>
+<p>如果终端环境变量里残留了旧 Key，请先在 shell 配置文件（<code>.zshrc</code> / <code>.bashrc</code> 或系统环境变量）中清除或同步更新。</p>
+<h3>步骤 2：核对 Key 所属分组与账户计费状态</h3>
+<ol><li>登录你的 API 服务商控制台，核对当前账户余额与已生效的套餐/月卡状态；</li><li>若按量余额确实耗尽，请补充余额或切换到已开通的有效套餐；</li><li>若已开通套餐仍报 <code>insufficient balance</code>，请在控制台「API 密钥」页面核对刚才查到的 Key 是否绑定到了<strong>对应套餐分组</strong>——不同计费模式或模型分组通常需要<strong>按用途分别建 Key</strong>。</li></ol>
+<h3>步骤 3：更新 <code>~/.codex/auth.json</code> 并重启 Codex</h3>
+<p>将确认无误的 Key 写入 <code>~/.codex/auth.json</code>：</p>
+<pre><code class="lang-json">{
+  &quot;OPENAI_API_KEY&quot;: &quot;sk-你的有效分组API_Key&quot;
+}</code></pre>
+<p>保存后彻底退出并重新启动 Codex（如果使用 CC Switch 管理配置，请在 CC Switch 内重新应用配置以确保文件已写入）。</p>
+<hr />
+<h2>延伸参考：标准 Codex 配置与接入文档</h2>
+<p>如果你需要核对 Codex 的标准 <code>config.toml</code> / <code>auth.json</code> 写法，或正在寻找支持按量与月卡、且支持按用途建 Key 的 Codex 路由服务，可参考 NanaFox Router 官方文档：</p>
+<ul><li>接入文档与排错说明：<a href="https://router.nanafox.com/docs" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/docs</a></li><li>注册体验 NanaFox Router（Codex 专向入口）：<a href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex" target="_blank" rel="noopener noreferrer">https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=codex</a></li></ul>
+      </div>
+    </article>
+    <section class="guide-related" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">其他 Codex 排错指南</h2><ul><li><a href="/daily/guides/codex/codex-model-not-supported-or-retired-400-404/">Codex 报错 model_not_found / not supported when using Codex（400 / 404）怎么修</a></li><li><a href="/daily/guides/codex/codex-daily-weekly-limit-exceeded-429-403/">Codex 报错 429 / 403 DAILY_LIMIT_EXCEEDED / WEEKLY_LIMIT_EXCEEDED 怎么解决</a></li><li><a href="/daily/guides/codex/codex-no-active-subscription-for-group-403/">Codex 报错 403 No active subscription found for this group 及鉴权失败排查</a></li><li><a href="/daily/guides/codex/codex-concurrency-limit-exceeded-502/">Codex 报错 502 Concurrency limit exceeded for user / account 怎么解决</a></li><li><a href="/daily/guides/codex/codex-responses-previous-response-id-call-id-400/">Codex 报错 400 function_call_output requires call_id / previous_response_id 与 wire_api 不兼容怎么修</a></li><li><a href="/daily/guides/codex/codex-input-exceeds-context-window-400/">Codex 报错 400 Your input exceeds the context window of this model 怎么修</a></li><li><a href="/daily/guides/codex/codex-stream-interrupted-overloaded-rate-limit-timeout-502-503-429-408/">Codex 报错 502 流式中断 / 503 overloaded / 429 rate_limit_error / 408 请求超时怎么修</a></li></ul></section>
+    <nav class="day-nav" aria-label="指南导航">
+      <a href="/daily/guides/codex/">← 返回 Codex 排错指南合集</a>
+      <span class="spacer"></span>
+      <a href="/daily/">查看最新 AI 日报 →</a>
+    </nav>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
+      <div class="footer-links">
+        <a href="/daily/guides/codex/">Codex 排错指南</a>
+        <a href="/daily/archive/">全部归档</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
