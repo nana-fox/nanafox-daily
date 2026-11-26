@@ -24,7 +24,10 @@ category: "bot-integration"
 
 ## 以 NanaFox Router 为例
 
-在接入引导中选「Cherry Studio / Cursor 等客户端」，使用「OpenAI GPT」分组的密钥。下面只复制当前插件对应的一段，把示例密钥换成自己的密钥。选用其他服务时，同样换成该服务给出的地址、密钥和模型 ID。[打开 Router 客户端接入入口](https://router.nanafox.com/register?aff=UG937JQ67MRS&use=client&utm_source=nanafox_daily&utm_medium=site)
+- 新用户进入接入引导，选择「Cherry Studio / Cursor 等客户端」，创建「OpenAI GPT」分组的 API Key。[打开 Router 客户端接入入口](https://router.nanafox.com/register?aff=UG937JQ67MRS&use=client&utm_source=nanafox_daily&utm_medium=site)
+- 已有 Router 账号时，登录后从左侧「API 密钥」进入。已有「OpenAI GPT」分组的密钥可以直接复制使用。要新建，点「创建密钥」，填写「名称」，在「厂商」选「OpenAI」，在「分组」选「OpenAI GPT」，点「创建」，再从列表复制新密钥。
+
+下面只复制当前插件对应的一段，把示例密钥换成自己的密钥。选用其他服务时，同样换成该服务给出的地址、密钥和模型 ID。
 
 ### ChatGPT Turbo
 
