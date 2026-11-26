@@ -1,0 +1,177 @@
+{
+  "title": "AI 前沿日报",
+  "eyebrow": "DAILY AI BRIEFING",
+  "date": "2026-11-27",
+  "brand": "",
+  "tldr": [
+    "OpenAI 承认 GPT-6.2 上线时把用量算少了，修好后同样的活会更快碰到上限，Astra 大约快 40%。",
+    "据报道，英伟达暂停向马来西亚、新加坡、泰国和印尼发运 AI 服务器，要堵住到海外租卡的路子。",
+    "据报道，智谱原定本月发布的旗舰模型 GLM-5.5，可能要拖到明年一季度。"
+  ],
+  "sections": [
+    {
+      "heading": "🔥 模型发布与评测",
+      "accent": "#f97316",
+      "style": "cards",
+      "items": [
+        {
+          "title": "MAGI-2登顶图生视频榜",
+          "tag": "评测",
+          "detail": "评测机构 Artificial Analysis 的图生视频榜上，Sand.ai 的 MAGI-2 与 Dreamina Seedance 2.5 统计并列第一。按该机构列出的接口价，每分钟 4.80 美元，大约是 Seedance 2.5 的七分之一。这是该机构的盲测榜，不是官方跑分。",
+          "why": "好看的视频模型，开始比谁更便宜。",
+          "source": "@ArtificialAnlys",
+          "url": "https://artificialanalysis.ai/video/leaderboard/image-to-video",
+          "related": [
+            "量子位",
+            "官方帖"
+          ],
+          "related_urls": [
+            "https://www.qbitai.com/2026/11/512916.html",
+            "https://x.com/ArtificialAnlys/status/2125759745655210113"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🤖 Agent 与 AI 编程",
+      "accent": "#10b981",
+      "style": "cards",
+      "items": [
+        {
+          "title": "Karpathy用Claude做文明地图",
+          "tag": "Agent",
+          "detail": "研究者 Karpathy 发帖说，他让 Claude Opus 5.5 用真实数据填一张类似《文明》的美国地图。模型自行拉取人口普查等公开数据，大约 7 小时后地图可以运行。演示已放到他的网站上。",
+          "why": "一个人加编程助手，也能做出能玩的数据游戏。",
+          "source": "@karpathy",
+          "url": "https://x.com/karpathy/status/2125779541952246039",
+          "related": [
+            "演示页",
+            "Hacker News"
+          ],
+          "related_urls": [
+            "https://karpathy.ai/usaciv/",
+            "https://news.ycombinator.com/item?id=50658997"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "📱 产品与应用",
+      "accent": "#3b82f6",
+      "style": "cards",
+      "items": [
+        {
+          "title": "GPT-6.2计费修好，额度更快见底",
+          "tag": "产品",
+          "detail": "OpenAI 工程师发帖称，GPT-6.2 上线时计费算错，给大多数用户少计了 Astra 和 Sol 的用量。现已修好，同样工作会占用更多额度；和上周比，Astra 大约快 40% 碰到上限。公司称不追收差额，并向 Go、Plus、Pro 和 Business 用户补偿一次额度重置。",
+          "why": "订阅没涨价，但同样的对话会更快用完。",
+          "source": "@thsottiaux",
+          "url": "https://x.com/thsottiaux/status/2125784147889393806",
+          "related": [
+            "TechRadar",
+            "The Decoder",
+            "Hacker News"
+          ],
+          "related_urls": [
+            "https://www.techradar.com/ai-platforms-assistants/chatgpt/weve-fixed-this-now-so-the-same-work-will-use-more-of-your-plans-usage-allowance-openai-admits-it-made-a-mistake-when-launching-gpt-6-2-and-now-paying-chatgpt-users-could-hit-their-usage-limits-up-to-40-percent-faster",
+            "https://the-decoder.com/gpt-6-2-astra-users-now-hit-limits-40-faster-after-openai-patched-a-pricing-error/",
+            "https://news.ycombinator.com/item?id=50651117"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "💼 行业 · 投融资 · 政策",
+      "accent": "#0ea5e9",
+      "style": "cards",
+      "items": [
+        {
+          "title": "据报道英伟达暂停东南亚服务器出货",
+          "tag": "政策",
+          "detail": "据 TechCrunch、The Decoder 等转述，英伟达已要求戴尔、超微等合作方，暂停向马来西亚、新加坡、泰国和印尼发运 AI 服务器。报道称，美国本月收紧规则，防止中国公司通过海外云远程使用这些芯片；有智库估计，这类海外机房大约供给中国 24% 的 AI 算力。",
+          "why": "远程租卡这条捷径，正在被堵住。",
+          "source": "TechCrunch",
+          "url": "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/",
+          "related": [
+            "The Decoder",
+            "CBS News"
+          ],
+          "related_urls": [
+            "https://the-decoder.com/nvidia-halts-server-shipments-to-malaysia-singapore-thailand-and-indonesia-after-tighter-us-export-controls/",
+            "https://www.cbsnews.com/news/nvidia-china-ai-chips-computing-sales/"
+          ]
+        },
+        {
+          "title": "42州检察长阻拦拍卖用户对话",
+          "tag": "政策",
+          "detail": "美国 42 个州的检察长要求，在 Character.AI 破产程序中停止拍卖用户的私人聊天记录。他们在声明中称，涉及超过 2100 万个美国账户，其中还包括登记为未成年人的账户，且缺乏对当事人的保护。该公司 10 月已申请破产。",
+          "why": "公司倒了，你的聊天记录可能被拿去卖。",
+          "source": "The Verge",
+          "url": "https://www.theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats",
+          "related": [
+            "TechCrunch"
+          ],
+          "related_urls": [
+            "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "🇨🇳 国内动态",
+      "accent": "#ef4444",
+      "style": "cards",
+      "items": [
+        {
+          "title": "更新：据报道智谱旗舰或推迟到明年",
+          "tag": "政策",
+          "detail": "据路透社报道、The Decoder 等转述，智谱（Z.AI）原计划本月发布的旗舰模型 GLM-5.5，可能要拖到 2027 年一季度或更晚；原因包括防蒸馏（防止用别人模型的回答来训练自己），以及美国限制通过海外机房远程用芯片。同一报道称，月之暗面的下一代也可能更晚推出。",
+          "why": "卡芯片和防偷师，开始改写发布日历。",
+          "source": "The Decoder（据 Reuters）",
+          "url": "https://the-decoder.com/after-openai-and-anthropic-shut-the-door-on-their-data-a-chinese-ai-developer-is-turning-to-google-and-meta-instead/",
+          "related": [
+            "路透社",
+            "TNW"
+          ],
+          "related_urls": [
+            "https://finance.yahoo.com/news/exclusive-us-chip-curbs-distillation-071923947.html",
+            "https://thenextweb.com/news/moonshot-distilling-google-meta-zai-glm-5-5-delay"
+          ]
+        },
+        {
+          "title": "千问音频模型加强方言识别",
+          "tag": "模型发布",
+          "detail": "阿里通义团队宣布，已发布的 Qwen-Audio-3.1 系列迎来多语言更新，重点加强中文方言。官方介绍页称，可支持 16 种中文方言，并能在按原方言转写和译成普通话之间切换。",
+          "why": "方言口语，开始能更直接交给模型听。",
+          "source": "@Alibaba_Qwen",
+          "url": "https://x.com/Alibaba_Qwen/status/2125798914490249411",
+          "related": [
+            "介绍页"
+          ],
+          "related_urls": [
+            "https://qwenaudio.github.io/qwen-audio-3.1-asr/"
+          ]
+        },
+        {
+          "title": "苹果全球下架MiniMax的Talkie",
+          "tag": "产品",
+          "detail": "据调查机构 TBIJ 报道，苹果在其出示相关证据后，已在全球 App Store 下架 MiniMax 旗下角色聊天应用 Talkie。报道称，该应用中出现了将未成年人不当性化等违规对话，下载量达数千万次。",
+          "why": "面向儿童的聊天应用，正在被应用商店收紧。",
+          "source": "TBIJ",
+          "url": "https://www.thebureauinvestigates.com/stories/2026-11-24/talkie-china-chatbot-children"
+        }
+      ]
+    },
+    {
+      "heading": "💬 讨论热点",
+      "accent": "#ec4899",
+      "style": "bullets",
+      "items": [
+        {
+          "title": "这是修漏洞，还是在控成本？",
+          "summary": "OpenAI 官方只承认把 GPT-6.2 的用量算少了。Hacker News 上相关讨论超过 400 分；另有一篇分析称，6.2 的思考和输出比前代明显变短，像是被调去省钱，这不是官方说明。"
+        }
+      ]
+    }
+  ]
+}
