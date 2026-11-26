@@ -211,6 +211,36 @@ class WebsiteBuildTest(unittest.TestCase):
             self.assertFalse((self.dist / "escaped/index.html").exists())
             self.assertFalse((self.dist / "daily/escape/index.html").exists())
 
+    def test_bot_guides_are_linked_from_index_and_listed_in_sitemap(self):
+        self.add_day("2026-11-26", "今日摘要")
+        site.build(self.data, self.dist, base="/daily")
+        root = self.dist / "daily"
+        index_html = (root / "guides/codex/index.html").read_text(encoding="utf-8")
+        sitemap = ET.parse(root / "sitemap.xml")
+        locs = [el.text for el in sitemap.iter("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")]
+        self.assertIn('id="bot-guides"', index_html)
+
+        for slug in (
+            "astrbot-openai-compatible",
+            "koishi-chatluna-openai-compatible",
+            "nonebot-openai-compatible",
+        ):
+            with self.subTest(slug=slug):
+                path = f"/daily/guides/bots/{slug}/"
+                canonical = f"https://nanafox.com{path}"
+                page = (self.dist / path.lstrip("/") / "index.html").read_text(encoding="utf-8")
+                self.assertIn(f'href="{path}"', index_html)
+                self.assertIn(f'<link rel="canonical" href="{canonical}"', page)
+                self.assertIn('href="/daily/guides/codex/#bot-guides"', page)
+                self.assertIn(
+                    'https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=client'
+                    '&amp;utm_source=nanafox_daily&amp;utm_medium=site',
+                    page,
+                )
+                self.assertIn("<h2>常见报错</h2>", page)
+                self.assertNotIn("ddnio.com", page)
+                self.assertEqual(locs.count(canonical), 1)
+
 
 if __name__ == "__main__":
     unittest.main()
