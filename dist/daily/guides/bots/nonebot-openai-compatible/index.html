@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NoneBot2 AI 聊天插件怎么接 OpenAI 兼容 API · NanaFox</title>
+  <meta name="description" content="用 ChatGPT Turbo 和白泽两个 NoneBot2 插件演示 API Key、模型 ID 和地址的填法，区分 Base URL 与完整对话端点。" />
+  <meta name="keywords" content="NoneBot OpenAI 兼容, nonebot-plugin-chatgpt-turbo oneapi_url, NoneBot 白泽 AICHAT_API_URL" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="NoneBot2 AI 聊天插件怎么接 OpenAI 兼容 API · NanaFox · NanaFox" />
+  <meta property="og:description" content="用 ChatGPT Turbo 和白泽两个 NoneBot2 插件演示 API Key、模型 ID 和地址的填法，区分 Base URL 与完整对话端点。" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://nanafox.com/daily/guides/bots/nonebot-openai-compatible/" />
+  <meta property="og:url" content="https://nanafox.com/daily/guides/bots/nonebot-openai-compatible/" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
+      </a>
+      <nav class="nav" aria-label="日报导航"><a class="" href="https://nanafox.com/">返回官网</a><a class="" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a><a class="active" href="/daily/guides/codex/">Codex 排错</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/daily/">AI 日报</a>
+      <span>/</span>
+      <a href="/daily/guides/codex/#bot-guides">机器人接入教程</a>
+    </nav>
+    <article class="guide-page">
+      <header class="page-head">
+        <div class="guide-meta">
+          <div class="guide-badges"></div>
+          <span class="date-line">更新于 2026-11-26</span>
+        </div>
+        <h1>NoneBot2 AI 聊天插件怎么接 OpenAI 兼容 API</h1>
+        <p class="guide-summary">用 ChatGPT Turbo 和白泽两个 NoneBot2 插件演示 API Key、模型 ID 和地址的填法，区分 Base URL 与完整对话端点。</p>
+      </header>
+      <div class="guide-article">
+<h2>适用场景</h2>
+<p>你已有能收发消息的 NoneBot2 机器人，想给 AI 聊天插件接上 OpenAI 兼容服务。下面用基于 OneBot v11 的 ChatGPT Turbo 和白泽两个社区插件说明常见的两种填法。先确认正在用的插件包名，同一个服务的地址在两个插件里要填到不同位置。</p>
+<h2>安装并找到配置文件</h2>
+<ol><li>在 NoneBot2 项目目录和它的 Python 环境中安装所需插件。ChatGPT Turbo 可用 <code>pip install nonebot-plugin-chatgpt-turbo</code>。白泽按其 README 的 Git 安装方式操作。用 pip 安装后，确认项目已加载对应模块 <code>nonebot_plugin_chatgpt_turbo</code> 或 <code>nonebot_plugin_aichat_baize</code>。如果项目在 <code>pyproject.toml</code> 中维护插件列表，就把模块名加入现有列表。<a href="https://nonebot.dev/docs/tutorial/store" target="_blank" rel="noopener noreferrer">NoneBot 安装插件</a> · <a href="https://github.com/Alpaca4610/nonebot_plugin_chatgpt_turbo/blob/d33f5319330eed7a7bd8459add10ef066867ad82/README.md" target="_blank" rel="noopener noreferrer">ChatGPT Turbo README</a> · <a href="https://github.com/sangonomiya249/nonebot_plugin_aichat_baize/blob/905c041ec5fea114848af62487219be75fc2ea07/README.md" target="_blank" rel="noopener noreferrer">白泽 README</a></li><li>用 ChatGPT Turbo 时，在项目根目录的 <code>.env</code> 写入 <code>oneapi_key</code>、<code>oneapi_url</code> 和 <code>oneapi_model</code>。<code>oneapi_url</code> 传给 OpenAI SDK 的 <code>base_url</code>，这里只填基础地址。如果改过运行环境，核对 <code>.env.prod</code> 或对应的 <code>.env.&lt;环境名&gt;</code> 是否覆盖了这些值。<a href="https://nonebot.dev/docs/appendices/config" target="_blank" rel="noopener noreferrer">NoneBot 配置加载顺序</a> · <a href="https://github.com/Alpaca4610/nonebot_plugin_chatgpt_turbo/blob/d33f5319330eed7a7bd8459add10ef066867ad82/nonebot_plugin_chatgpt_turbo/__init__.py" target="_blank" rel="noopener noreferrer">ChatGPT Turbo 请求源码</a></li><li>用白泽时，在项目根目录的 <code>.env</code> 写入 <code>AICHAT_API_KEY</code>、<code>AICHAT_API_URL</code> 和 <code>AICHAT_MODEL_ID</code>。白泽直接向 <code>AICHAT_API_URL</code> 发请求，这里填服务商的完整 Chat Completions 地址。其他插件或不同版本的字段以你的版本为准。<a href="https://github.com/sangonomiya249/nonebot_plugin_aichat_baize/blob/905c041ec5fea114848af62487219be75fc2ea07/nonebot_plugin_aichat_baize/config.py" target="_blank" rel="noopener noreferrer">白泽配置源码</a> · <a href="https://github.com/sangonomiya249/nonebot_plugin_aichat_baize/blob/905c041ec5fea114848af62487219be75fc2ea07/nonebot_plugin_aichat_baize/__init__.py" target="_blank" rel="noopener noreferrer">白泽请求源码</a></li></ol>
+<h2>以 NanaFox Router 为例</h2>
+<ul><li>新用户进入接入引导，选择「Cherry Studio / Cursor 等客户端」，创建「OpenAI GPT」分组的 API Key。<a href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=client&amp;utm_source=nanafox_daily&amp;utm_medium=site" target="_blank" rel="noopener noreferrer">打开 Router 客户端接入入口</a></li><li>已有 Router 账号时，登录后从左侧「API 密钥」进入。已有「OpenAI GPT」分组的密钥可以直接复制使用。要新建，点「创建密钥」，填写「名称」，在「厂商」选「OpenAI」，在「分组」选「OpenAI GPT」，点「创建」，再从列表复制新密钥。</li></ul>
+<p>下面只复制当前插件对应的一段，把示例密钥换成自己的密钥。选用其他服务时，同样换成该服务给出的地址、密钥和模型 ID。</p>
+<h3>ChatGPT Turbo</h3>
+<pre><code class="lang-dotenv">oneapi_url=&quot;https://router.nanafox.com/v1&quot;
+oneapi_key=&quot;sk-your-api-key&quot;
+oneapi_model=&quot;gpt-6.1-sol&quot;</code></pre>
+<h3>白泽</h3>
+<pre><code class="lang-dotenv">AICHAT_API_URL=&quot;https://router.nanafox.com/v1/chat/completions&quot;
+AICHAT_API_KEY=&quot;sk-your-api-key&quot;
+AICHAT_MODEL_ID=&quot;gpt-6.1-sol&quot;</code></pre>
+<p>保存后重启机器人。ChatGPT Turbo 可以用 <code>chat</code> 命令发一句短问句，命令前缀以项目配置为准。白泽可以在适用的群里 @ 机器人并发一句短消息。确认日志显示加载了对应插件，且聊天窗口收到模型回复。</p>
+<h2>常见报错</h2>
+<ul><li><strong>401 Unauthorized</strong>　确认已替换示例密钥，检查插件正在读取的配置文件，以及密钥是否与地址匹配。密钥有变更时重启再试。</li><li><strong>404 Not Found</strong>　查看实际请求路径。ChatGPT Turbo 的 <code>oneapi_url</code> 填到 <code>/v1</code>，白泽的 <code>AICHAT_API_URL</code> 填到 <code>/v1/chat/completions</code>。看到重复的 <code>/v1</code> 或 <code>/chat/completions</code> 时，重新核对对应插件要求的地址。</li><li><strong>模型不存在</strong>　核对 <code>oneapi_model</code> 或 <code>AICHAT_MODEL_ID</code> 的完整拼写，以及当前密钥是否允许使用该模型。服务商调整模型后，用它当前提供的对话模型 ID。</li><li><strong>请求超时</strong>　从 NoneBot2 所在主机或容器检查网络，并用短文本重试。白泽的模型请求超时配置是 <code>AICHAT_REQUEST_TIMEOUT</code>，单位是秒。连接能建立、只有等回复超时的时候，再考虑调整这个值。</li></ul>
+      </div>
+    </article>
+    <section class="guide-related" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">其他机器人接入教程</h2><ul><li><a href="/daily/guides/bots/astrbot-openai-compatible/">AstrBot 怎么接入 OpenAI 兼容服务</a></li><li><a href="/daily/guides/bots/koishi-chatluna-openai-compatible/">Koishi 的 ChatLuna 怎么配置 OpenAI 兼容接口</a></li></ul></section>
+    <nav class="day-nav" aria-label="指南导航">
+      <a href="/daily/guides/codex/#bot-guides">← 返回 机器人接入教程</a>
+      <span class="spacer"></span>
+      <a href="/daily/">查看最新 AI 日报 →</a>
+    </nav>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
+      <div class="footer-links">
+        <a href="/daily/guides/codex/">Codex 排错指南</a>
+        <a href="/daily/archive/">全部归档</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

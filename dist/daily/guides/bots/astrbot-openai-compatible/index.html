@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AstrBot 怎么接入 OpenAI 兼容服务 · NanaFox</title>
+  <meta name="description" content="在 AstrBot 添加 OpenAI Compatible 对话提供商，填写 API Base URL 和密钥，选择模型并排查 401、404 和超时。" />
+  <meta name="keywords" content="AstrBot OpenAI 兼容, AstrBot API Base URL, AstrBot 模型提供商" />
+  <meta name="theme-color" content="#fffdf9" />
+  <meta property="og:title" content="AstrBot 怎么接入 OpenAI 兼容服务 · NanaFox · NanaFox" />
+  <meta property="og:description" content="在 AstrBot 添加 OpenAI Compatible 对话提供商，填写 API Base URL 和密钥，选择模型并排查 401、404 和超时。" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://nanafox.com/daily/guides/bots/astrbot-openai-compatible/" />
+  <meta property="og:url" content="https://nanafox.com/daily/guides/bots/astrbot-openai-compatible/" />
+  <link rel="stylesheet" href="/daily/css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="https://nanafox.com/">NanaFox<span class="brand-divider"> / </span><span class="brand-section">AI 日报</span>
+      </a>
+      <nav class="nav" aria-label="日报导航"><a class="" href="https://nanafox.com/">返回官网</a><a class="" href="/daily/">最新</a><a class="" href="/daily/archive/">归档</a><a class="active" href="/daily/guides/codex/">Codex 排错</a></nav>
+    </div>
+  </header>
+  <main class="wrap">
+
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/daily/">AI 日报</a>
+      <span>/</span>
+      <a href="/daily/guides/codex/#bot-guides">机器人接入教程</a>
+    </nav>
+    <article class="guide-page">
+      <header class="page-head">
+        <div class="guide-meta">
+          <div class="guide-badges"></div>
+          <span class="date-line">更新于 2026-11-26</span>
+        </div>
+        <h1>AstrBot 怎么接入 OpenAI 兼容服务</h1>
+        <p class="guide-summary">在 AstrBot 添加 OpenAI Compatible 对话提供商，填写 API Base URL 和密钥，选择模型并排查 401、404 和超时。</p>
+      </header>
+      <div class="guide-article">
+<h2>适用场景</h2>
+<p>AstrBot 已经运行，你想给内置 AI 对话接上一个支持 OpenAI Chat Completions 的服务。其中可以是模型厂商的兼容接口、自建网关或 NanaFox Router。先从服务商拿到 API 基础地址、API Key 和可用的对话模型 ID。</p>
+<h2>在 AstrBot 配置对话模型</h2>
+<ol><li>在管理面板打开「模型提供商 → 对话」，点击「新增」，选择 <code>OpenAI Compatible</code>。旧版入口和名称可能不同，以你的版本为准。<a href="https://docs.astrbot.app/providers/start.html" target="_blank" rel="noopener noreferrer">AstrBot 接入模型服务</a></li><li>给提供商起一个便于识别的名称，填入 <code>API Key</code> 和 <code>API Base URL</code>。基础地址使用服务商给出的版本路径，例如 <code>https://api.example.com/v1</code>。AstrBot 会按协议请求具体端点。</li><li>点击「保存并获取模型」，在目标模型旁点击 <code>+</code>，确认模型已启用。如果接口无法列出模型，先「保存配置」，再通过「自定义模型」填入完整模型 ID。点击「测试模型」，确认模型能返回内容。<a href="https://docs.astrbot.app/providers/newapi.html" target="_blank" rel="noopener noreferrer">AstrBot 的 OpenAI 兼容配置示例</a></li><li>在「配置文件」中打开机器人实际使用的配置，进入「AI → 模型」，将「对话模型」设为刚添加的模型，点击「保存配置」。再发一句简短的文本消息，确认机器人也能回复。</li></ol>
+<h2>以 NanaFox Router 为例</h2>
+<ul><li>新用户进入接入引导，选择「Cherry Studio / Cursor 等客户端」，创建「OpenAI GPT」分组的 API Key。<a href="https://router.nanafox.com/register?aff=UG937JQ67MRS&amp;use=client&amp;utm_source=nanafox_daily&amp;utm_medium=site" target="_blank" rel="noopener noreferrer">打开 Router 客户端接入入口</a></li><li>已有 Router 账号时，登录后从左侧「API 密钥」进入。已有「OpenAI GPT」分组的密钥可以直接复制使用。要新建，点「创建密钥」，填写「名称」，在「厂商」选「OpenAI」，在「分组」选「OpenAI GPT」，点「创建」，再从列表复制新密钥。</li></ul>
+<ul><li><code>API Base URL</code> 填 <code>https://router.nanafox.com/v1</code>。</li><li><code>API Key</code> 填刚创建或已有的分组密钥。</li><li>在模型列表中选择 <code>gpt-6.1-sol</code>。使用「自定义模型」时也填这个模型 ID。若服务商调整了模型列表，以当前密钥可用的对话模型为准。</li></ul>
+<h2>常见报错</h2>
+<ul><li><strong>401 Unauthorized</strong>　先核对密钥是否完整、仍然有效，并确认密钥和基础地址来自同一个服务商。刚换过密钥时，保存提供商配置后再测一次。</li><li><strong>404 Not Found</strong>　查看日志中失败的 URL。Router 的基础地址以一个 <code>/v1</code> 结尾，对话请求应到 <code>/v1/chat/completions</code>。若路径重复或请求发到了 <code>/responses</code>，检查基础地址和提供商类型。</li><li><strong>模型不存在</strong>　如果返回体包含 <code>model_not_found</code>，先核对完整模型 ID 和密钥权限，再检查模型是否启用、当前配置文件是否选中了它。</li><li><strong>请求超时</strong>　先在 AstrBot 运行的主机或容器里检查到服务商的网络，再用「测试模型」发起短请求。如果单独测试通过、实际会话仍超时，试用新会话发一条短消息，并对照日志看请求卡在连接还是等回复。</li></ul>
+      </div>
+    </article>
+    <section class="guide-related" aria-labelledby="related-guides-heading"><h2 id="related-guides-heading">其他机器人接入教程</h2><ul><li><a href="/daily/guides/bots/koishi-chatluna-openai-compatible/">Koishi 的 ChatLuna 怎么配置 OpenAI 兼容接口</a></li><li><a href="/daily/guides/bots/nonebot-openai-compatible/">NoneBot2 AI 聊天插件怎么接 OpenAI 兼容 API</a></li></ul></section>
+    <nav class="day-nav" aria-label="指南导航">
+      <a href="/daily/guides/codex/#bot-guides">← 返回 机器人接入教程</a>
+      <span class="spacer"></span>
+      <a href="/daily/">查看最新 AI 日报 →</a>
+    </nav>
+
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <span>NanaFox · 每日 AI 精选 · 图片可下载分享</span>
+      <div class="footer-links">
+        <a href="/daily/guides/codex/">Codex 排错指南</a>
+        <a href="/daily/archive/">全部归档</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

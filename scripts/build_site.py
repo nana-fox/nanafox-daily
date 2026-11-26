@@ -25,6 +25,7 @@ SITE = REPO / "site"
 DIST = REPO / "dist"
 DEFAULT_DIGEST = REPO / "data"
 DEFAULT_GUIDES = REPO / "guides" / "codex"
+BOT_GUIDES = REPO / "guides" / "bots"
 DATE_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.json$")
 GUIDE_SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 SITE_ORIGIN = "https://nanafox.com"
@@ -643,7 +644,7 @@ def load_guides(guides_dir: Path | None) -> list[dict]:
     return guides
 
 
-def guides_index_body(guides: list[dict], *, base: str) -> str:
+def guides_index_body(guides: list[dict], bot_guides: list[dict], *, base: str) -> str:
     cards: list[str] = []
     for guide in guides:
         href = join_base(base, "guides", "codex", guide["slug"]) + "/"
@@ -660,6 +661,18 @@ def guides_index_body(guides: list[dict], *, base: str) -> str:
             f'<span class="guide-more">查看排查步骤 →</span>'
             f"</a></li>"
         )
+    bot_links = "".join(
+        f'<li><a href="{esc(join_base(base, "guides", "bots", guide["slug"]) + "/")}">{esc(guide["title"])}</a></li>'
+        for guide in bot_guides
+    )
+    bot_section = (
+        '<section class="guide-related" id="bot-guides" aria-labelledby="bot-guides-heading">'
+        '<h2 id="bot-guides-heading">机器人接入教程</h2>'
+        f"<ul>{bot_links}</ul>"
+        "</section>"
+        if bot_links
+        else ""
+    )
     return f"""
     <nav class="breadcrumb" aria-label="面包屑导航">
       <a href="{esc(f'{base}/' if base else '/')}">AI 日报</a>
@@ -672,6 +685,7 @@ def guides_index_body(guides: list[dict], *, base: str) -> str:
       <p class="date-line">覆盖 Codex CLI 与 Codex Desktop 高频 400 / 401 / 403 / 404 / 408 / 429 / 502 / 503 报错 · 全服务商通用排查步骤</p>
     </div>
     <ul class="guide-list">{"".join(cards)}</ul>
+    {bot_section}
     <aside class="router-note" aria-label="NanaFox Router">
       <span>需要支持 Codex 原生 Responses 接口的路由服务？NanaFox Router 支持按用途建 Key，并可一键导入 CC Switch</span>
       <div class="router-note-links">
@@ -682,8 +696,16 @@ def guides_index_body(guides: list[dict], *, base: str) -> str:
 """
 
 
-def guide_detail_body(guide: dict, all_guides: list[dict], *, base: str) -> str:
+def guide_detail_body(guide: dict, all_guides: list[dict], *, base: str, section: str) -> str:
     index_href = join_base(base, "guides", "codex") + "/"
+    index_label = "Codex 排错指南"
+    index_back_label = "Codex 排错指南合集"
+    related_label = "其他 Codex 排错指南"
+    if section == "bots":
+        index_href += "#bot-guides"
+        index_label = "机器人接入教程"
+        index_back_label = index_label
+        related_label = "其他机器人接入教程"
     badges = "".join(
         f'<span class="guide-badge">{esc(code)}</span>'
         for code in guide["error_codes"]
@@ -691,12 +713,12 @@ def guide_detail_body(guide: dict, all_guides: list[dict], *, base: str) -> str:
     article_html = render_markdown(guide["body_md"], strip_first_h1=True)
     others = [g for g in all_guides if g["slug"] != guide["slug"]]
     related_lis = "".join(
-        f'<li><a href="{esc(join_base(base, "guides", "codex", g["slug"]) + "/")}">{esc(g["title"])}</a></li>'
+        f'<li><a href="{esc(join_base(base, "guides", section, g["slug"]) + "/")}">{esc(g["title"])}</a></li>'
         for g in others
     )
     related_html = (
         f'<section class="guide-related" aria-labelledby="related-guides-heading">'
-        f'<h2 id="related-guides-heading">其他 Codex 排错指南</h2>'
+        f'<h2 id="related-guides-heading">{related_label}</h2>'
         f"<ul>{related_lis}</ul>"
         f"</section>"
         if related_lis
@@ -706,7 +728,7 @@ def guide_detail_body(guide: dict, all_guides: list[dict], *, base: str) -> str:
     <nav class="breadcrumb" aria-label="面包屑导航">
       <a href="{esc(f'{base}/' if base else '/')}">AI 日报</a>
       <span>/</span>
-      <a href="{esc(index_href)}">Codex 排错指南</a>
+      <a href="{esc(index_href)}">{index_label}</a>
     </nav>
     <article class="guide-page">
       <header class="page-head">
@@ -723,7 +745,7 @@ def guide_detail_body(guide: dict, all_guides: list[dict], *, base: str) -> str:
     </article>
     {related_html}
     <nav class="day-nav" aria-label="指南导航">
-      <a href="{esc(index_href)}">← 返回 Codex 排错指南合集</a>
+      <a href="{esc(index_href)}">← 返回 {index_back_label}</a>
       <span class="spacer"></span>
       <a href="{esc(f'{base}/' if base else '/')}">查看最新 AI 日报 →</a>
     </nav>
@@ -888,29 +910,38 @@ def build(
     write(site_root / "archive" / "index.html", arch)
 
     guides = load_guides(guides_dir)
-    if guides:
-        guides_out_root = (site_root / "guides" / "codex").resolve()
+    bot_guides = load_guides(BOT_GUIDES)
+    sitemap_urls: list[tuple[str, str | None]] = [
+        (f"{SITE_ORIGIN}{join_base(base)}", digests[0]["_day"] if digests else None),
+        (f"{SITE_ORIGIN}{join_base(base, 'archive') + '/'}", digests[0]["_day"] if digests else None),
+    ]
+    if guides or bot_guides:
         guides_index_path = join_base(base, "guides", "codex") + "/"
         guides_index_html = layout(
             title=f"Codex 常见报错排错指南 · {SITE_TITLE}",
             active="guides",
-            body=guides_index_body(guides, base=base),
+            body=guides_index_body(guides, bot_guides, base=base),
             base=base,
             canonical_path=guides_index_path,
             description="Codex CLI 与 Codex Desktop 高频报错排错指南合集，覆盖 400 / 401 / 403 / 404 / 408 / 429 / 502 / 503 根因定位与通用修复步骤。",
             keywords=["Codex 报错", "Codex CLI 排错", "Codex Desktop 排错", "Codex config.toml", "Codex auth.json"],
         )
-        write(guides_out_root / "index.html", guides_index_html)
-        for guide in guides:
+        write(site_root / "guides" / "codex" / "index.html", guides_index_html)
+        latest_guide_date = max((g["date"] for g in guides + bot_guides if g["date"]), default=None)
+        sitemap_urls.append((f"{SITE_ORIGIN}{guides_index_path}", latest_guide_date))
+
+    for section, section_guides in (("codex", guides), ("bots", bot_guides)):
+        guides_out_root = (site_root / "guides" / section).resolve()
+        for guide in section_guides:
             slug = validate_guide_slug(guide["slug"], guide.get("source_path"))
             guide_out_path = (guides_out_root / slug / "index.html").resolve()
             if not guide_out_path.is_relative_to(guides_out_root):
                 raise ValueError(f"Guide output path escapes guides root: {guide_out_path}")
-            guide_path = join_base(base, "guides", "codex", slug) + "/"
+            guide_path = join_base(base, "guides", section, slug) + "/"
             guide_html = layout(
                 title=f'{guide["title"]} · NanaFox',
                 active="guides",
-                body=guide_detail_body(guide, guides, base=base),
+                body=guide_detail_body(guide, section_guides, base=base, section=section),
                 base=base,
                 canonical_path=guide_path,
                 description=guide["description"],
@@ -918,23 +949,7 @@ def build(
                 og_type="article",
             )
             write(guide_out_path, guide_html)
-
-    sitemap_urls: list[tuple[str, str | None]] = [
-        (f"{SITE_ORIGIN}{join_base(base)}", digests[0]["_day"] if digests else None),
-        (f"{SITE_ORIGIN}{join_base(base, 'archive') + '/'}", digests[0]["_day"] if digests else None),
-    ]
-    if guides:
-        latest_guide_date = max((g["date"] for g in guides if g["date"]), default=None)
-        sitemap_urls.append(
-            (f"{SITE_ORIGIN}{join_base(base, 'guides', 'codex') + '/'}", latest_guide_date)
-        )
-        for guide in guides:
-            sitemap_urls.append(
-                (
-                    f"{SITE_ORIGIN}{join_base(base, 'guides', 'codex', guide['slug']) + '/'}",
-                    guide["date"] or None,
-                )
-            )
+            sitemap_urls.append((f"{SITE_ORIGIN}{guide_path}", guide["date"] or None))
     for data in digests:
         sitemap_urls.append((f"{SITE_ORIGIN}{join_base(base, data['_day']) + '/'}", data["_day"]))
     write(site_root / "sitemap.xml", build_sitemap_xml(sitemap_urls))
@@ -1036,7 +1051,8 @@ def main() -> None:
         guides_dir=args.guides_dir,
     )
     guides_count = len(load_guides(args.guides_dir))
-    print(f"Built {len(built)} digests + {guides_count} Codex guides → {args.dist} (BASE_PATH={normalize_base(args.base_path)!r})")
+    bot_guides_count = len(load_guides(BOT_GUIDES))
+    print(f"Built {len(built)} digests + {guides_count} Codex guides + {bot_guides_count} bot guides → {args.dist} (BASE_PATH={normalize_base(args.base_path)!r})")
     for day in built:
         print(f"  - {day}/")
     print("Next: commit data/ and dist/ to main for the connected Pages deployment.")
